@@ -28,7 +28,7 @@ public class Ant {
         return isAlive;
     }
 
-    public void changeDirection() {
+    private void changeDirection() {
         if (this.isLeft) {
             this.isLeft = false;
         } else {

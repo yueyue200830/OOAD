@@ -8,7 +8,7 @@ public class Stick {
     }
 
     public boolean getAntIsOnStick(double antPosition) {
-        return antPosition <= 0 && antPosition >= this.length;
+        return antPosition < 0 && antPosition > this.length;
     }
 
     public double getLength() {

@@ -26,7 +26,8 @@ public class PlayGame {
             if (this.deadNumber != this.antNumber) {
                 break;
             }
-            
+            this.timeCost += this.timeInterval;
+            antsStep();
         }
         return this.timeCost;
     }
@@ -42,6 +43,13 @@ public class PlayGame {
                     this.deadNumber++;
                 }
             }
+        }
+    }
+
+    private void antsStep() {
+        Ant priviousAnt = this.antGroup[0];
+        for (int i = 1; i < this.antNumber; i++) {
+
         }
     }
 }
