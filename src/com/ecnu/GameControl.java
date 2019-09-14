@@ -1,7 +1,5 @@
 package com.ecnu;
 
-import java.util.function.DoubleToIntFunction;
-
 public class GameControl {
     private int numberAnt;
     private double[] velocityGroup;
@@ -10,6 +8,7 @@ public class GameControl {
     private double stickLength;
     private double minTime;
     private double maxTime;
+
     GameControl(int numberAnt, double[] velocityGroup, double timeInterval, double[] position, double stickLength) {
         this.numberAnt = numberAnt;
         this.velocityGroup = velocityGroup;
@@ -19,6 +18,7 @@ public class GameControl {
         this.minTime = Double.POSITIVE_INFINITY;
         this.maxTime = 0;
     }
+
     public void enumerateGame() {
         int allTimes = (int) (Math.pow(2,numberAnt));
         boolean[] isGoingRight = new boolean[numberAnt];
@@ -43,7 +43,7 @@ public class GameControl {
             }
         }
 
-
-
+        System.out.println("Max time = " +  this.maxTime);
+        System.out.println("Min time = " + this.minTime);
     }
 }

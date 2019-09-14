@@ -25,7 +25,7 @@ public class PlayGame {
         this.timeCost = 0;
         while (this.deadNumber != this.antNumber) {
             checkDeadAnt();
-            if (this.deadNumber != this.antNumber) {
+            if (this.deadNumber == this.antNumber) {
                 break;
             }
             this.timeCost += this.timeInterval;
