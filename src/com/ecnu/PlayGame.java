@@ -10,11 +10,11 @@ public class PlayGame {
     private Stick stick;
     private double timeCost;
 
-    PlayGame (int antNumber, double[] velocity, boolean[] isLeft, double[] position, double stickLength, double timeInterval) {
+    PlayGame (int antNumber, double[] velocity, boolean[] isGoingRight, double[] position, double stickLength, double timeInterval) {
         this.antNumber = antNumber;
         antGroup = new Ant[this.antNumber];
         for (int i = 0; i < this.antNumber; i++) {
-            antGroup[i] = new Ant(velocity[i], isLeft[i], position[i]);
+            antGroup[i] = new Ant(velocity[i], isGoingRight[i], position[i]);
         }
         this.deadNumber = 0;
         this.stick = new Stick(stickLength);
@@ -54,40 +54,52 @@ public class PlayGame {
         double previousCollisionTimeConsume = -1;
         double currentCollisionTimeConsume = -1;
 
-        for (int i = 0; i < this.antNumber - 1; i++) {
+        for (int i = 0; i < this.antNumber; i++) {
             currentAnt = this.antGroup[i];
-            nextAnt = this.antGroup[i+1];
 
-            if (willCollectionWithPrevious) {
-                currentAnt.step_collision(this.timeInterval, previousCollisionTimeConsume);
-                willCollectionWithPrevious = false;
-                previousCollisionTimeConsume = -1;
-            } else {
-                currentCollisionTimeConsume = checkCollision(currentAnt, nextAnt);
-                if (currentCollisionTimeConsume >= 0) {
-                    currentAnt.step_collision(this.timeInterval, currentCollisionTimeConsume);
-                    willCollectionWithPrevious = true;
-                    previousCollisionTimeConsume = currentCollisionTimeConsume;
+            // If it is the last ant, it doesn't have next ant.
+            if (i == this.antNumber - 1) {
+                if (willCollectionWithPrevious) {
+                    currentAnt.step_collision(this.timeInterval, previousCollisionTimeConsume);
                 } else {
                     currentAnt.step_straight(this.timeInterval);
+                }
+                break;
+            } else {
+                nextAnt = this.antGroup[i + 1];
+
+                if (willCollectionWithPrevious) {
+                    currentAnt.step_collision(this.timeInterval, previousCollisionTimeConsume);
                     willCollectionWithPrevious = false;
                     previousCollisionTimeConsume = -1;
+                } else {
+                    currentCollisionTimeConsume = checkCollision(currentAnt, nextAnt);
+                    if (currentCollisionTimeConsume >= 0) {
+                        currentAnt.step_collision(this.timeInterval, currentCollisionTimeConsume);
+                        willCollectionWithPrevious = true;
+                        previousCollisionTimeConsume = currentCollisionTimeConsume;
+                    } else {
+                        currentAnt.step_straight(this.timeInterval);
+                        willCollectionWithPrevious = false;
+                        previousCollisionTimeConsume = -1;
+                    }
                 }
-
             }
-
         }
+
     }
 
     // Return collision time if they will collision, otherwise return -1.
     private double checkCollision(Ant currentAnt, Ant nextAnt) {
         double currentAntPosition = currentAnt.getPosition();
         double currentAntVelocity = currentAnt.getVelocity();
-        boolean currentAntIsLeft = currentAnt.isLeft();
+        boolean currentAntIsGoingRight = currentAnt.isGoingRight();
         double nextAntPosition = nextAnt.getPosition();
         double nextAntVelocity = nextAnt.getVelocity();
-        boolean nextAntIsLeft = nextAnt.isLeft();
+        boolean nextAntIsGoingRight = nextAnt.isGoingRight();
         double collisionTimeConsume;
+
+
 
         return collisionTimeConsume;
     }
