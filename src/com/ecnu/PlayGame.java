@@ -1,13 +1,12 @@
 package com.ecnu;
 
-import java.util.function.DoubleToIntFunction;
-
 public class PlayGame {
     private int antNumber;
     private Ant[] antGroup;
     private double timeInterval;
     private int deadNumber;
     private Stick stick;
+    private double timeCost;
 
     PlayGame (int antNumber, double[] velocity, boolean[] isLeft, double[] position, double stickLength, double timeInterval) {
         this.antNumber = antNumber;
@@ -21,11 +20,19 @@ public class PlayGame {
     }
 
     public double startGame() {
+        this.timeCost = 0;
         while (this.deadNumber != this.antNumber) {
-
+            checkDeadAnt();
+            if (this.deadNumber != this.antNumber) {
+                break;
+            }
+            this.timeCost += this.timeInterval;
+            antsStep();
         }
+        return this.timeCost;
     }
-    public void checkDeadAnt() {
+
+    private void checkDeadAnt() {
         for (int i = 0; i < this.antNumber; i++) {
             Ant ant = this.antGroup[i];
             if (ant.isAlive()) {
@@ -36,6 +43,13 @@ public class PlayGame {
                     this.deadNumber++;
                 }
             }
+        }
+    }
+
+    private void antsStep() {
+        Ant priviousAnt = this.antGroup[0];
+        for (int i = 1; i < this.antNumber; i++) {
+
         }
     }
 }
