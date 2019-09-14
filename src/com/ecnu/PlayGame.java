@@ -20,12 +20,12 @@ public class PlayGame {
         this.timeInterval = timeInterval;
     }
 
-    void startGame() {
+    public double startGame() {
         while (this.deadNumber != this.antNumber) {
 
         }
     }
-    void checkDeadAnt() {
+    public void checkDeadAnt() {
         for (int i = 0; i < this.antNumber; i++) {
             Ant ant = this.antGroup[i];
             if (ant.isAlive()) {
