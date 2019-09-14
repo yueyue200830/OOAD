@@ -20,7 +20,7 @@ public class GameControl {
         this.maxTime = 0;
     }
     public void enumerateGame() {
-        int allTimes = (int) (Math.pow(2,numberAnt) - 1);
+        int allTimes = (int) (Math.pow(2,numberAnt));
         boolean[] isLeft = new boolean[numberAnt];
         for (int i = 0;i < allTimes; i++) {
             int tmp = i;
@@ -28,15 +28,19 @@ public class GameControl {
                 isLeft[j] = (tmp % 2) == 0;
                 tmp /= 2;
             }
-            System.out.println(isLeft);
-//            PlayGame currentGame = new PlayGame(this.numberAnt, this.velocityGroup, isLeft, this.position, this.stickLength, this.timeInterval);
-//            double currentResult = currentGame.startGame();
-//            if (currentResult > maxTime) {
-//                this.maxTime = currentResult;
+//            for (int k = 0; k < numberAnt; k++) {
+//                System.out.print(isLeft[k]);
+//                System.out.print(",");
 //            }
-//            if (currentResult < minTime) {
-//                this.minTime = currentResult;
-//            }
+//            System.out.println();
+            PlayGame currentGame = new PlayGame(this.numberAnt, this.velocityGroup, isLeft, this.position, this.stickLength, this.timeInterval);
+            double currentResult = currentGame.startGame();
+            if (currentResult > maxTime) {
+                this.maxTime = currentResult;
+            }
+            if (currentResult < minTime) {
+                this.minTime = currentResult;
+            }
         }
 
 
