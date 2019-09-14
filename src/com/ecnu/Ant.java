@@ -2,13 +2,13 @@ package com.ecnu;
 
 public class Ant {
     private double velocity;
-    private boolean isLeft;
+    private boolean isGoingRight;
     private double position;
     private boolean isAlive;
     
-    Ant(double velocity, boolean isLeft, double position){
+    Ant(double velocity, boolean isGoingRight, double position){
         this.velocity = velocity;
-        this.isLeft = isLeft;
+        this.isGoingRight = isGoingRight;
         this.position = position;
         this.isAlive = true;
     }
@@ -16,8 +16,8 @@ public class Ant {
         return this.velocity;
     }
 
-    public boolean isLeft() {
-        return isLeft;
+    public boolean isGoingRight() {
+        return isGoingRight;
     }
 
     public double getPosition() {
@@ -29,15 +29,15 @@ public class Ant {
     }
 
     private void changeDirection() {
-        if (this.isLeft) {
-            this.isLeft = false;
+        if (this.isGoingRight) {
+            this.isGoingRight = false;
         } else {
-            this.isLeft = true;
+            this.isGoingRight = true;
         }
     }
     
     public void step_straight(double timeInterval) {
-        if (this.isLeft) {
+        if (this.isGoingRight) {
             this.position -= this.velocity * timeInterval;
         } else {
             this.position += this.velocity * timeInterval;
@@ -45,7 +45,7 @@ public class Ant {
     }
     
     public void step_collision(double timeInterval, double timeConsume) {
-        if(this.isLeft) {
+        if(this.isGoingRight) {
             this.position = this.position + timeConsume * this.velocity - (timeInterval - timeConsume) * this.velocity;
         } else {
             this.position = this.position - timeConsume * this.velocity + (timeInterval - timeConsume) * this.velocity;
