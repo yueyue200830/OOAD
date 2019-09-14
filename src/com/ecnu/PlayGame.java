@@ -99,7 +99,21 @@ public class PlayGame {
         boolean nextAntIsGoingRight = nextAnt.isGoingRight();
         double collisionTimeConsume;
 
+        if (!currentAntIsGoingRight) {
+            currentAntPosition *= -1;
+        }
+        if (nextAntIsGoingRight) {
+            nextAntPosition *= -1;
+        }
 
+        if (currentAntVelocity != nextAntVelocity) {
+            collisionTimeConsume = (nextAntPosition - currentAntPosition) / (currentAntVelocity - nextAntVelocity);
+            if (collisionTimeConsume >= this.timeInterval || collisionTimeConsume < 0) {
+                collisionTimeConsume = -1;
+            }
+        } else {
+            collisionTimeConsume = -1;
+        }
 
         return collisionTimeConsume;
     }
