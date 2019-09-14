@@ -1,5 +1,7 @@
 package com.ecnu;
 
+import java.util.Collection;
+
 public class PlayGame {
     private int antNumber;
     private Ant[] antGroup;
@@ -47,9 +49,46 @@ public class PlayGame {
     }
 
     private void antsStep() {
-        Ant priviousAnt = this.antGroup[0];
-        for (int i = 1; i < this.antNumber; i++) {
+        Ant currentAnt, nextAnt;
+        boolean willCollectionWithPrevious = false;
+        double previousCollisionTimeConsume = -1;
+        double currentCollisionTimeConsume = -1;
+
+        for (int i = 0; i < this.antNumber - 1; i++) {
+            currentAnt = this.antGroup[i];
+            nextAnt = this.antGroup[i+1];
+
+            if (willCollectionWithPrevious) {
+                currentAnt.step_collision(this.timeInterval, previousCollisionTimeConsume);
+                willCollectionWithPrevious = false;
+                previousCollisionTimeConsume = -1;
+            } else {
+                currentCollisionTimeConsume = checkCollision(currentAnt, nextAnt);
+                if (currentCollisionTimeConsume >= 0) {
+                    currentAnt.step_collision(this.timeInterval, currentCollisionTimeConsume);
+                    willCollectionWithPrevious = true;
+                    previousCollisionTimeConsume = currentCollisionTimeConsume;
+                } else {
+                    currentAnt.step_straight(this.timeInterval);
+                    willCollectionWithPrevious = false;
+                    previousCollisionTimeConsume = -1;
+                }
+
+            }
 
         }
+    }
+
+    // Return collision time if they will collision, otherwise return -1.
+    private double checkCollision(Ant currentAnt, Ant nextAnt) {
+        double currentAntPosition = currentAnt.getPosition();
+        double currentAntVelocity = currentAnt.getVelocity();
+        boolean currentAntIsLeft = currentAnt.isLeft();
+        double nextAntPosition = nextAnt.getPosition();
+        double nextAntVelocity = nextAnt.getVelocity();
+        boolean nextAntIsLeft = nextAnt.isLeft();
+        double collisionTimeConsume;
+
+        return collisionTimeConsume;
     }
 }
