@@ -7,11 +7,11 @@ public class Stick {
         this.length = length;
     }
 
-    public boolean getAntIsOnStick (double antPosition) {
+    public boolean getAntIsOnStick(double antPosition) {
         return antPosition <= 0 && antPosition >= this.length;
     }
-    
-    public double getLength () {
+
+    public double getLength() {
         return this.length;
     }
 }
