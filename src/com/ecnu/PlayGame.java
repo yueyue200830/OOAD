@@ -10,6 +10,7 @@ public class PlayGame {
     private Stick stick;
     private double timeCost;
 
+    // TODO: Add test for invalid input.
     PlayGame (int antNumber, double[] velocity, boolean[] isGoingRight, double[] position, double stickLength, double timeInterval) {
         this.antNumber = antNumber;
         antGroup = new Ant[this.antNumber];

@@ -2,13 +2,14 @@ package com.ecnu;
 
 public class Stick {
     private double length;
+    private double deviation = 1e-12;
 
     Stick (double length) {
         this.length = length;
     }
 
     public boolean getAntIsOnStick(double antPosition) {
-        return antPosition >= 0 && antPosition <= this.length;
+        return antPosition > this.deviation && antPosition < this.length - this.deviation;
     }
 
     public double getLength() {

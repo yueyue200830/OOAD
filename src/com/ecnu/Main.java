@@ -4,7 +4,6 @@ import java.io.*;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
         System.out.println("Hello Ant");
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         int numberAnt = 0;
