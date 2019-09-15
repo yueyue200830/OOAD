@@ -45,11 +45,12 @@ public class Ant {
     }
     
     public void step_collision(double timeInterval, double timeConsume) {
-        if(this.isGoingRight) {
+        if (this.isGoingRight) {
             this.position = this.position + timeConsume * this.velocity - (timeInterval - timeConsume) * this.velocity;
         } else {
             this.position = this.position - timeConsume * this.velocity + (timeInterval - timeConsume) * this.velocity;
         }
+        this.changeDirection();
     }
     
     public void setDie() {

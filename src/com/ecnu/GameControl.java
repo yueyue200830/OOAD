@@ -22,9 +22,9 @@ public class GameControl {
     }
 
     public void enumerateGame() {
-        int allTimes = (int) (Math.pow(2,numberAnt));
+        int allTimes = (int) (Math.pow(2, numberAnt));
         boolean[] isGoingRight = new boolean[numberAnt];
-        for (int i = 0;i < allTimes; i++) {
+        for (int i = 0; i < allTimes; i++) {
             int tmp = i;
             for (int j = 0; j < numberAnt; j++) {
                 isGoingRight[j] = (tmp % 2) == 0;
