@@ -11,7 +11,7 @@ public class Main {
         double[] velocityGroup = {};
         double[] position = {};
         double stickLength = 0;
-       
+
         try {
             System.out.println("Please input the number of ant");
             numberAnt = Integer.valueOf(in.readLine());
