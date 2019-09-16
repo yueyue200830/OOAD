@@ -22,19 +22,15 @@ public class GameControl {
     }
 
     public void enumerateGame() {
-        int allTimes = (int) (Math.pow(2,numberAnt));
+        int allTimes = (int) (Math.pow(2, numberAnt));
         boolean[] isGoingRight = new boolean[numberAnt];
-        for (int i = 0;i < allTimes; i++) {
+        for (int i = 0; i < allTimes; i++) {
             int tmp = i;
             for (int j = 0; j < numberAnt; j++) {
                 isGoingRight[j] = (tmp % 2) == 0;
                 tmp /= 2;
             }
-//            for (int k = 0; k < numberAnt; k++) {
-//                System.out.print(isGoingRight[k]);
-//                System.out.print(",");
-//            }
-//            System.out.println();
+
             PlayGame currentGame = new PlayGame(this.numberAnt, this.velocityGroup, isGoingRight, this.position, this.stickLength, this.timeInterval);
             double currentResult = currentGame.startGame();
             if (currentResult > maxTime) {
@@ -45,7 +41,7 @@ public class GameControl {
             }
         }
 
-        System.out.println("Max time = " +  this.maxTime);
-        System.out.println("Min time = " + this.minTime);
+        System.out.printf("Max time = %.2fs.\n", this.maxTime);
+        System.out.printf("Min time = %.2fs.\n", this.minTime);
     }
 }

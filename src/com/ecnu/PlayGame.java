@@ -1,7 +1,5 @@
 package com.ecnu;
 
-import java.util.Collection;
-
 public class PlayGame {
     private int antNumber;
     private Ant[] antGroup;
