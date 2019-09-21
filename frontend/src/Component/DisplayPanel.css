@@ -1,0 +1,42 @@
+@import '~antd/dist/antd.css';
+
+.container {
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 48px;
+  height: 2em;
+  margin-top: auto;
+  margin-bottom: 1em;
+}
+
+.animation {
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.Ant-container {
+  height: 16px;
+}
+
+.ant {
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  background-color: #29B6F6;
+}
+
+
+.stick {
+  height: 16px;
+  border-radius: 1vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}

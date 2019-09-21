@@ -41,7 +41,6 @@
 }
 
 .Display-panel {
-  background-color: #FFF8E1;
   height: 100%;
-  flex-grow: 4;
+  flex-grow: 3;
 }
