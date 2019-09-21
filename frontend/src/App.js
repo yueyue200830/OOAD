@@ -1,6 +1,6 @@
 import React from 'react';
 import DisplayPanel from './Component/DisplayPanel';
-import { Layout, Menu, Breadcrumb, Row, Col } from 'antd';
+import { Layout } from 'antd';
 import './App.css';
 
 const { Header, Content, Footer } = Layout;

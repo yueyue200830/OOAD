@@ -1,4 +1,5 @@
 import React from 'react';
+import './DisplayPanel.css';
 
 class DisplayPanel extends React.Component {
   constructor(props) {
@@ -11,8 +12,16 @@ class DisplayPanel extends React.Component {
 
   render() {
     return (
-      <div>
-        <a>Hello</a>
+      <div className="container">
+        <div className="title">
+          Ant Animation
+        </div>
+        <div className="animation">
+          <div className="Ant-container">
+            <div className="ant" />
+          </div>
+          <div className="stick" />
+        </div>
       </div>
     );
   }
