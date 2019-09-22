@@ -12,15 +12,15 @@ class DisplayPanel extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="title">
+      <div className="Display-panel-container">
+        <div className="Display-panel-title">
           Ant Animation
         </div>
         <div className="animation">
           <div className="Ant-container">
-            <div className="ant" />
+            <div className="Display-panel-ant" />
           </div>
-          <div className="stick" />
+          <div className="Display-panel-stick" />
         </div>
       </div>
     );

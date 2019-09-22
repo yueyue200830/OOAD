@@ -12,7 +12,7 @@ public class Ant {
         this.position = position;
         this.isAlive = true;
     }
-    public double  getVelocity(){
+    public double getVelocity(){
         return this.velocity;
     }
 

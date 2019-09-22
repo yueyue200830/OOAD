@@ -27,7 +27,7 @@ public class PlayGame {
                 break;
             }
             this.timeCost += this.timeInterval;
-            antsStep();
+            this.antsStep();
         }
         return this.timeCost;
     }
