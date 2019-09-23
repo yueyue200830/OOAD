@@ -16,7 +16,7 @@
 }
 
 .Setting-panel-stick {
-  margin: 20px;
+  margin: 10px 20px;
   font-size: 20px;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .Setting-panel-ant-number {
-  margin: 20px auto 40px;
+  margin: 10px auto 20px;
   font-size: 20px;
   display: flex;
   flex-direction: row;
@@ -34,33 +34,52 @@
 .Setting-panel-ant-number-text {
   flex-grow: 1;
   margin-right: 10px;
+  text-align: center;
 }
 
 .Setting-panel-ant-number-button {
+  margin: 0 5px;
+}
+
+.Setting-panel-ant-number-button-set {
   flex-grow: 1;
   display: flex;
   align-items: center;
 }
 
+.Setting-panel-input-frame {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+}
+
+.Setting-panel-input-col {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .Setting-panel-ant {
   display: flex;
   align-items: center;
-  margin: 10px auto;
+  margin: 8px;
 }
 
 .Setting-panel-ant-text {
-  margin-right: 20px;
+  text-align: center;
+  height: 24px;
 }
 
 .Setting-panel-button-set {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 20px auto auto;
 }
 
 .Setting-panel-button {
-  margin: 5px 0;
+  margin: 5px 20px;
   height: 45px;
-  width: 230px;
+  width: 100px;
   font-size: 20px;
+  text-align: center;
 }

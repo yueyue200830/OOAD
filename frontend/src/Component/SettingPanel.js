@@ -29,12 +29,17 @@ export default class SettingPanel extends React.Component {
         this.forceUpdate();
     };
 
+    adjustNumber = (ant, index) => {
+        return(
+          <b className="Setting-panel-ant-text Setting-panel-ant">
+            Ant {index + 1}:
+          </b>
+        )
+    };
+
     adjustInput = (ant, index) => {
         return(
             <div key={index.toString()} className="Setting-panel-ant">
-                <b className="Setting-panel-ant-text">
-                  Ant {index + 1}'s velocity':
-                </b>
                 <InputNumber size="small" max={9}
                              min={1} onChange={this.setVelocity(index)} />
             </div>
@@ -55,9 +60,6 @@ export default class SettingPanel extends React.Component {
     adjustPosition = (ant, index) => {
         return(
             <div key={index.toString()} className="Setting-panel-ant">
-                <b className="Setting-panel-ant-text">
-                  Ant {index + 1}'s position:
-                </b>
                 <InputNumber size = "small" max={this.state.stickLength} min={0}
                              onChange = {this.setPosition(index)}/>
             </div>
@@ -116,27 +118,37 @@ export default class SettingPanel extends React.Component {
                 <span className="Setting-panel-ant-number-text">
                   Ant number:
                 </span>
-                <div className="Setting-panel-ant-number-button">
-                    <Button icon="plus" onClick={()=>this.changeNumber("+")}>
-                        plus
-                    </Button>
-                    <Button icon="minus" onClick={()=>this.changeNumber("-")}>
-                        minus
-                    </Button>
+                <div className="Setting-panel-ant-number-button-set">
+                    <Button icon="plus" onClick={()=>this.changeNumber("+")}
+                            className="Setting-panel-ant-number-button"/>
+                    <Button icon="minus" onClick={()=>this.changeNumber("-")}
+                            className="Setting-panel-ant-number-button"/>
                 </div>
               </div>
-              {velocity.map(this.adjustInput)}
-              {position.map(this.adjustPosition)}
+              <div className="Setting-panel-input-frame">
+                <div className="Setting-panel-input-col">
+                  <b className="Setting-panel-ant-text"> Setting </b>
+                  {velocity.map(this.adjustNumber)}
+                </div>
+                <div className="Setting-panel-input-col">
+                  <b className="Setting-panel-ant-text">velocity</b>
+                  {velocity.map(this.adjustInput)}
+                </div>
+                <div className="Setting-panel-input-col">
+                  <b className="Setting-panel-ant-text">position</b>
+                  {position.map(this.adjustPosition)}
+                </div>
+              </div>
               <div className="Setting-panel-button-set">
                 <Button icon="start" className="Setting-panel-button"
                         onClick={()=>this.changeGameStatus}
                         disabled = {this.state.gameStatus} >
-                    start
+                  start
                 </Button>
                 <Button icon="reset" className="Setting-panel-button"
                         onClick={this.resetGame}
                         disabled = {this.state.gameStatus} >
-                    reset
+                  reset
                 </Button>
               </div>
             </div>

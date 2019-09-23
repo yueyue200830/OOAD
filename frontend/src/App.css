@@ -20,7 +20,7 @@
   flex-grow: 1;
   margin: 0 50px;
   background: #fff;
-  padding: 24;
+  padding: 24px;
   display: flex;
   flex-direction: row;
 }
