@@ -16,7 +16,7 @@ class DisplayPanel extends React.Component {
     let pos = this.state.antPosition[index] / this.state.stickLength * 350;
     let color = this.state.antColor[index];
     return(
-      <div className="Display-panel-ant"
+      <div key={index} className="Display-panel-ant"
            style={{ left: pos, backgroundColor: color }}/>
     )
   }

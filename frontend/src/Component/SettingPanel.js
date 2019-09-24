@@ -32,7 +32,7 @@ export default class SettingPanel extends React.Component {
 
     adjustNumber = (ant, index) => {
         return(
-          <b className="Setting-panel-ant-text Setting-panel-ant">
+          <b key={index} className="Setting-panel-ant-text Setting-panel-ant">
             Ant {index + 1}:
           </b>
         )

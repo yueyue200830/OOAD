@@ -22,7 +22,7 @@ class App extends React.Component {
             <DisplayPanel />
           </div>
         </Content>
-        <Footer ClassName="App-footer">
+        <Footer className="App-footer">
           OOAD Homework 1 by Jiayi Zhu & Yiqing Tao
         </Footer>
       </Layout>
