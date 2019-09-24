@@ -1,5 +1,6 @@
 import React from "react";
 import './SettingPanel.css';
+import axios from 'axios';
 import { Button,InputNumber} from "antd";
 
 export default class SettingPanel extends React.Component {
@@ -79,7 +80,14 @@ export default class SettingPanel extends React.Component {
     };
 
     changeGameStatus = () => {
-        this.setState({gameStatus: true})
+        console.log("get!");
+        this.setState({gameStatus: true});
+        axios.post('http://127.0.0.1:8080' + "/test"
+        ).then(
+            res => {
+                console.log("send axois finished.");
+            }
+        )
     };
 
     resetGame = () => {
@@ -141,7 +149,7 @@ export default class SettingPanel extends React.Component {
               </div>
               <div className="Setting-panel-button-set">
                 <Button icon="start" className="Setting-panel-button"
-                        onClick={()=>this.changeGameStatus}
+                        onClick={this.changeGameStatus}
                         disabled = {this.state.gameStatus} >
                   start
                 </Button>

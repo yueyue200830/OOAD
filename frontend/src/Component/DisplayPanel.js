@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import './DisplayPanel.css';
 
 class DisplayPanel extends React.Component {
