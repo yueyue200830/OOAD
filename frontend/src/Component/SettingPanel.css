@@ -1,0 +1,85 @@
+@import '~antd/dist/antd.css';
+
+.Setting-panel-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.Setting-panel-title {
+  font-size: 36px;
+  margin: 20px;
+  margin-top: auto;
+  text-align: center;
+}
+
+.Setting-panel-stick {
+  margin: 10px 20px;
+  font-size: 20px;
+}
+
+.Setting-panel-stick-text {
+  margin-right: 10px;
+}
+
+.Setting-panel-ant-number {
+  margin: 10px auto 20px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.Setting-panel-ant-number-text {
+  flex-grow: 1;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.Setting-panel-ant-number-button {
+  margin: 0 5px;
+}
+
+.Setting-panel-ant-number-button-set {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.Setting-panel-input-frame {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+}
+
+.Setting-panel-input-col {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.Setting-panel-ant {
+  display: flex;
+  align-items: center;
+  margin: 8px;
+}
+
+.Setting-panel-ant-text {
+  text-align: center;
+  height: 24px;
+}
+
+.Setting-panel-button-set {
+  display: flex;
+  flex-direction: row;
+  margin: 20px auto auto;
+}
+
+.Setting-panel-button {
+  margin: 5px 20px;
+  height: 45px;
+  width: 100px;
+  font-size: 20px;
+  text-align: center;
+}

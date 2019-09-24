@@ -1,5 +1,6 @@
 import React from 'react';
 import DisplayPanel from './Component/DisplayPanel';
+import SettingPanel from './Component/SettingPanel';
 import { Layout } from 'antd';
 import './App.css';
 
@@ -14,8 +15,9 @@ class App extends React.Component {
         </Header>
         <Content className="App-content">
           <div className="Setting-panel">
-            setting panel
+            <SettingPanel />
           </div>
+          <div className="App-line" />
           <div className="Display-panel">
             <DisplayPanel />
           </div>

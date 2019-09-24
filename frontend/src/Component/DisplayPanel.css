@@ -1,13 +1,13 @@
 @import '~antd/dist/antd.css';
 
-.container {
+.Display-panel-container {
   padding: 20px;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.title {
+.Display-panel-title {
   font-size: 48px;
   height: 2em;
   margin-top: auto;
@@ -18,14 +18,15 @@
   margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 350px;
 }
 
 .Ant-container {
   height: 16px;
+  position: relative;
 }
 
-.ant {
+.Display-panel-ant {
   position: absolute;
   height: 16px;
   width: 16px;
@@ -33,8 +34,7 @@
   background-color: #29B6F6;
 }
 
-
-.stick {
+.Display-panel-stick {
   height: 16px;
   border-radius: 1vh;
   width: 100%;
