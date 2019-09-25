@@ -15,9 +15,7 @@
 }
 
 .animation {
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 30px;
   width: 350px;
 }
 
@@ -39,4 +37,36 @@
   border-radius: 1vh;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.Display-panel-start {
+  margin: 5px auto;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+}
+
+.Display-panel-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 36px;
+  font-size: 20px;
+}
+
+.Display-panel-button-setting {
+  display: flex;
+  flex-direction: column;
+}
+
+.Display-panel-button {
+  margin: 12px 20px;
+  height: 48px;
+  font-size: 22px;
+}
+
+.Display-panel-bottom {
+  height: 1px;
+  width: 100%;
+  margin-bottom: auto;
 }

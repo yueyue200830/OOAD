@@ -1,7 +1,7 @@
 import React from "react";
 import './SettingPanel.css';
 import axios from 'axios';
-import { Button,InputNumber} from "antd";
+import { Button,InputNumber } from "antd";
 
 export default class SettingPanel extends React.Component {
     constructor(props) {
@@ -25,7 +25,7 @@ export default class SettingPanel extends React.Component {
             this.state.antVelocity.pop();
             this.state.position.pop();
         }
-        this.setState({numberAnt:this.state.antVelocity.length})
+        this.setState({numberAnt:this.state.antVelocity.length});
         console.log(this.state.antVelocity);
         this.forceUpdate();
     };
@@ -75,7 +75,7 @@ export default class SettingPanel extends React.Component {
                 }
                 return v;
             })
-        })
+        });
         console.log("position: "+this.state.position);
     };
 
