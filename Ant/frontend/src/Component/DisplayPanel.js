@@ -42,24 +42,29 @@ class DisplayPanel extends React.Component {
     )
   };
 
-  getPosition = () => {
-    axios.post('http://127.0.0.1:8080' + "/getPosition"
+  async getPosition() {
+    await axios.post('http://127.0.0.1:8080' + "/getPosition"
     ).then(
         res => {
             console.log(res);
-            this.setState({gameStatus: false});
+            this.setState({gameStatus: false}, () => {
+              this.forceUpdate();
+            });
+            this.forceUpdate();
         }
     )
   }
 
   // 需要解决异步调用问题
   startMinGame = () => {
-    this.setState({gameStatus: true});
-    console.log(this.state.gameStatus);
-    while (this.state.gameStatus) {
-      this.getPosition();
-    }
-    console.log("finish");
+    this.setState({gameStatus: true}, () => {
+      console.log(this.state.gameStatus);
+      if (this.state.gameStatus) {
+        this.getPosition();
+      }
+      console.log(this.state.gameStatus)
+      console.log("finish");
+    });
   };
 
   startMaxGame = () => {};

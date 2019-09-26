@@ -48,7 +48,7 @@ public class PlayGame {
 
     private void antsStep() {
         Ant currentAnt, nextAnt;
-        boolean willCollectionWithPrevious = false;
+        boolean willCollisionWithPrevious = false;
         double previousCollisionTimeConsume = -1;
         double currentCollisionTimeConsume = -1;
 
@@ -57,7 +57,7 @@ public class PlayGame {
 
             // If it is the last ant, it doesn't have next ant.
             if (i == this.antNumber - 1) {
-                if (willCollectionWithPrevious) {
+                if (willCollisionWithPrevious) {
                     currentAnt.step_collision(this.timeInterval, previousCollisionTimeConsume);
                 } else {
                     currentAnt.step_straight(this.timeInterval);
@@ -66,19 +66,19 @@ public class PlayGame {
             } else {
                 nextAnt = this.antGroup[i + 1];
 
-                if (willCollectionWithPrevious) {
+                if (willCollisionWithPrevious) {
                     currentAnt.step_collision(this.timeInterval, previousCollisionTimeConsume);
-                    willCollectionWithPrevious = false;
+                    willCollisionWithPrevious = false;
                     previousCollisionTimeConsume = -1;
                 } else {
                     currentCollisionTimeConsume = checkCollision(currentAnt, nextAnt);
                     if (currentCollisionTimeConsume >= 0) {
                         currentAnt.step_collision(this.timeInterval, currentCollisionTimeConsume);
-                        willCollectionWithPrevious = true;
+                        willCollisionWithPrevious = true;
                         previousCollisionTimeConsume = currentCollisionTimeConsume;
                     } else {
                         currentAnt.step_straight(this.timeInterval);
-                        willCollectionWithPrevious = false;
+                        willCollisionWithPrevious = false;
                         previousCollisionTimeConsume = -1;
                     }
                 }
