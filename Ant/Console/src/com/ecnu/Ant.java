@@ -17,15 +17,15 @@ public class Ant {
     }
 
     public boolean isGoingRight() {
-        return isGoingRight;
+        return this.isGoingRight;
     }
 
     public double getPosition() {
-        return position;
+        return this.position;
     }
 
     public boolean isAlive() {
-        return isAlive;
+        return this.isAlive;
     }
 
     private void changeDirection() {

@@ -16,24 +16,20 @@ public class Ant {
         return this.velocity;
     }
 
-    public boolean isGoingRight() {
-        return isGoingRight;
+    public boolean getIsGoingRight() {
+        return this.isGoingRight;
     }
 
     public double getPosition() {
-        return position;
+        return this.position;
     }
 
     public boolean isAlive() {
-        return isAlive;
+        return this.isAlive;
     }
 
     private void changeDirection() {
-        if (this.isGoingRight) {
-            this.isGoingRight = false;
-        } else {
-            this.isGoingRight = true;
-        }
+        this.isGoingRight = !this.isGoingRight;
     }
     
     public void step_straight(double timeInterval) {

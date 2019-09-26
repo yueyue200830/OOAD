@@ -98,10 +98,10 @@ public class PlayGame {
         double collisionTimeConsume;
 
         if (!currentAntIsGoingRight) {
-            currentAntPosition *= -1;
+            currentAntVelocity *= -1;
         }
-        if (nextAntIsGoingRight) {
-            nextAntPosition *= -1;
+        if (!nextAntIsGoingRight) {
+            nextAntVelocity *= -1;
         }
 
         if (currentAntVelocity != nextAntVelocity) {

@@ -7,6 +7,7 @@ public class PlayGame {
     private int deadNumber;
     private Stick stick;
     private double timeCost;
+    private boolean gameOver;
 
     PlayGame (int antNumber, double[] velocity, boolean[] isGoingRight, double[] position, double stickLength, double timeInterval) {
         this.antNumber = antNumber;
@@ -20,6 +21,7 @@ public class PlayGame {
     }
 
     public double startGame() {
+        this.gameOver = false;
         this.timeCost = 0;
         while (this.deadNumber != this.antNumber) {
             checkDeadAnt();
@@ -29,6 +31,7 @@ public class PlayGame {
             this.timeCost += this.timeInterval;
             this.antsStep();
         }
+        this.gameOver = true;
         return this.timeCost;
     }
 
@@ -91,17 +94,17 @@ public class PlayGame {
     private double checkCollision(Ant currentAnt, Ant nextAnt) {
         double currentAntPosition = currentAnt.getPosition();
         double currentAntVelocity = currentAnt.getVelocity();
-        boolean currentAntIsGoingRight = currentAnt.isGoingRight();
+        boolean currentAntIsGoingRight = currentAnt.getIsGoingRight();
         double nextAntPosition = nextAnt.getPosition();
         double nextAntVelocity = nextAnt.getVelocity();
-        boolean nextAntIsGoingRight = nextAnt.isGoingRight();
+        boolean nextAntIsGoingRight = nextAnt.getIsGoingRight();
         double collisionTimeConsume;
 
         if (!currentAntIsGoingRight) {
-            currentAntPosition *= -1;
+            currentAntVelocity *= -1;
         }
-        if (nextAntIsGoingRight) {
-            nextAntPosition *= -1;
+        if (!nextAntIsGoingRight) {
+            nextAntVelocity *= -1;
         }
 
         if (currentAntVelocity != nextAntVelocity) {
@@ -114,5 +117,29 @@ public class PlayGame {
         }
 
         return collisionTimeConsume;
+    }
+
+
+    public double[] playAnimationGame() {
+        checkDeadAnt();
+        if (this.deadNumber != this.antNumber) {
+            this.timeCost += this.timeInterval;
+            this.antsStep();
+        } else {
+            this.gameOver = true;
+        }
+        return this.getAntsPosition();
+    }
+
+    private double[] getAntsPosition() {
+        double[] pos = new double[this.antNumber];
+        for (int i = 0; i < this.antNumber; i++) {
+            pos[i] = this.antGroup[i].getPosition();
+        }
+        return pos;
+    }
+
+    public boolean getGameOver() {
+        return this.gameOver;
     }
 }

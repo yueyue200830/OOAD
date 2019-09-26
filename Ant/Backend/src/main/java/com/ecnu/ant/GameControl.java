@@ -8,6 +8,8 @@ public class GameControl {
     private double stickLength;
     private double minTime;
     private double maxTime;
+    private boolean[] minTimeDirection;
+    private boolean[] maxTimeDirection;
 
     GameControl(int numberAnt, double[] velocityGroup, double timeInterval, double[] position, double stickLength) {
         this.numberAnt = numberAnt;
@@ -35,9 +37,11 @@ public class GameControl {
             double currentResult = currentGame.startGame();
             if (currentResult > maxTime) {
                 this.maxTime = currentResult;
+                this.maxTimeDirection = isGoingRight.clone();
             }
             if (currentResult < minTime) {
                 this.minTime = currentResult;
+                this.minTimeDirection = isGoingRight.clone();
             }
         }
 
@@ -46,10 +50,18 @@ public class GameControl {
     }
 
     public double getMinTime() {
-        return minTime;
+        return this.minTime;
     }
 
     public double getMaxTime() {
-        return maxTime;
+        return this.maxTime;
+    }
+
+    public boolean[] getMinTimeDirection() {
+        return this.minTimeDirection.clone();
+    }
+
+    public boolean[] getMaxTimeDirection() {
+        return this.maxTimeDirection.clone();
     }
 }

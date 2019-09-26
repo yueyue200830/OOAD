@@ -8,12 +8,12 @@ class DisplayPanel extends React.Component {
     super(props);
     this.state = {
       stickLength: 100,
-      antPosition: [1, 20, 40, 80],
-      antColor: ['#FFCC80', '#29B6F6', '#BA68C8', '#F48FB1'],
+      antPosition: [50],
+      antColor: ['#80D8FF', '#B388FF', '#F48FB1', '#CCFF90', '#FF80AB', '#8C9EFF', '#FF9E80', '#FFCC80'],
       minTime: 0,
       maxTime: 0,
-      minTimeDirection: 'left, left, right, right',
-      maxTimeDirection: 'right, right, right, right',
+      minTimeDirection: 'left',
+      maxTimeDirection: 'right',
       gameStatus: false,
       receiveData: false,
     };
@@ -22,7 +22,7 @@ class DisplayPanel extends React.Component {
   setAntPosition = (ant, index) => {
     let pos = this.state.antPosition[index] / this.state.stickLength * 350;
     let color = this.state.antColor[index];
-    if (pos > 0 && pos < 350) {
+    if (pos > 0 + 0.0000000001 && pos < 350 - 0.0000000001) {
       return(
         <div key={index} className="Display-panel-ant"
              style={{ left: pos, backgroundColor: color }}/>
@@ -31,43 +31,65 @@ class DisplayPanel extends React.Component {
   }
 
   getGameData = () => {
-    console.log("called!");
-    axios.post('http://127.0.0.1:8080' + "/getGameData"
+    axios.post("http://127.0.0.1:8080/getGameData"
     ).then(
-        res => {
-            console.log("Data get!");
-            console.log(res);
-            this.setState({receiveData: true});
-        }
-    )
+      res => {
+        console.log("Game data get!");
+        this.setState({
+          receiveData: true,
+          minTime: res.data.minTime[0],
+          maxTime: res.data.maxTime[0],
+          minTimeDirection: res.data.minTimeDirection,
+          maxTimeDirection: res.data.maxTimeDirection,
+          antPosition: res.data.position[0],
+          stickLength: res.data.stickLength,
+        });
+      }
+    );
   };
 
-  async getPosition() {
-    await axios.post('http://127.0.0.1:8080' + "/getPosition"
+  updatePosition = () => {
+    axios.post("http://127.0.0.1:8080/getPosition"
     ).then(
-        res => {
-            console.log(res);
-            this.setState({gameStatus: false}, () => {
-              this.forceUpdate();
-            });
-            this.forceUpdate();
+      res => {
+        let gameOver = res.data.gameOver;
+        if (gameOver == "true") {
+          clearInterval(this.intervalId);
+          this.setState({
+            gameStatus: false,
+            antPosition: res.data.position[0],
+          });
+        } else {
+          this.setState({antPosition: res.data.position[0]});
         }
-    )
+        this.forceUpdate();
+      }
+    );
   }
 
-  // 需要解决异步调用问题
   startMinGame = () => {
     this.setState({gameStatus: true}, () => {
-      console.log(this.state.gameStatus);
-      if (this.state.gameStatus) {
-        this.getPosition();
-      }
-      console.log(this.state.gameStatus)
-      console.log("finish");
+      axios.post("http://127.0.0.1:8080/startGame", {direction: 'min'}
+      ).then(
+        res => {
+          console.log("Maximum time game start");
+          this.intervalId = setInterval(this.updatePosition, 10);
+        }
+      )
     });
   };
 
-  startMaxGame = () => {};
+  startMaxGame = () => {
+    this.setState({gameStatus: true}, () => {
+      axios.post("http://127.0.0.1:8080/startGame", {direction: 'max'}
+      ).then(
+        res => {
+          console.log("Minimum time game start");
+          this.intervalId = setInterval(this.updatePosition, 10);
+        }
+      )
+    });
+  };
 
   render() {
     let ant = this.state.antPosition;
@@ -86,13 +108,13 @@ class DisplayPanel extends React.Component {
              style={{visibility: this.state.receiveData?'visible':'hidden'}}>
           <div className="Display-panel-text">
             <span>
-              Minimum time cost is: {this.state.minTime}.
+              Minimum time cost is: {this.state.minTime}s.
             </span>
             <span>
               Ants' directions are: {this.state.minTimeDirection}.
             </span>
             <span>
-              Maximum time cost is: {this.state.maxTime}.
+              Maximum time cost is: {this.state.maxTime}s.
             </span>
             <span>
               Ants' directions are: {this.state.maxTimeDirection}.

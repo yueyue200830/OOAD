@@ -45,7 +45,6 @@ export default class SettingPanel extends React.Component {
                              min={1} onChange={this.setVelocity(index)} />
             </div>
         );
-
     };
 
     setVelocity = (index) => (value) => {
@@ -82,7 +81,7 @@ export default class SettingPanel extends React.Component {
     changeGameStatus = () => {
         console.log("get!");
         this.setState({gameStatus: true});
-        axios.post('http://127.0.0.1:8080' + "/test",this.state
+        axios.post("http://127.0.0.1:8080/getGameStatus", this.state
         ).then(
             res => {
                 console.log("send axois finished.");
@@ -110,7 +109,6 @@ export default class SettingPanel extends React.Component {
     };
 
     render() {
-        let number = this.state.numberAnt;
         let velocity = this.state.antVelocity;
         let position = this.state.position;
         return (
@@ -148,12 +146,12 @@ export default class SettingPanel extends React.Component {
                 </div>
               </div>
               <div className="Setting-panel-button-set">
-                <Button icon="start" className="Setting-panel-button"
+                <Button className="Setting-panel-button"
                         onClick={this.changeGameStatus}
                         disabled = {this.state.gameStatus} >
                   start
                 </Button>
-                <Button icon="reset" className="Setting-panel-button"
+                <Button className="Setting-panel-button"
                         onClick={this.resetGame}
                         disabled = {this.state.gameStatus} >
                   reset

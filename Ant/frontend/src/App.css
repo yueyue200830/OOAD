@@ -36,7 +36,8 @@
 
 .Setting-panel {
   height: 100%;
-  flex-grow: 1;
+  margin: 0 20px;
+  flex-shrink: 0;
 }
 
 .App-line {
@@ -50,4 +51,5 @@
 .Display-panel {
   height: 100%;
   flex-grow: 3;
+  flex-shrink: 0;
 }
