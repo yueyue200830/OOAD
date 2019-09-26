@@ -82,7 +82,7 @@ export default class SettingPanel extends React.Component {
     changeGameStatus = () => {
         console.log("get!");
         this.setState({gameStatus: true});
-        axios.post('http://127.0.0.1:8080' + "/test"
+        axios.post('http://127.0.0.1:8080' + "/test",this.state
         ).then(
             res => {
                 console.log("send axois finished.");

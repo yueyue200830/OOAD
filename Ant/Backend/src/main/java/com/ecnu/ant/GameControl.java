@@ -44,4 +44,12 @@ public class GameControl {
         System.out.printf("Max time = %.2fs.\n", this.maxTime);
         System.out.printf("Min time = %.2fs.\n", this.minTime);
     }
+
+    public double getMinTime() {
+        return minTime;
+    }
+
+    public double getMaxTime() {
+        return maxTime;
+    }
 }
