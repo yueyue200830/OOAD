@@ -44,7 +44,7 @@ public class Ant {
         if (this.isGoingRight) {
             this.position += timeConsume * this.velocity - (timeInterval - timeConsume) * this.velocity;
         } else {
-            this.position -= timeConsume * this.velocity + (timeInterval - timeConsume) * this.velocity;
+            this.position -= timeConsume * this.velocity - (timeInterval - timeConsume) * this.velocity;
         }
         this.changeDirection();
     }

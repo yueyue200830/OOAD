@@ -41,7 +41,7 @@ export default class SettingPanel extends React.Component {
     adjustInput = (ant, index) => {
         return(
             <div key={index.toString()} className="Setting-panel-ant">
-                <InputNumber size="small" max={9}
+                <InputNumber size="small" max={12}
                              min={1} onChange={this.setVelocity(index)} />
             </div>
         );
@@ -148,12 +148,14 @@ export default class SettingPanel extends React.Component {
               <div className="Setting-panel-button-set">
                 <Button className="Setting-panel-button"
                         onClick={this.changeGameStatus}
-                        disabled = {this.state.gameStatus} >
+                        // disabled = {this.state.gameStatus} >
+                        >
                   start
                 </Button>
                 <Button className="Setting-panel-button"
                         onClick={this.resetGame}
-                        disabled = {this.state.gameStatus} >
+                        // disabled = {this.state.gameStatus} >
+                        >
                   reset
                 </Button>
               </div>
