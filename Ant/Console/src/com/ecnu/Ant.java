@@ -5,7 +5,7 @@ public class Ant {
     private boolean isGoingRight;
     private double position;
     private boolean isAlive;
-    
+
     Ant(double velocity, boolean isGoingRight, double position){
         this.velocity = velocity;
         this.isGoingRight = isGoingRight;
@@ -35,7 +35,7 @@ public class Ant {
             this.isGoingRight = true;
         }
     }
-    
+
     public void step_straight(double timeInterval) {
         if (this.isGoingRight) {
             this.position += this.velocity * timeInterval;
@@ -43,16 +43,16 @@ public class Ant {
             this.position -= this.velocity * timeInterval;
         }
     }
-    
+
     public void step_collision(double timeInterval, double timeConsume) {
         if (this.isGoingRight) {
             this.position += timeConsume * this.velocity - (timeInterval - timeConsume) * this.velocity;
         } else {
-            this.position -= timeConsume * this.velocity + (timeInterval - timeConsume) * this.velocity;
+            this.position -= timeConsume * this.velocity - (timeInterval - timeConsume) * this.velocity;
         }
         this.changeDirection();
     }
-    
+
     public void setDie() {
         this.isAlive = false;
     }
