@@ -81,7 +81,7 @@ class DisplayPanel extends React.Component {
         res => {
           console.log("Maximum time game start");
           clearInterval(this.intervalGetData);
-          this.intervalId = setInterval(this.updatePosition, 10);
+          this.intervalId = setInterval(this.updatePosition, 1);
         }
       )
     });
@@ -94,7 +94,7 @@ class DisplayPanel extends React.Component {
         res => {
           console.log("Minimum time game start");
           clearInterval(this.intervalGetData);
-          this.intervalId = setInterval(this.updatePosition, 10);
+          this.intervalId = setInterval(this.updatePosition, 1);
         }
       )
     });
