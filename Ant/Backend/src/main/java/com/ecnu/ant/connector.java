@@ -13,7 +13,7 @@ public class connector {
     private double[] position;
     private boolean[] MinIsGoingRight;
     private boolean[] MaxIsGoingRight;
-    private GameControl wholeGame;
+    private GameControl wholeGame = null;
     private PlayGame oneGame;
 
     @RequestMapping(value = "getGameStatus", method = RequestMethod.POST)
@@ -48,6 +48,13 @@ public class connector {
     public String getGameData() {
         System.out.println("Sending game data");
         JSONObject jsonObject = new JSONObject();
+
+        if (this.wholeGame == null) {
+            jsonObject.append("hasData", false);
+            return jsonObject.toString();
+        }
+
+        jsonObject.append("hasData", true);
 
         String minTime = String.format("%.2f", this.wholeGame.getMinTime());
         String maxTime = String.format("%.2f", this.wholeGame.getMaxTime());

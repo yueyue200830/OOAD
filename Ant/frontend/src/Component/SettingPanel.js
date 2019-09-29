@@ -41,7 +41,7 @@ export default class SettingPanel extends React.Component {
     adjustInput = (ant, index) => {
         return(
             <div key={index.toString()} className="Setting-panel-ant">
-                <InputNumber size="small" max={12}
+                <InputNumber size="small" max={14}
                              min={1} onChange={this.setVelocity(index)} />
             </div>
         );

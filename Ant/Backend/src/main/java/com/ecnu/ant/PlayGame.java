@@ -58,8 +58,11 @@ public class PlayGame {
         for (int i = 0; i < this.antNumber; i++) {
             currentAnt = this.antGroup[i];
 
+            if (!currentAnt.isAlive())
+                continue;
+
             // If it is the last ant, it doesn't have next ant.
-            if (i == this.antNumber - 1) {
+            if (i == this.antNumber - 1 || !this.antGroup[i+1].isAlive()) {
                 if (willCollisionWithPrevious) {
                     currentAnt.step_collision(this.timeInterval, previousCollisionTimeConsume);
                 } else {

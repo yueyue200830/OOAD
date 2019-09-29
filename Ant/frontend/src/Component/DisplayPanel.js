@@ -17,6 +17,7 @@ class DisplayPanel extends React.Component {
       gameStatus: false,
       receiveData: false,
     };
+    this.intervalGetData = setInterval(this.getGameData, 1000);
   }
 
   setAntPosition = (ant, index) => {
@@ -34,6 +35,8 @@ class DisplayPanel extends React.Component {
     axios.post("http://127.0.0.1:8080/getGameData"
     ).then(
       res => {
+        if (res.data.hasData == "false")
+          return;
         console.log("Game data get!");
         this.setState({
           receiveData: true,
@@ -55,6 +58,7 @@ class DisplayPanel extends React.Component {
         let gameOver = res.data.gameOver;
         if (gameOver == "true") {
           clearInterval(this.intervalId);
+          this.intervalGetData = setInterval(this.getGameData, 1000);
           this.setState({
             gameStatus: false,
             antPosition: res.data.position[0],
@@ -73,6 +77,7 @@ class DisplayPanel extends React.Component {
       ).then(
         res => {
           console.log("Maximum time game start");
+          clearInterval(this.intervalGetData);
           this.intervalId = setInterval(this.updatePosition, 10);
         }
       )
@@ -85,6 +90,7 @@ class DisplayPanel extends React.Component {
       ).then(
         res => {
           console.log("Minimum time game start");
+          clearInterval(this.intervalGetData);
           this.intervalId = setInterval(this.updatePosition, 10);
         }
       )
@@ -133,10 +139,6 @@ class DisplayPanel extends React.Component {
             </Button>
           </div>
         </div>
-        <Button className="Display-panel-button"
-                onClick={this.getGameData}>
-          Test
-        </Button>
         <div className="Display-panel-bottom" />
       </div>
     );
