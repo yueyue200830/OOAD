@@ -82,6 +82,8 @@ public class connector {
         else
             this.oneGame = new PlayGame(this.numberAnt, this.velocity, this.MaxIsGoingRight, this.position, this.stickLength, 0.01);
 
+        System.out.println("Start game!");
+
         return jsonObject.toString();
     }
 

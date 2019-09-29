@@ -17,7 +17,9 @@ class DisplayPanel extends React.Component {
       gameStatus: false,
       receiveData: false,
     };
-    this.intervalGetData = setInterval(this.getGameData, 1000);
+    if (this.state.gameStatus == false) {
+      this.intervalGetData = setInterval(this.getGameData, 1000);
+    }
   }
 
   setAntPosition = (ant, index) => {
@@ -58,6 +60,7 @@ class DisplayPanel extends React.Component {
         let gameOver = res.data.gameOver;
         if (gameOver == "true") {
           clearInterval(this.intervalId);
+          console.log("finished!");
           this.intervalGetData = setInterval(this.getGameData, 1000);
           this.setState({
             gameStatus: false,
