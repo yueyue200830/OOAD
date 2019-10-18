@@ -4,12 +4,13 @@ import java.util.List;
 
 /**
  * A player play against dealer
- * @author Jiayi Zhu
- * @date 2019-10-17 20:00
+ * @author Jiayi Zhu, Yiqing Tao
+ * @date 2019-10-17 20:00  2019=10-18 16:30
  */
 public class Player {
     private Hand hand;
     private int bet;
+
 
     Player () {
         this.hand = new Hand();
@@ -45,4 +46,7 @@ public class Player {
     public int getCardSum () {
         return this.hand.getSum();
     }
+
+    public boolean getLoseOrNot(){return this.hand.isLargerThan21();}
+
 }

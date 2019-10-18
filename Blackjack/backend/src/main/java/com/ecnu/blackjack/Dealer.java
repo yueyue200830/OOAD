@@ -57,4 +57,5 @@ public class Dealer {
     public int getCardSum () {
         return this.hand.getSum();
     }
+    public boolean getLoseOrNot(){return this.hand.isLargerThan21(); }
 }

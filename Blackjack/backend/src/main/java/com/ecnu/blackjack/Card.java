@@ -2,8 +2,8 @@ package com.ecnu.blackjack;
 
 /**
  * This is card class which represents one card.
- * @author Jiayi Zhu
- * @date 2019-10-17 20:00
+ * @author Jiayi Zhu, Yiqing Tao
+ * @date 2019-10-17 20:00, 2019-10-18 22:02
  */
 public class Card {
     /** The card number in range 1 - 52 */
@@ -11,6 +11,8 @@ public class Card {
 
     /** Whether the card is visible to dealer */
     private boolean visibility;
+
+
 
     /**
      * @param cardNumber The card number
@@ -27,6 +29,15 @@ public class Card {
     public int getCardNumber () {
         return this.cardNumber;
     }
+
+    /**
+     *  Change card value into detailed specification of card.
+     */
+
+
+//    public String getCardDescription() {
+////        return this.cardDescription;
+////    }
 
     public void setVisibility (boolean visibility) {
         this.visibility = visibility;
