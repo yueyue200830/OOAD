@@ -26,6 +26,7 @@ public class Decker {
         this.playerGroup = new Player[playerNumber];
         this.loseOrNot = new boolean[playerNumber];
         this.dealer = new Dealer();
+        this.playerSum = new int[playerNumber];
         for(int i = 0 ;i < playerNumber; i++){
             playerGroup[i] = new Player();
             loseOrNot[i] = false;
@@ -69,10 +70,17 @@ public class Decker {
         if(playerNo != -1 && firstTime){
             newCard.setVisibility(false);
             this.playerGroup[playerNo].receiveCard(newCard);
+            //System.out.println("draw card, first time " + newCard.getCardNumber());
         }
         else if(playerNo == -1 || !firstTime){
+            //System.out.println("draw card, not first time " + newCard.getCardNumber());
             newCard.setVisibility(true);
-            this.dealer.receiveCard(newCard);
+            if(playerNo == -1) {
+                this.dealer.receiveCard(newCard);
+            }
+            else{
+                this.playerGroup[playerNo].receiveCard(newCard);
+            }
         }
         return newCard.getCardNumber();
     }
@@ -114,16 +122,25 @@ public class Decker {
      */
     public int[][] getRoundInfo(){
         int[][] overallInfo = new int[this.playerNumber + 1][maxCardNumber];
+        for(int i = 0;i <= this.playerNumber; i++){
+            for(int j = 0; j < maxCardNumber; j++){
+                overallInfo[i][j] = -1;
+            }
+        }
+
         int countCard;
         for(int i = 0; i < this.playerNumber; i++){
             List<Card> cardList = this.playerGroup[i].getCard();
+            //System.out.println("Player " + i + "card number: " + cardList.size());
             countCard = 0;
             for(Card currentCard:cardList){
+                //System.out.println("Now the card number is: " + currentCard.getCardNumber());
                 overallInfo[i][countCard++] = currentCard.getCardNumber();
             }
         }
         List<Card> dealerCard = this.dealer.getCard();
         countCard = 0;
+        //System.out.println("dealer card size is: " + dealerCard.size());
         for(int i = 0;i< dealerCard.size();i++){
             if(i == 0) {
                 continue;

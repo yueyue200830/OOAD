@@ -47,7 +47,7 @@ public class Console {
         else if(cardValue == 12){
             cardDescription += "Q";
         }
-        else if(cardValue == 13){
+        else if(cardValue == 0){
             cardDescription += "K";
         }
         else{
@@ -60,19 +60,24 @@ public class Console {
      * after every turn, print the overall information of the game on console.
      * @param decker
      */
+
     public static void presentRound(Decker decker){
         int[][] currInfo = decker.getRoundInfo();
         System.out.println("Round Information: ");
         for(int i = 0; i < currInfo.length - 1;i++){
             System.out.println("Player " + i + ": ");
             for(int j = 0; j < currInfo[i].length;j++){
-                System.out.println(getCardDescrption(currInfo[i][j]));
+                if(currInfo[i][j] != -1) {
+                    System.out.println(getCardDescrption(currInfo[i][j]));
+                }
             }
         }
         System.out.println("Dealer's Infomation: ");
         int indexOfDealer = currInfo.length - 1;
         for(int j = 0; j <  currInfo[indexOfDealer].length; j++){
-            System.out.println(getCardDescrption(currInfo[indexOfDealer][j]));
+            if(currInfo[indexOfDealer][j] != -1) {
+                System.out.println(getCardDescrption(currInfo[indexOfDealer][j]));
+            }
         }
     }
 
@@ -104,7 +109,7 @@ public class Console {
             //Now, it's time to ask all the players to set their bet.
 
             for(int i = 0; i< numberOfPlayers; i++){
-                hint = "For player "+ i + ", now input the bet";
+                hint = "For player " + i + ", now input the bet";
                 System.out.println(hint);
                 int currentBet = Integer.valueOf(in.readLine());
                 decker.setBet(currentBet,i);
