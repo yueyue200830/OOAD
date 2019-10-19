@@ -28,10 +28,7 @@ public class Dealer {
      * @return whether to draw
      */
     public boolean drawOrNot () {
-        if (this.hand.getCardNumber() >= 5 || this.hand.getSum() > 17) {
-            return false;
-        }
-        return true;
+        return this.hand.getCardNumber() < 5 && this.hand.getSum() <= 17;
     }
 
     /**
@@ -57,5 +54,12 @@ public class Dealer {
     public int getCardSum () {
         return this.hand.getSum();
     }
-    public boolean getLoseOrNot(){return this.hand.isLargerThan21(); }
+
+    public boolean getLoseOrNot () {
+        return this.hand.isLargerThan21();
+    }
+
+    public int getCardNumber () {
+        return this.hand.getCardNumber();
+    }
 }

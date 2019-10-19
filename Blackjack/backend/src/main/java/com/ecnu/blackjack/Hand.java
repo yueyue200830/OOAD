@@ -30,8 +30,6 @@ public class Hand {
         return cards;
     }
 
-
-
     /**
      * Add a card to the hand. Calculate whether the sum is larger than 21.
      * @param newCard The new card to be added

@@ -47,6 +47,9 @@ public class Player {
         return this.hand.getSum();
     }
 
-    public boolean getLoseOrNot(){return this.hand.isLargerThan21();}
+    public boolean getLoseOrNot() {return this.hand.isLargerThan21();}
 
+    public int getCardNumber() {
+        return this.hand.getCardNumber();
+    }
 }

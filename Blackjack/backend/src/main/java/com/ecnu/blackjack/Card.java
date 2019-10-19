@@ -13,7 +13,6 @@ public class Card {
     private boolean visibility;
 
 
-
     /**
      * @param cardNumber The card number
      */
@@ -22,22 +21,13 @@ public class Card {
         this.visibility = false;
     }
 
-    public boolean isVisibility () {
+    public boolean isVisible () {
         return this.visibility;
     }
 
     public int getCardNumber () {
         return this.cardNumber;
     }
-
-    /**
-     *  Change card value into detailed specification of card.
-     */
-
-
-//    public String getCardDescription() {
-////        return this.cardDescription;
-////    }
 
     public void setVisibility (boolean visibility) {
         this.visibility = visibility;
