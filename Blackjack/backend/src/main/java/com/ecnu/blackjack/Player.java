@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * A player play against dealer
  * @author Jiayi Zhu, Yiqing Tao
- * @date 2019-10-17 20:00  2019=10-18 16:30
+ * @date 2019-10-17 20:00
  */
 public class Player {
     private Hand hand;

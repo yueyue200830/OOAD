@@ -11,7 +11,7 @@ public class Dealer {
     private Hand hand;
     private int[] playerSum;
 
-    Dealer () {
+    Dealer() {
         this.hand = new Hand();
     }
 
@@ -19,7 +19,7 @@ public class Dealer {
      * Set the list of players' sum
      * @param playerSum The list of players' sum.
      */
-    public void receiveSum (int[] playerSum) {
+    public void receiveSum(int[] playerSum) {
         this.playerSum = playerSum;
     }
 
@@ -27,7 +27,7 @@ public class Dealer {
      * Decide whether to draw or not
      * @return whether to draw
      */
-    public boolean drawOrNot () {
+    public boolean drawOrNot() {
         return this.hand.getCardNumber() < 5 && this.hand.getSum() <= 17;
     }
 
@@ -35,7 +35,7 @@ public class Dealer {
      * Add a new card
      * @param newCard The new card to be added to the hand
      */
-    public void receiveCard (Card newCard) {
+    public void receiveCard(Card newCard) {
         this.hand.addCard(newCard);
     }
 
@@ -43,7 +43,7 @@ public class Dealer {
      * Get a list of the card in the hand.
      * @return A copy list of the cards.
      */
-    public List<Card> getCard () {
+    public List<Card> getCard() {
         return this.hand.getCards();
     }
 
@@ -51,15 +51,15 @@ public class Dealer {
      * Calculate the sum of cards.
      * @return The sum of cards
      */
-    public int getCardSum () {
+    public int getCardSum() {
         return this.hand.getSum();
     }
 
-    public boolean getLoseOrNot () {
+    public boolean getLoseOrNot() {
         return this.hand.isLargerThan21();
     }
 
-    public int getCardNumber () {
+    public int getCardNumber() {
         return this.hand.getCardNumber();
     }
 }
