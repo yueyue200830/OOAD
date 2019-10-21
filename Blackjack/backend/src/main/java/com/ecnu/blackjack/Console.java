@@ -27,7 +27,6 @@ public class Console {
 
         //Pattern 1 for Club, 2 for Heart, 3 for Diamond, 4 for Spade
         int pattern = (cardNumber + 1) / 13;
-
         switch (pattern) {
             case 1:
                 cardDescription = "Club ";
@@ -40,7 +39,6 @@ public class Console {
                 break;
             default:
                 cardDescription = "Spade ";
-                break;
         }
 
         if (cardValue == 1) {
@@ -59,47 +57,57 @@ public class Console {
 
     /**
      * After every turn, print the overall information of the game on console.
-     * @param decker the decker in the game.
+     * @param hasFinished whether to present the final stage.
      */
-    public static void presentRound(Decker decker, boolean hasFinished) {
-        int[][] currInfo = decker.getRoundInfo(hasFinished);
+    public static void presentRound(boolean hasFinished) {
+        List<List<List<Integer>>> currInfo = decker.getRoundInfo(hasFinished);
 
         System.out.println("-------------------------------------------");
         if (hasFinished) {
             System.out.println("Final Information:");
         } else {
-            System.out.println("Round Information: ");
+            System.out.println("Round Information:");
         }
 
-        for (int i = 0; i < currInfo.length - 1; i++) {
-            System.out.println("Player " + (i + 1) + ": ");
-            for (int j = 0; j < currInfo[i].length;j++) {
-                if (currInfo[i][j] != -1) {
-                    System.out.println(getCardDescription(currInfo[i][j]));
+        // Show players' information.
+        for (int i = 0; i < currInfo.size() - 1; i++) {
+            System.out.println("Player " + (i + 1) + ":");
+
+            List<List<Integer>> playerInfo = currInfo.get(i);
+            for (int j = 0; j < playerInfo.size(); j++) {
+                List<Integer> handInfo = playerInfo.get(j);
+                System.out.println("\tHand " + (j + 1) + ":");
+                for (int cardNumber : handInfo) {
+                    System.out.println("\t\t" + getCardDescription(cardNumber));
                 }
             }
         }
 
-        System.out.println("Dealer's Information: ");
-        int indexOfDealer = currInfo.length - 1;
-        for (int j = 0; j <  currInfo[indexOfDealer].length; j++) {
-            if (currInfo[indexOfDealer][j] != -1) {
-                System.out.println(getCardDescription(currInfo[indexOfDealer][j]));
-            }
+        // Show dealer's information.
+        System.out.println("Dealer's Information:");
+        List<Integer> dealerCard = currInfo.get(currInfo.size() - 1).get(0);
+        for (int cardNumber : dealerCard) {
+            System.out.println("\t" + getCardDescription(cardNumber));
         }
     }
 
     /**
      * After the game end, print out all winners.
-     * @param winnerList the list of winners.
+     * @param winnerList the list of winners with the list of winning hand.
      */
-    public static void printWinner(Decker decker, List<Integer> winnerList) {
-        if (winnerList.size() == 0) {
-            System.out.println("Unfortunately the winner is dealer! All players lose their bet! ");
-        } else {
-            for (int i : winnerList) {
-                System.out.println("Player " + (i + 1) + "! Congratulation to win your bet for " + decker.getBet(i) + " dollars.");
+    public static void printWinner(List<List<Integer>> winnerList) {
+        boolean hasWinner = false;
+
+        for (int i = 0; i < winnerList.size(); i++) {
+            for (int winner : winnerList.get(i)) {
+                hasWinner = true;
+                int bet = decker.getBet(i, winner);
+                System.out.println("Player " + (i + 1) + "! Congratulation to win your bet for " + bet + " dollars by hand " + (winner + 1) + ".");
             }
+        }
+
+        if (!hasWinner) {
+            System.out.println("Unfortunately the winner is dealer! All players lose their bet! ");
         }
     }
 
@@ -111,8 +119,16 @@ public class Console {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String hint = "Welcome to blackjack, please enter the number of players";
         System.out.println(hint);
-        numberOfPlayers = Integer.valueOf(in.readLine());
-        decker = new Decker(numberOfPlayers);
+        numberOfPlayers = Integer.parseInt(in.readLine());
+
+        int[] playerHands = new int[numberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++) {
+            hint = "Player " + (i + 1) + ". Please enter the number hands:";
+            System.out.println(hint);
+            playerHands[i] = Integer.parseInt(in.readLine());
+        }
+
+        decker = new Decker(numberOfPlayers, playerHands);
     }
 
     /**
@@ -122,11 +138,15 @@ public class Console {
     public static void askBet() throws IOException {
         String hint;
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        for (int i = 0; i< numberOfPlayers; i++){
-            hint = "For player " + i + ", now input the bet";
-            System.out.println(hint);
-            int currentBet = Integer.valueOf(in.readLine());
-            decker.setBet(currentBet,i);
+        for (int i = 0; i < numberOfPlayers; i++) {
+            int handNo = decker.getPlayerHandNumber(i);
+            int[] bet = new int[handNo];
+            for (int j = 0; j < handNo; j++) {
+                hint = "For player " + (i + 1) + ", now input the bet of hand " + (j + 1) + ":";
+                System.out.println(hint);
+                bet[j] = Integer.parseInt(in.readLine());
+            }
+            decker.setBet(bet, i);
         }
     }
 
@@ -138,36 +158,39 @@ public class Console {
     }
 
     /**
-     * Now it is players' round to decide whether to draw or not.
+     * This is players' round to decide whether to draw or not.
      * @throws IOException throws possible IOException caused by io.
      */
     public static void playerRound() throws IOException {
         String hint;
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+
         for (int i = 0; i < numberOfPlayers; i++) {
-            int drawCount = 0;
-            hint = "Player " + (i + 1) + ": Do you want to continue to draw? (Y for continue and N for not)";
-            presentRound(decker, false);
+            for (int j = 0; j < decker.getPlayerHandNumber(i); j++) {
+                presentRound(false);
+                int drawCount = 0;
+                hint = "Player " + (i + 1) + ": Do you want to continue to draw for hand " + (j + 1) + "? (Y for continue and N for not)";
 
-            while (drawCount < UP_MORE_DRAW_TIMES) {
-                System.out.println(hint);
-                String result = in.readLine();
-                if (result.equals("Y") || result.equals("y")) {
-                    int drawNumber = decker.basicDraw(i,false);
-                    System.out.println("You get a " + getCardDescription(drawNumber));
-                    drawCount++;
+                while (drawCount < UP_MORE_DRAW_TIMES) {
+                    System.out.println(hint);
+                    String result = in.readLine();
+                    if (result.equals("Y") || result.equals("y")) {
+                        int drawNumber = decker.basicDraw(i, j, false);
+                        System.out.println("You get a " + getCardDescription(drawNumber));
+                        drawCount++;
 
-                    if (!decker.getPlayerLose(i)) {
-                        hint = "Player " + (i + 1) + ": Do you want to continue to draw? (Y for continue and N for not)";
-                    } else{
-                        System.out.println("Oops, seems you are over 21. Lose game! ");
+                        if (!decker.getPlayerLose(i, j)) {
+                            hint = "Player " + (i + 1) + ": Do you want to continue to draw for hand " + (j + 1) + "? (Y for continue and N for not)";
+                        } else {
+                            System.out.println("Oops, seems you are over 21. Lose game! ");
+                            break;
+                        }
+                    } else if (result.equals("N") || result.equals("n")) {
+                        System.out.println("Player " + (i + 1) + " with hand " + (j + 1) + ": stop drawing. ");
                         break;
+                    } else {
+                        hint = "Wrong input, input again!";
                     }
-                } else if (result.equals("N") || result.equals("n")) {
-                    System.out.println("Player " + (i + 1) + ": stop drawing. ");
-                    break;
-                } else {
-                    hint = "Wrong input, input again!";
                 }
             }
         }
@@ -195,10 +218,10 @@ public class Console {
      * After dealer finished, check the final winners.
      */
     public static void checkFinalState() {
-        presentRound(decker, true);
-        List<Integer> winnerList = decker.judgeWin();
+        presentRound(true);
+        List<List<Integer>> winnerList = decker.judgeWin();
         System.out.println("Now declare the winner of the game:");
-        printWinner(decker, winnerList);
+        printWinner(winnerList);
     }
 
     public static void main(String[] args) {
@@ -207,7 +230,7 @@ public class Console {
             startGame();
 
             //Now, it's time to ask all the players to set their bet.
-           askBet();
+            askBet();
 
             //After the bet decision, first draw two cards for every player including dealer.
             //Pay attention to the wrong input players may give.
@@ -225,7 +248,7 @@ public class Console {
 
             // After all the players finished drawing, it's time for dealer to draw.
             // Before draw any cards, dealer hae the right to find out all the visible results of his opponents.
-           dealerTurn();
+            dealerTurn();
 
             // Now the whole progress of game is finished. It is time to calculate the winner and deal with the bet.
             checkFinalState();

@@ -1,5 +1,6 @@
 package com.ecnu.blackjack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,65 +9,100 @@ import java.util.List;
  * @date 2019-10-17 20:00
  */
 public class Player {
-    private Hand hand;
-    private int bet;
+    private Hand[] hands;
+    private int handNumber;
+    private int[] bet;
 
-    Player() {
-        this.hand = new Hand();
+    Player(int handNumber) {
+        this.handNumber = handNumber;
+        this.hands = new Hand[this.handNumber];
+        for (int i = 0; i < this.handNumber; i++) {
+            this.hands[i] = new Hand();
+        }
     }
 
-    public int getBet() {
-        return this.bet;
+    /**
+     * Return the bet number of a specific hand.
+     * @param handNo The number of the hand.
+     * @return The bet of the hand.
+     */
+    public int getBet(int handNo) {
+        return this.bet[handNo];
     }
 
-    public void setBet(int bet) {
+    public void setBet(int[] bet) {
         this.bet = bet;
     }
 
     /**
-     * Add a new card
-     * @param newCard The new card to be added to the hand
+     * Get the hand number.
+     * @return The number of the hand.
      */
-    public void receiveCard(Card newCard) {
-        this.hand.addCard(newCard);
+    public int getHandNumber() {
+        return this.handNumber;
+    }
+
+    /**
+     * Add a new card.
+     * @param newCard The new card to be added to the hand
+     * @param handNo The hand number.
+     */
+    public void receiveCard(Card newCard, int handNo) {
+        this.hands[handNo].addCard(newCard);
     }
 
     /**
      * Get a list of the card in the hand.
+     * @param handNo The hand number.
      * @return A copy list of the cards.
      */
-    public List<Card> getCard() {
-        return this.hand.getCards();
+    public List<Card> getCard(int handNo) {
+        return this.hands[handNo].getCards();
     }
 
     /**
      * Get the sum of cards that is visible to dealer.
      * @return The sum of visible cards.
      */
-    public int tellCardSumToDealer() {
-        List<Card> cards = this.hand.getCards();
-        int sum = 0;
-        for (Card card : cards) {
-            if (card.isVisible()) {
-                sum += card.getCardNumber();
+    public List<Integer> tellCardSumToDealer() {
+        List<Integer> sum = new ArrayList<>();
+        for (int i = 0; i < this.handNumber; i++) {
+            List<Card> cards = this.hands[i].getCards();
+            int s = 0;
+            for (Card card : cards) {
+                if (card.isVisible()) {
+                    s += card.getCardNumber();
+                }
             }
+            sum.add(s);
         }
         return sum;
     }
 
     /**
-     * Calculate the sum of cards.
+     * Calculate the sum of cards of a specific hand.
+     * @param handNo The hand number.
      * @return The sum of cards
      */
-    public int getCardSum() {
-        return this.hand.getSum();
+    public int getCardSum(int handNo) {
+        return this.hands[handNo].getSum();
     }
 
-    public boolean getLoseOrNot() {
-        return this.hand.isLargerThan21();
+    /**
+     * Get whether a specific hand is larger than 21 or not.
+     * @param handNo The hand number.
+     * @return True if the hand is over 21.
+     */
+    public boolean getLoseOrNot(int handNo) {
+        return this.hands[handNo].isLargerThan21();
     }
 
-    public int getCardNumber() {
-        return this.hand.getCardNumber();
+    /**
+     * Get the number of the card in a specific hand.
+     * @param handNo The hand number.
+     * @return The card number.
+     */
+    public int getCardNumber(int handNo) {
+        return this.hands[handNo].getCardNumber();
     }
 }
