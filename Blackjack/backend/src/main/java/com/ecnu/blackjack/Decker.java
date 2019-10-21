@@ -40,7 +40,7 @@ public class Decker {
      * @param bet the amount of money the player want to get involved
      * @param playerNo current number of player
      */
-    public void setBet(int bet,int playerNo){
+    public void setBet(int bet,int playerNo) {
         this.playerGroup[playerNo].setBet(bet);
     }
 
@@ -49,7 +49,7 @@ public class Decker {
      * Notice: Every first card of the player should be invisible to the dealer.
      */
     public void initialDraw(){
-        for(int i = 0; i < this.playerNumber; i++){
+        for(int i = 0; i < this.playerNumber; i++) {
             this.basicDraw(i,true);
             this.basicDraw(i,false);
         }
@@ -64,9 +64,9 @@ public class Decker {
      * @param firstTime whether it is the first card of the player.
      * @return the number of the card that player got.
      */
-    public int basicDraw(int playerNo, boolean firstTime){
+    public int basicDraw(int playerNo, boolean firstTime) {
         Card newCard = this.currentSet.drawCard();
-        if(playerNo != -1 && firstTime){
+        if(playerNo != -1 && firstTime) {
             newCard.setVisibility(false);
             this.playerGroup[playerNo].receiveCard(newCard);
         }
@@ -101,15 +101,33 @@ public class Decker {
      * whether to draw or not.
      */
     public void getPlayerSum(){
-        for(int i = 0; i < this.playerNumber; i++){
+        for(int i = 0; i < this.playerNumber; i++) {
             this.playerSum[i] = this.playerGroup[i].getCardSum();
         }
     }
+    public void askDealerToDraw(){
+        int drawCount = 0;
+        final int upMoreDrawTimes = 3;
+        while(drawCount < upMoreDrawTimes) {
+           this.getPlayerSum();
+            if(this.askDealer()) {
+                int cardNumber = this.basicDraw(-1,false);
+                drawCount ++;
 
+                //If dealer lose in the progress of drawing card, players win.
+                if(this.getDealerLose()) {
+                    break;
+                }
+            }
+            else {
+                break;
+            }
+        }
+    }
     /**
      * During or after the progress of player drawing cards, the loss situation of players should be recorded.
      */
-    public boolean getPlayerLose(int playerNumber){
+    public boolean getPlayerLose(int playerNumber) {
         this.loseOrNot[playerNumber] = this.playerGroup[playerNumber].getLoseOrNot();
         return this.loseOrNot[playerNumber];
     }
@@ -118,19 +136,19 @@ public class Decker {
      * Show current game information to frontend when every turn is over.
      * @return the specific info about every hand.
      */
-    public int[][] getRoundInfo(boolean hasFinished){
+    public int[][] getRoundInfo(boolean hasFinished) {
         int[][] overallInfo = new int[this.playerNumber + 1][maxCardNumber];
-        for(int i = 0;i <= this.playerNumber; i++){
-            for(int j = 0; j < maxCardNumber; j++){
+        for(int i = 0;i <= this.playerNumber; i++) {
+            for(int j = 0; j < maxCardNumber; j++) {
                 overallInfo[i][j] = -1;
             }
         }
 
         int countCard;
-        for(int i = 0; i < this.playerNumber; i++){
+        for(int i = 0; i < this.playerNumber; i++) {
             List<Card> cardList = this.playerGroup[i].getCard();
             countCard = 0;
-            for(Card currentCard:cardList){
+            for(Card currentCard:cardList) {
                 overallInfo[i][countCard++] = currentCard.getCardNumber();
             }
         }
@@ -138,13 +156,13 @@ public class Decker {
         List<Card> dealerCard = this.dealer.getCard();
         countCard = 0;
         int firstDealerCard = hasFinished ? 0 : 1;
-        for(int i = firstDealerCard;i< dealerCard.size();i++){
+        for(int i = firstDealerCard;i< dealerCard.size();i++) {
             overallInfo[this.playerNumber][countCard++] = dealerCard.get(i).getCardNumber();
         }
         return overallInfo;
     }
 
-    public boolean getDealerLose(){
+    public boolean getDealerLose() {
         return this.dealer.getLoseOrNot();
     }
 
@@ -152,10 +170,10 @@ public class Decker {
      * Before dealer continue to draw, if all players lose then dealer wins. The game end in advance.
      * @return whether the game has ended.
      */
-    public boolean endAdvance(){
+    public boolean endAdvance() {
         boolean flag = true;
-        for(int i = 0;i < this.playerNumber; i++){
-            if(!this.loseOrNot[i]){
+        for(int i = 0;i < this.playerNumber; i++) {
+            if(!this.loseOrNot[i]) {
                 flag = false;
                 break;
             }
@@ -182,7 +200,7 @@ public class Decker {
             int playerCardNumber = this.playerGroup[i].getCardNumber();
             boolean isLargerThanDealer = this.playerSum[i] > dealerSum;
             boolean EqualSumAndFewerCards = this.playerSum[i] == dealerSum && playerCardNumber <= dealerCardNumber;
-            if (dealerLose || isLargerThanDealer || EqualSumAndFewerCards){
+            if (dealerLose || isLargerThanDealer || EqualSumAndFewerCards) {
                 winnerList.add(i);
             }
         }

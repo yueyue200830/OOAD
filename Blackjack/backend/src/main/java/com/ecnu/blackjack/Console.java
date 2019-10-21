@@ -196,24 +196,7 @@ public class Console {
      */
     public static void dealerTurn() {
         System.out.println("Now it's dealer's turn to draw.");
-        int drawCount = 0;
-        while(drawCount < upMoreDrawTimes) {
-            decker.getPlayerSum();
-            if(decker.askDealer()) {
-                int cardNumber = decker.basicDraw(-1,false);
-                System.out.println("Dealer get a " + getCardDescription(cardNumber));
-                drawCount ++;
-
-                //If dealer lose in the progress of drawing card, players win.
-                if(decker.getDealerLose()) {
-                    break;
-                }
-            }
-            else {
-                System.out.println("Dealer stop drawing.");
-                break;
-            }
-        }
+        decker.askDealerToDraw();
     }
 
     /**

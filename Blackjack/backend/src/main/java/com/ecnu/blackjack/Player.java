@@ -11,7 +11,6 @@ public class Player {
     private Hand hand;
     private int bet;
 
-
     Player() {
         this.hand = new Hand();
     }
