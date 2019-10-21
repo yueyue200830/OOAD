@@ -87,7 +87,11 @@ public class Decker {
      * @return a boolean value, indicating whether to draw another card.
      */
     public boolean askDealer(){
-        this.dealer.receiveSum(this.playerSum);
+        int[] sum = new int[this.playerNumber];
+        for (int i = 0; i < this.playerNumber; i++) {
+            sum[i] = this.playerGroup[i].tellCardSumToDealer();
+        }
+        this.dealer.receiveSum(sum);
         return this.dealer.drawOrNot();
     }
 
@@ -171,8 +175,14 @@ public class Decker {
         boolean dealerLose = this.dealer.getLoseOrNot();
 
         for (int i = 0; i < this.playerNumber; i++) {
+            if (this.loseOrNot[i]) {
+                continue;
+            }
+
             int playerCardNumber = this.playerGroup[i].getCardNumber();
-            if (!this.loseOrNot[i] && (this.playerSum[i] > dealerSum || this.playerSum[i] == dealerSum && playerCardNumber <= dealerCardNumber || dealerLose)){
+            boolean isLargerThanDealer = this.playerSum[i] > dealerSum;
+            boolean EqualSumAndFewerCards = this.playerSum[i] == dealerSum && playerCardNumber <= dealerCardNumber;
+            if (dealerLose || isLargerThanDealer || EqualSumAndFewerCards){
                 winnerList.add(i);
             }
         }

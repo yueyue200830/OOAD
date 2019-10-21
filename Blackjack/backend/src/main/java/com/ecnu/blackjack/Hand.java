@@ -12,12 +12,12 @@ public class Hand {
     private List<Card> cards;
     private boolean largerThan21;
 
-    Hand () {
+    Hand() {
         this.cards = new ArrayList<>();
         this.largerThan21 = false;
     }
 
-    public boolean isLargerThan21 () {
+    public boolean isLargerThan21() {
         return this.largerThan21;
     }
 
@@ -25,7 +25,7 @@ public class Hand {
      * Get a list of the card in the hand.
      * @return A copy list of the cards.
      */
-    public List<Card> getCards () {
+    public List<Card> getCards() {
         List<Card> cards = new ArrayList<>(this.cards);
         return cards;
     }
@@ -34,7 +34,7 @@ public class Hand {
      * Add a card to the hand. Calculate whether the sum is larger than 21.
      * @param newCard The new card to be added
      */
-    public void addCard (Card newCard) {
+    public void addCard(Card newCard) {
         this.cards.add(newCard);
         int sum = this.getSum();
         if (sum > 21) {
@@ -46,7 +46,7 @@ public class Hand {
      * Calculate the sum of cards.
      * @return The sum of cards
      */
-    public int getSum () {
+    public int getSum() {
         int sum = 0;
         int ace11 = 0;
 
@@ -86,7 +86,7 @@ public class Hand {
      * Get the number of cards.
      * @return The number of cards
      */
-    public int getCardNumber () {
+    public int getCardNumber() {
         return this.cards.size();
     }
 }
