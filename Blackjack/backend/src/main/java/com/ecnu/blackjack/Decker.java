@@ -29,7 +29,7 @@ public class Decker {
         this.loseOrNot = new boolean[this.playerNumber];
         this.dealer = new Dealer();
         this.playerSum = new int[this.playerNumber];
-        for(int i = 0 ;i < this.playerNumber; i++){
+        for (int i = 0 ;i < this.playerNumber; i++){
             playerGroup[i] = new Player();
             loseOrNot[i] = false;
         }
@@ -49,7 +49,7 @@ public class Decker {
      * Notice: Every first card of the player should be invisible to the dealer.
      */
     public void initialDraw(){
-        for(int i = 0; i < this.playerNumber; i++) {
+        for (int i = 0; i < this.playerNumber; i++) {
             this.basicDraw(i,true);
             this.basicDraw(i,false);
         }
@@ -66,16 +66,14 @@ public class Decker {
      */
     public int basicDraw(int playerNo, boolean firstTime) {
         Card newCard = this.currentSet.drawCard();
-        if(playerNo != -1 && firstTime) {
+        if (playerNo != -1 && firstTime) {
             newCard.setVisibility(false);
             this.playerGroup[playerNo].receiveCard(newCard);
-        }
-        else {
+        } else {
             newCard.setVisibility(true);
-            if(playerNo == -1) {
+            if (playerNo == -1) {
                 this.dealer.receiveCard(newCard);
-            }
-            else{
+            } else {
                 this.playerGroup[playerNo].receiveCard(newCard);
             }
         }
@@ -101,25 +99,24 @@ public class Decker {
      * whether to draw or not.
      */
     public void getPlayerSum(){
-        for(int i = 0; i < this.playerNumber; i++) {
+        for (int i = 0; i < this.playerNumber; i++) {
             this.playerSum[i] = this.playerGroup[i].getCardSum();
         }
     }
     public void askDealerToDraw(){
         int drawCount = 0;
         final int upMoreDrawTimes = 3;
-        while(drawCount < upMoreDrawTimes) {
+        while (drawCount < upMoreDrawTimes) {
            this.getPlayerSum();
-            if(this.askDealer()) {
+            if (this.askDealer()) {
                 int cardNumber = this.basicDraw(-1,false);
                 drawCount ++;
 
                 //If dealer lose in the progress of drawing card, players win.
-                if(this.getDealerLose()) {
+                if (this.getDealerLose()) {
                     break;
                 }
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -138,17 +135,17 @@ public class Decker {
      */
     public int[][] getRoundInfo(boolean hasFinished) {
         int[][] overallInfo = new int[this.playerNumber + 1][maxCardNumber];
-        for(int i = 0;i <= this.playerNumber; i++) {
-            for(int j = 0; j < maxCardNumber; j++) {
+        for (int i = 0;i <= this.playerNumber; i++) {
+            for (int j = 0; j < maxCardNumber; j++) {
                 overallInfo[i][j] = -1;
             }
         }
 
         int countCard;
-        for(int i = 0; i < this.playerNumber; i++) {
+        for (int i = 0; i < this.playerNumber; i++) {
             List<Card> cardList = this.playerGroup[i].getCard();
             countCard = 0;
-            for(Card currentCard:cardList) {
+            for (Card currentCard:cardList) {
                 overallInfo[i][countCard++] = currentCard.getCardNumber();
             }
         }
@@ -156,7 +153,7 @@ public class Decker {
         List<Card> dealerCard = this.dealer.getCard();
         countCard = 0;
         int firstDealerCard = hasFinished ? 0 : 1;
-        for(int i = firstDealerCard;i< dealerCard.size();i++) {
+        for (int i = firstDealerCard;i< dealerCard.size();i++) {
             overallInfo[this.playerNumber][countCard++] = dealerCard.get(i).getCardNumber();
         }
         return overallInfo;
@@ -172,8 +169,8 @@ public class Decker {
      */
     public boolean endAdvance() {
         boolean flag = true;
-        for(int i = 0;i < this.playerNumber; i++) {
-            if(!this.loseOrNot[i]) {
+        for (int i = 0;i < this.playerNumber; i++) {
+            if (!this.loseOrNot[i]) {
                 flag = false;
                 break;
             }

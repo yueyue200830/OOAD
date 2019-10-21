@@ -28,7 +28,7 @@ public class Console {
         //Pattern 1 for Club, 2 for Heart, 3 for Diamond, 4 for Spade
         int pattern = (cardNumber + 1) / 13;
 
-        switch(pattern) {
+        switch (pattern) {
             case 1:
                 cardDescription = "Club ";
                 break;
@@ -43,19 +43,15 @@ public class Console {
                 break;
         }
 
-        if(cardValue == 1) {
+        if (cardValue == 1) {
             cardDescription += "Ace";
-        }
-        else if(cardValue == 11) {
+        } else if (cardValue == 11) {
             cardDescription += "J";
-        }
-        else if(cardValue == 12) {
+        } else if (cardValue == 12) {
             cardDescription += "Q";
-        }
-        else if(cardValue == 0) {
+        } else if (cardValue == 0) {
             cardDescription += "K";
-        }
-        else {
+        } else {
             cardDescription += cardValue;
         }
         return cardDescription;
@@ -75,10 +71,10 @@ public class Console {
             System.out.println("Round Information: ");
         }
 
-        for(int i = 0; i < currInfo.length - 1;i++) {
+        for (int i = 0; i < currInfo.length - 1; i++) {
             System.out.println("Player " + (i + 1) + ": ");
-            for(int j = 0; j < currInfo[i].length;j++) {
-                if(currInfo[i][j] != -1) {
+            for (int j = 0; j < currInfo[i].length;j++) {
+                if (currInfo[i][j] != -1) {
                     System.out.println(getCardDescription(currInfo[i][j]));
                 }
             }
@@ -86,8 +82,8 @@ public class Console {
 
         System.out.println("Dealer's Information: ");
         int indexOfDealer = currInfo.length - 1;
-        for(int j = 0; j <  currInfo[indexOfDealer].length; j++) {
-            if(currInfo[indexOfDealer][j] != -1) {
+        for (int j = 0; j <  currInfo[indexOfDealer].length; j++) {
+            if (currInfo[indexOfDealer][j] != -1) {
                 System.out.println(getCardDescription(currInfo[indexOfDealer][j]));
             }
         }
@@ -126,7 +122,7 @@ public class Console {
     public static void askBet() throws IOException {
         String hint;
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        for(int i = 0; i< numberOfPlayers; i++){
+        for (int i = 0; i< numberOfPlayers; i++){
             hint = "For player " + i + ", now input the bet";
             System.out.println(hint);
             int currentBet = Integer.valueOf(in.readLine());
@@ -148,7 +144,7 @@ public class Console {
     public static void playerRound() throws IOException {
         String hint;
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        for(int i = 0; i < numberOfPlayers; i++) {
+        for (int i = 0; i < numberOfPlayers; i++) {
             int drawCount = 0;
             hint = "Player " + (i + 1) + ": Do you want to continue to draw? (Y for continue and N for not)";
             presentRound(decker, false);
@@ -161,19 +157,16 @@ public class Console {
                     System.out.println("You get a " + getCardDescription(drawNumber));
                     drawCount++;
 
-                    if(!decker.getPlayerLose(i)) {
+                    if (!decker.getPlayerLose(i)) {
                         hint = "Player " + (i + 1) + ": Do you want to continue to draw? (Y for continue and N for not)";
-                    }
-                    else{
+                    } else{
                         System.out.println("Oops, seems you are over 21. Lose game! ");
                         break;
                     }
-                }
-                else if(result.equals("N") || result.equals("n")) {
+                } else if (result.equals("N") || result.equals("n")) {
                     System.out.println("Player " + (i + 1) + ": stop drawing. ");
                     break;
-                }
-                else {
+                } else {
                     hint = "Wrong input, input again!";
                 }
             }
@@ -225,7 +218,7 @@ public class Console {
 
 
             //If all players die, then the game end in advance.
-            if(checkPlayerLose()) {
+            if (checkPlayerLose()) {
                 System.out.println("All player loses, the game end! Winner is dealer!");
                 return;
             }
