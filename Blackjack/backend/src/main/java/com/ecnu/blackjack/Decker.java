@@ -1,7 +1,6 @@
 package com.ecnu.blackjack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -12,26 +11,21 @@ import java.util.List;
 public class Decker {
     private CardSet currentSet;
     private Player[] playerGroup;
-    private int[] playerSum;
-    private boolean[] loseOrNot;
     private int playerNumber;
     private Dealer dealer;
-    private final int maxCardNumber = 5;
 
     /**
      * Constructor of Decker, initializing the game.
      * @param playerNumber Create one dealer, card set and playerNumber players.
+     * @param playerHands the list of hand number.
      */
-    public Decker(int playerNumber){
+    public Decker(int playerNumber, int[] playerHands) {
         this.playerNumber = playerNumber;
         this.currentSet = new CardSet();
         this.playerGroup = new Player[this.playerNumber];
-        this.loseOrNot = new boolean[this.playerNumber];
         this.dealer = new Dealer();
-        this.playerSum = new int[this.playerNumber];
-        for (int i = 0 ;i < this.playerNumber; i++){
-            playerGroup[i] = new Player();
-            loseOrNot[i] = false;
+        for (int i = 0 ; i < this.playerNumber; i++) {
+            playerGroup[i] = new Player(playerHands[i]);
         }
     }
 
@@ -40,7 +34,7 @@ public class Decker {
      * @param bet the amount of money the player want to get involved
      * @param playerNo current number of player
      */
-    public void setBet(int bet,int playerNo) {
+    public void setBet(int[] bet, int playerNo) {
         this.playerGroup[playerNo].setBet(bet);
     }
 
@@ -48,33 +42,36 @@ public class Decker {
      * In the beginning of the game, draw every player including the dealer two cards.
      * Notice: Every first card of the player should be invisible to the dealer.
      */
-    public void initialDraw(){
+    public void initialDraw() {
         for (int i = 0; i < this.playerNumber; i++) {
-            this.basicDraw(i,true);
-            this.basicDraw(i,false);
+            for (int j = 0; j < this.playerGroup[i].getHandNumber(); j++) {
+                this.basicDraw(i, j, true);
+                this.basicDraw(i, j, false);
+            }
         }
-        this.basicDraw(-1,true);
-        this.basicDraw(-1,false);
+        this.basicDraw(-1, 0,true);
+        this.basicDraw(-1, 0,false);
     }
 
     /**
      * The basic operation of drawing a card and give it to the player or dealer.
      * Notice: The card is visible if it is owned by dealer or it is not the first card of players.
-     * @param playerNo current number of player
+     * @param playerNo current number of player.
+     * @param handNo the number of hand.
      * @param firstTime whether it is the first card of the player.
      * @return the number of the card that player got.
      */
-    public int basicDraw(int playerNo, boolean firstTime) {
+    public int basicDraw(int playerNo, int handNo, boolean firstTime) {
         Card newCard = this.currentSet.drawCard();
         if (playerNo != -1 && firstTime) {
             newCard.setVisibility(false);
-            this.playerGroup[playerNo].receiveCard(newCard);
+            this.playerGroup[playerNo].receiveCard(newCard, handNo);
         } else {
             newCard.setVisibility(true);
             if (playerNo == -1) {
                 this.dealer.receiveCard(newCard);
             } else {
-                this.playerGroup[playerNo].receiveCard(newCard);
+                this.playerGroup[playerNo].receiveCard(newCard, handNo);
             }
         }
         return newCard.getCardNumber();
@@ -84,12 +81,7 @@ public class Decker {
      * Ask dealer whether it wants another card after all players finished their turns.
      * @return a boolean value, indicating whether to draw another card.
      */
-    public boolean askDealer(){
-        int[] sum = new int[this.playerNumber];
-        for (int i = 0; i < this.playerNumber; i++) {
-            sum[i] = this.playerGroup[i].tellCardSumToDealer();
-        }
-        this.dealer.receiveSum(sum);
+    public boolean askDealer() {
         return this.dealer.drawOrNot();
     }
 
@@ -97,19 +89,23 @@ public class Decker {
      * Before asking the dealer whether it wants to draw, first get all the cards sun of all players,
      * in order to inform this information to the dealer, helping him to analyze the situation and decide
      * whether to draw or not.
+     * Then, ask dealer to draw.
      */
-    public void getPlayerSum(){
-        for (int i = 0; i < this.playerNumber; i++) {
-            this.playerSum[i] = this.playerGroup[i].getCardSum();
+    public void askDealerToDraw() {
+        // Tell hand's sum to dealer.
+        List<List<Integer>> sum = new ArrayList<>();
+        for (Player player : this.playerGroup) {
+            List<Integer> s = player.tellCardSumToDealer();
+            sum.add(s);
         }
-    }
-    public void askDealerToDraw(){
+        this.dealer.receiveSum(sum);
+
+        // Draw actions.
         int drawCount = 0;
         final int upMoreDrawTimes = 3;
         while (drawCount < upMoreDrawTimes) {
-           this.getPlayerSum();
             if (this.askDealer()) {
-                int cardNumber = this.basicDraw(-1,false);
+                this.basicDraw(-1, 0, false);
                 drawCount ++;
 
                 //If dealer lose in the progress of drawing card, players win.
@@ -121,41 +117,50 @@ public class Decker {
             }
         }
     }
+
     /**
      * During or after the progress of player drawing cards, the loss situation of players should be recorded.
+     * @param playerNumber the number of player
+     * @param handNo the hand number of the player
+     * @return true if the player loose.
      */
-    public boolean getPlayerLose(int playerNumber) {
-        this.loseOrNot[playerNumber] = this.playerGroup[playerNumber].getLoseOrNot();
-        return this.loseOrNot[playerNumber];
+    public boolean getPlayerLose(int playerNumber, int handNo) {
+        return this.playerGroup[playerNumber].getLoseOrNot(handNo);
     }
 
     /**
      * Show current game information to frontend when every turn is over.
+     * @param hasFinished whether the game is finished.
      * @return the specific info about every hand.
      */
-    public int[][] getRoundInfo(boolean hasFinished) {
-        int[][] overallInfo = new int[this.playerNumber + 1][maxCardNumber];
-        for (int i = 0;i <= this.playerNumber; i++) {
-            for (int j = 0; j < maxCardNumber; j++) {
-                overallInfo[i][j] = -1;
-            }
-        }
+    public List<List<List<Integer>>> getRoundInfo(boolean hasFinished) {
+        List<List<List<Integer>>> overallInfo = new ArrayList<>();
 
-        int countCard;
+        // Get player's information
         for (int i = 0; i < this.playerNumber; i++) {
-            List<Card> cardList = this.playerGroup[i].getCard();
-            countCard = 0;
-            for (Card currentCard:cardList) {
-                overallInfo[i][countCard++] = currentCard.getCardNumber();
+            List<List<Integer>> playerInfo = new ArrayList<>();
+            for (int j = 0; j < this.playerGroup[i].getHandNumber(); j++) {
+                List<Integer> handInfo = new ArrayList<>();
+                List<Card> cardList = this.playerGroup[i].getCard(j);
+                for (Card card: cardList) {
+                    handInfo.add(card.getCardNumber());
+                }
+                playerInfo.add(handInfo);
             }
+            overallInfo.add(playerInfo);
         }
 
+        // Get dealer's information
+        List<List<Integer>> dealerInfo = new ArrayList<>();
+        List<Integer> dealerHand = new ArrayList<>();
         List<Card> dealerCard = this.dealer.getCard();
-        countCard = 0;
         int firstDealerCard = hasFinished ? 0 : 1;
-        for (int i = firstDealerCard;i< dealerCard.size();i++) {
-            overallInfo[this.playerNumber][countCard++] = dealerCard.get(i).getCardNumber();
+        for (int i = firstDealerCard; i < dealerCard.size(); i++) {
+            dealerHand.add(dealerCard.get(i).getCardNumber());
         }
+        dealerInfo.add(dealerHand);
+        overallInfo.add(dealerInfo);
+
         return overallInfo;
     }
 
@@ -168,50 +173,66 @@ public class Decker {
      * @return whether the game has ended.
      */
     public boolean endAdvance() {
-        boolean flag = true;
-        for (int i = 0;i < this.playerNumber; i++) {
-            if (!this.loseOrNot[i]) {
-                flag = false;
-                break;
+        for (Player player : this.playerGroup) {
+            for (int i = 0; i < player.getHandNumber(); i++) {
+                if (!player.getLoseOrNot(i)) {
+                    return false;
+                }
             }
         }
-        return flag;
+        return true;
     }
 
     /**
      * The final step of the game, judge who are the winners.
-     * @return Int array. The winner list.
+     * @return list of wining hands.
      */
-    public List<Integer> judgeWin() {
-        List<Integer> winnerList = new ArrayList<>();
+    public List<List<Integer>> judgeWin() {
+        List<List<Integer>> winnerList = new ArrayList<>();
 
         int dealerSum = this.dealer.getCardSum();
         int dealerCardNumber = this.dealer.getCardNumber();
         boolean dealerLose = this.dealer.getLoseOrNot();
 
         for (int i = 0; i < this.playerNumber; i++) {
-            if (this.loseOrNot[i]) {
-                continue;
-            }
+            Player player = this.playerGroup[i];
+            List<Integer> winner = new ArrayList<>();
+            for (int j = 0; j < player.getHandNumber(); j++) {
+                if (player.getLoseOrNot(j)) {
+                    continue;
+                }
 
-            int playerCardNumber = this.playerGroup[i].getCardNumber();
-            boolean isLargerThanDealer = this.playerSum[i] > dealerSum;
-            boolean EqualSumAndFewerCards = this.playerSum[i] == dealerSum && playerCardNumber <= dealerCardNumber;
-            if (dealerLose || isLargerThanDealer || EqualSumAndFewerCards) {
-                winnerList.add(i);
+                int playerCardNumber = player.getCardNumber(j);
+                int cardSum = player.getCardSum(j);
+                boolean isLargerThanDealer = cardSum > dealerSum;
+                boolean equalSumAndFewerCards = cardSum == dealerSum && playerCardNumber <= dealerCardNumber;
+                if (dealerLose || isLargerThanDealer || equalSumAndFewerCards) {
+                    winner.add(j);
+                }
             }
+            winnerList.add(winner);
         }
 
         return winnerList;
     }
 
     /**
-     * Get the bet of a specific player.
-     * @param playerNo the number of player to return his / her bet
-     * @return the bet of a specific player.
+     * Get the bet of a specific hand of a specific player.
+     * @param playerNo the number of player to return his / her bet.
+     * @param handNo the number of the hand of the player.
+     * @return the bet of the hand.
      */
-    public int getBet(int playerNo){
-        return this.playerGroup[playerNo].getBet();
+    public int getBet(int playerNo, int handNo){
+        return this.playerGroup[playerNo].getBet(handNo);
+    }
+
+    /**
+     * Get the number of hand of a specific player.
+     * @param playerNo the number of player
+     * @return the number of hand of the player.
+     */
+    public int getPlayerHandNumber(int playerNo) {
+        return this.playerGroup[playerNo].getHandNumber();
     }
 
 }

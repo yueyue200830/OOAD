@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Dealer {
     private Hand hand;
-    private int[] playerSum;
+    private List<List<Integer>> playerSum;
 
     Dealer() {
         this.hand = new Hand();
@@ -17,9 +17,9 @@ public class Dealer {
 
     /**
      * Set the list of players' sum
-     * @param playerSum The list of players' sum.
+     * @param playerSum The list of player with the list of its hands.
      */
-    public void receiveSum(int[] playerSum) {
+    public void receiveSum(List<List<Integer>> playerSum) {
         this.playerSum = playerSum;
     }
 
