@@ -13,14 +13,15 @@ import java.util.List;
 public class Console {
     private static int numberOfPlayers = 0;
     private static Decker decker;
-    private static final int upMoreDrawTimes = 3;
+    private static final int UP_MORE_DRAW_TIMES = 3;
+
     /**
      * Static method for interpreting the card information.
      * @param cardNumber the essential card number.
      * @return the detailed info about the card.
      */
     public static String getCardDescription(int cardNumber) {
-        String cardDescription = "";
+        String cardDescription;
 
         int cardValue = cardNumber % 13;
 
@@ -40,8 +41,8 @@ public class Console {
             default:
                 cardDescription = "Spade ";
                 break;
-
         }
+
         if(cardValue == 1) {
             cardDescription += "Ace";
         }
@@ -83,7 +84,7 @@ public class Console {
             }
         }
 
-        System.out.println("Dealer's Infomation: ");
+        System.out.println("Dealer's Information: ");
         int indexOfDealer = currInfo.length - 1;
         for(int j = 0; j <  currInfo[indexOfDealer].length; j++) {
             if(currInfo[indexOfDealer][j] != -1) {
@@ -101,7 +102,7 @@ public class Console {
             System.out.println("Unfortunately the winner is dealer! All players lose their bet! ");
         } else {
             for (int i : winnerList) {
-                System.out.println("Player " + i+1 + "! Congratulation to win your bet for " + decker.getBet(i) + " dollars.");
+                System.out.println("Player " + (i + 1) + "! Congratulation to win your bet for " + decker.getBet(i) + " dollars.");
             }
         }
     }
@@ -112,12 +113,10 @@ public class Console {
      */
     public static void startGame() throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        String hint;
-        hint = "welcome to blackjack, please enter the number of players";
+        String hint = "Welcome to blackjack, please enter the number of players";
         System.out.println(hint);
         numberOfPlayers = Integer.valueOf(in.readLine());
         decker = new Decker(numberOfPlayers);
-        in.close();
     }
 
     /**
@@ -125,7 +124,7 @@ public class Console {
      * @throws IOException throws possible IOException caused by io.
      */
     public static void askBet() throws IOException {
-        String hint="";
+        String hint;
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         for(int i = 0; i< numberOfPlayers; i++){
             hint = "For player " + i + ", now input the bet";
@@ -133,7 +132,6 @@ public class Console {
             int currentBet = Integer.valueOf(in.readLine());
             decker.setBet(currentBet,i);
         }
-        in.close();
     }
 
     /**
@@ -144,18 +142,18 @@ public class Console {
     }
 
     /**
-     * Now it is players' round to decide whether to draw or not?
+     * Now it is players' round to decide whether to draw or not.
      * @throws IOException throws possible IOException caused by io.
      */
     public static void playerRound() throws IOException {
-        String hint = "";
+        String hint;
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         for(int i = 0; i < numberOfPlayers; i++) {
             int drawCount = 0;
             hint = "Player " + (i + 1) + ": Do you want to continue to draw? (Y for continue and N for not)";
             presentRound(decker, false);
 
-            while (drawCount < upMoreDrawTimes) {
+            while (drawCount < UP_MORE_DRAW_TIMES) {
                 System.out.println(hint);
                 String result = in.readLine();
                 if (result.equals("Y") || result.equals("y")) {
@@ -180,6 +178,7 @@ public class Console {
                 }
             }
         }
+        in.close();
     }
 
     /**
@@ -197,7 +196,7 @@ public class Console {
     public static void dealerTurn() {
         System.out.println("Now it's dealer's turn to draw.");
         int drawCount = 0;
-        while(drawCount < upMoreDrawTimes) {
+        while(drawCount < UP_MORE_DRAW_TIMES) {
             decker.getPlayerSum();
             if(decker.askDealer()) {
                 int cardNumber = decker.basicDraw(-1,false);
