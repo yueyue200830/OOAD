@@ -175,7 +175,7 @@ public class Console {
                     System.out.println(hint);
                     String result = in.readLine();
                     if (result.equals("D") || result.equals("d")) {
-                        hint = "Now palyer " + (i + 1) + "doubled the bet";
+                        hint = "Now player " + (i + 1) + " doubled the bet";
                         decker.doubleBet(i,j);
                         System.out.println(hint);
                         hint = "Player " + (i + 1) + ": Do you want to continue to draw for hand " + (j + 1) + "? or You want to double bet? (Y for continue N for not and D for double)";
