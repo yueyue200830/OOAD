@@ -105,4 +105,12 @@ public class Player {
     public int getCardNumber(int handNo) {
         return this.hands[handNo].getCardNumber();
     }
+
+    /**
+     * Double the hand i's bet
+     * @param hand the number of hand
+     */
+    public void doubleBet(int hand) {
+        this.bet[hand] *= 2;
+    }
 }

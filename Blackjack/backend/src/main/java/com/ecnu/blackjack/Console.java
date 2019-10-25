@@ -169,18 +169,24 @@ public class Console {
             for (int j = 0; j < decker.getPlayerHandNumber(i); j++) {
                 presentRound(false);
                 int drawCount = 0;
-                hint = "Player " + (i + 1) + ": Do you want to continue to draw for hand " + (j + 1) + "? (Y for continue and N for not)";
+                hint = "Player " + (i + 1) + ": Do you want to continue to draw for hand " + (j + 1) + "? or You want to double bet? (Y for continue N for not and D for double)";
 
                 while (drawCount < UP_MORE_DRAW_TIMES) {
                     System.out.println(hint);
                     String result = in.readLine();
-                    if (result.equals("Y") || result.equals("y")) {
+                    if (result.equals("D") || result.equals("d")) {
+                        hint = "Now palyer " + (i + 1) + "doubled the bet";
+                        decker.doubleBet(i,j);
+                        System.out.println(hint);
+                        hint = "Player " + (i + 1) + ": Do you want to continue to draw for hand " + (j + 1) + "? or You want to double bet? (Y for continue N for not and D for double)";
+
+                    } else if (result.equals("Y") || result.equals("y")) {
                         int drawNumber = decker.basicDraw(i, j, false);
                         System.out.println("You get a " + getCardDescription(drawNumber));
                         drawCount++;
 
                         if (!decker.getPlayerLose(i, j)) {
-                            hint = "Player " + (i + 1) + ": Do you want to continue to draw for hand " + (j + 1) + "? (Y for continue and N for not)";
+                            hint = "Player " + (i + 1) + ": Do you want to continue to draw for hand " + (j + 1) + "? (Y for continue N for not and D for double)";
                         } else {
                             System.out.println("Oops, seems you are over 21. Lose game! ");
                             break;

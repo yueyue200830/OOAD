@@ -235,4 +235,12 @@ public class Decker {
         return this.playerGroup[playerNo].getHandNumber();
     }
 
+    /**
+     * Double player i's bet.
+     * @param playerNo the number of player
+     */
+    public void doubleBet(int playerNo, int hand) {
+        this.playerGroup[playerNo].doubleBet(hand);
+    }
+
 }
