@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Console {
     private static int numberOfPlayers = 0;
-    private static Decker decker;
+    private static Deck deck;
     private static final int UP_MORE_DRAW_TIMES = 3;
 
     /**
@@ -60,7 +60,7 @@ public class Console {
      * @param hasFinished whether to present the final stage.
      */
     public static void presentRound(boolean hasFinished) {
-        List<List<List<Integer>>> currInfo = decker.getRoundInfo(hasFinished);
+        List<List<List<Integer>>> currInfo = deck.getRoundInfo(hasFinished);
 
         System.out.println("-------------------------------------------");
         if (hasFinished) {
@@ -101,7 +101,7 @@ public class Console {
         for (int i = 0; i < winnerList.size(); i++) {
             for (int winner : winnerList.get(i)) {
                 hasWinner = true;
-                int bet = decker.getBet(i, winner);
+                int bet = deck.getBet(i, winner);
                 System.out.println("Player " + (i + 1) + "! Congratulation to win your bet for " + bet + " dollars by hand " + (winner + 1) + ".");
             }
         }
@@ -112,7 +112,7 @@ public class Console {
     }
 
     /**
-     * Basic initialization of game, get number of players from IO and set decker already.
+     * Basic initialization of game, get number of players from IO and set deck already.
      * @throws IOException throws the potential IOException.
      */
     public static void startGame() throws IOException {
@@ -128,7 +128,7 @@ public class Console {
             playerHands[i] = Integer.parseInt(in.readLine());
         }
 
-        decker = new Decker(numberOfPlayers, playerHands);
+        deck = new Deck(numberOfPlayers, playerHands);
     }
 
     /**
@@ -139,14 +139,14 @@ public class Console {
         String hint;
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         for (int i = 0; i < numberOfPlayers; i++) {
-            int handNo = decker.getPlayerHandNumber(i);
+            int handNo = deck.getPlayerHandNumber(i);
             int[] bet = new int[handNo];
             for (int j = 0; j < handNo; j++) {
                 hint = "For player " + (i + 1) + ", now input the bet of hand " + (j + 1) + ":";
                 System.out.println(hint);
                 bet[j] = Integer.parseInt(in.readLine());
             }
-            decker.setBet(bet, i);
+            deck.setBet(bet, i);
         }
     }
 
@@ -154,7 +154,7 @@ public class Console {
      * First round of the game, every player including dealer draw two cards, one visible and the other invisible.
      */
     public static void firstRound() {
-        decker.initialDraw();
+        deck.initialDraw();
     }
 
     /**
@@ -166,7 +166,7 @@ public class Console {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
         for (int i = 0; i < numberOfPlayers; i++) {
-            for (int j = 0; j < decker.getPlayerHandNumber(i); j++) {
+            for (int j = 0; j < deck.getPlayerHandNumber(i); j++) {
                 presentRound(false);
                 int drawCount = 0;
                 hint = "Player " + (i + 1) + ": Do you want to continue to draw for hand " + (j + 1) + "? or You want to double bet? (Y for continue N for not and D for double)";
@@ -176,16 +176,16 @@ public class Console {
                     String result = in.readLine();
                     if (result.equals("D") || result.equals("d")) {
                         hint = "Now player " + (i + 1) + " doubled the bet";
-                        decker.doubleBet(i,j);
+                        deck.doubleBet(i,j);
                         System.out.println(hint);
                         hint = "Player " + (i + 1) + ": Do you want to continue to draw for hand " + (j + 1) + "? or You want to double bet? (Y for continue N for not and D for double)";
 
                     } else if (result.equals("Y") || result.equals("y")) {
-                        int drawNumber = decker.basicDraw(i, j, false);
+                        int drawNumber = deck.basicDraw(i, j, false);
                         System.out.println("You get a " + getCardDescription(drawNumber));
                         drawCount++;
 
-                        if (!decker.getPlayerLose(i, j)) {
+                        if (!deck.getPlayerLose(i, j)) {
                             hint = "Player " + (i + 1) + ": Do you want to continue to draw for hand " + (j + 1) + "? (Y for continue N for not and D for double)";
                         } else {
                             System.out.println("Oops, seems you are over 21. Lose game! ");
@@ -209,7 +209,7 @@ public class Console {
      * @return whether the game has to continue.
      */
     public static boolean checkPlayerLose() {
-        return decker.endAdvance();
+        return deck.endAdvance();
     }
 
     /**
@@ -217,7 +217,7 @@ public class Console {
      */
     public static void dealerTurn() {
         System.out.println("Now it's dealer's turn to draw.");
-        decker.askDealerToDraw();
+        deck.askDealerToDraw();
     }
 
     /**
@@ -225,14 +225,14 @@ public class Console {
      */
     public static void checkFinalState() {
         presentRound(true);
-        List<List<Integer>> winnerList = decker.judgeWin();
+        List<List<Integer>> winnerList = deck.judgeWin();
         System.out.println("Now declare the winner of the game:");
         printWinner(winnerList);
     }
 
     public static void main(String[] args) {
         try{
-            //First to get the number of the players, then initialize the whole game by creating decker.
+            //First to get the number of the players, then initialize the whole game by creating deck.
             startGame();
 
             //Now, it's time to ask all the players to set their bet.

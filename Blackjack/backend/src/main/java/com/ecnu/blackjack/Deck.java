@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Decker class serves as controller to connect dealer and player.
+ * Deck class serves as controller to connect dealer and player.
  * @author Yiqing Tao, Jiayi Zhu
  * @date 2019-10-18 16:20
  */
-public class Decker {
+public class Deck {
     private CardSet currentSet;
     private Player[] playerGroup;
     private int playerNumber;
     private Dealer dealer;
 
     /**
-     * Constructor of Decker, initializing the game.
+     * Constructor of Deck, initializing the game.
      * @param playerNumber Create one dealer, card set and playerNumber players.
      * @param playerHands the list of hand number.
      */
-    public Decker(int playerNumber, int[] playerHands) {
+    Deck(int playerNumber, int[] playerHands) {
         this.playerNumber = playerNumber;
         this.currentSet = new CardSet();
         this.playerGroup = new Player[this.playerNumber];
