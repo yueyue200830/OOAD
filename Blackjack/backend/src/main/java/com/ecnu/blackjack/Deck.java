@@ -95,7 +95,7 @@ public class Deck {
         // Tell hand's sum to dealer.
         List<List<Integer>> sum = new ArrayList<>();
         for (Player player : this.playerGroup) {
-            List<Integer> s = player.tellCardSumToDealer();
+            List<Integer> s = player.getVisibleCardSum();
             sum.add(s);
         }
         this.dealer.receiveSum(sum);

@@ -64,7 +64,7 @@ public class Player {
      * Get the sum of cards that is visible to dealer.
      * @return The sum of visible cards.
      */
-    public List<Integer> tellCardSumToDealer() {
+    public List<Integer> getVisibleCardSum() {
         List<Integer> sum = new ArrayList<>();
         for (int i = 0; i < this.handNumber; i++) {
             List<Card> cards = this.hands[i].getCards();
