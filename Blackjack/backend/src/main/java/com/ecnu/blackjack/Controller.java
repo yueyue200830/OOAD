@@ -44,6 +44,7 @@ public class Controller {
         List<List<List<Integer>>> info = deck.getRoundInfo(false);
         JSONObject jsonInfo = new JSONObject();
         jsonInfo.append("info", info);
+        System.out.println(jsonInfo.toString());
         return jsonInfo.toString();
     }
 
@@ -65,8 +66,14 @@ public class Controller {
 
     @RequestMapping(value = "/dealerTurn", method = RequestMethod.GET)
     @ResponseBody
-    public List<List<Integer>> dealerTurn() {
+    public String dealerTurn() {
         System.out.println("dealer turn");
-        return deck.askDealerToDraw();
+        JSONObject jsonObject = new JSONObject();
+        List<List<List<Integer>>> finalInfo = deck.getRoundInfo(true);
+        jsonObject.append("finalInfo", finalInfo);
+        boolean dealerLose = deck.getDealerLose();
+        jsonObject.append("dealerLose", dealerLose);
+        return jsonObject.toString();
+
     }
 }
