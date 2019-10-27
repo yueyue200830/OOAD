@@ -91,9 +91,10 @@ public class Deck {
      * whether to draw or not.
      * Then, ask dealer to draw.
      */
-    public void askDealerToDraw() {
+    public List<List<Integer>> askDealerToDraw() {
         // Tell hand's sum to dealer.
         List<List<Integer>> sum = new ArrayList<>();
+        List<List<Integer>> currCardValue = new ArrayList<>();
         for (Player player : this.playerGroup) {
             List<Integer> s = player.getVisibleCardSum();
             sum.add(s);
@@ -103,19 +104,27 @@ public class Deck {
         // Draw actions.
         int drawCount = 0;
         final int upMoreDrawTimes = 3;
+        List<Integer> cardInfo = new ArrayList<>();
+        List<Integer> loseInfo = new ArrayList<>();
         while (drawCount < upMoreDrawTimes) {
             if (this.askDealer()) {
-                this.basicDraw(-1, 0, false);
+                int value = this.basicDraw(-1, 0, false);
+                cardInfo.add(value);
                 drawCount ++;
 
                 //If dealer lose in the progress of drawing card, players win.
                 if (this.getDealerLose()) {
+                    loseInfo.add(1);
                     break;
                 }
             } else {
+                loseInfo.add(0);
                 break;
             }
         }
+        currCardValue.add(cardInfo);
+        currCardValue.add(loseInfo);
+        return currCardValue;
     }
 
     /**
