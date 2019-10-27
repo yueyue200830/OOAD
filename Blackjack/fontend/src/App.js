@@ -30,7 +30,7 @@ class App extends React.Component {
         ).then(
             res => {
                 console.log("Start Game!");
-                console.log(res.data.info[0]);
+                console.log(res.data.info);
                 this.setState({
                     GameSetting: false,
                     GameStart: true,
@@ -267,7 +267,23 @@ class App extends React.Component {
         description += ".jpg";
         return description;
     };
-
+    displayHintCard = (playerCard, index) => {
+        return(
+            playerCard.map(this.displayHand)
+        )
+    }
+    displayHand = (hand,index) => {
+        return(
+            hand.map(this.displaySmallCard)
+        )
+    }
+    displaySmallCard = (card,index) => {
+        let imgSrc = this.revertCard(card);
+        console.log("load " + imgSrc);
+        return(
+            <img width="15%" className="Every-Card" src={require("./Card" + imgSrc)} alt="Clover 1.jpg"/>
+        )
+    }
     displayCard = (card, index) => {
         let imgSrc = this.revertCard(card);
         // console.log("load " + imgSrc);
@@ -320,26 +336,33 @@ class App extends React.Component {
             }
             this.forceUpdate();
         } else {
+            let self = this;
+            this.setState(
+                {
+                    currentPlayer: this.state.currentPlayer + 1,
+                    currentHand: 1
+                }
+            )
             console.log("Now it is dealer's turn");
             axios.get("http://localhost:8080/dealerTurn")
                 .then(
                     res => {
-                        let loseCondition = res.data.pop();
-                        let dataCondition = res.data.pop();
-                        for(let i = 0;i < dataCondition.length; i++) {
-                            this.state.cardInfo[this.state.playerNumber][0].push(dataCondition[i]);
-                        }
-                        if(loseCondition) {
-                            this.setState({
-                                dealerLose: true
-                            })
-                        }
+                        console.log(res.data);
+                        let loseCondition = res.data.dealerLose;
+                        let dataCondition = res.data.finalInfo[0];
+                        console.log(loseCondition);
+                        console.log(dataCondition);
+                        this.setState({
+                            cardInfo: dataCondition,
+                            dealerLose: loseCondition
+                        });
                         this.forceUpdate();
                     }
                 )
                 .catch(
                     res=> {
                         console.log("fail to complete dealer's turn");
+                        console.log(res);
                     }
                 )
         }
@@ -412,15 +435,17 @@ class App extends React.Component {
                     {this.showAsk()}
                 </div>
                 <div className="Information-part">
-                    <div className="Each-Opponent">
-                        <div className="Opponent-Info">
-                            Player 2's Hand 2:
-                        </div>
-                        <div className="Total-Card">
-                            <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
-                            <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
-                            <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
-                            <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
+                    <div>
+                        <div className="Each-Opponent">
+                            <div className="Opponent-Info">
+                                Player 2's Hand 2:
+                            </div>
+                            <div className="Total-Card">
+
+                                <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
+                                <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
+                                <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
+                            </div>
                         </div>
                     </div>
                     <Divider className="divider" />
