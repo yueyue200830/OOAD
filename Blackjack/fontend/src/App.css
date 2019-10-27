@@ -17,3 +17,38 @@
   flex-grow: 1;
   background-color: bisque;
 }
+
+.Game-info-ok-div {
+  display: flex;
+}
+
+.Game-info-ok {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Game-setting-number {
+  display: flex;
+}
+
+.Game-setting-number-text {
+  margin: 0 10px 0 auto;
+}
+
+.Game-setting-number-input {
+  margin-right: auto;
+}
+
+.Game-setting-table {
+  width:100%;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.Game-setting-table-button {
+  margin: 0 5px;
+}
+
+.Game-setting-table-tr {
+  height: 2.5em;
+}
