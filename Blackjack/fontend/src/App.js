@@ -249,7 +249,7 @@ class App extends React.Component {
         console.log("load " + imgSrc);
         return(
             <div key={index} className="Each-Card" >
-                <img width="15%" src={require("./Card/" + imgSrc)} />
+                <img width="15%" src={require("./Card/" + imgSrc)} alt={this.revertCard(index)} />
             </div>
         )
     };
@@ -319,33 +319,16 @@ class App extends React.Component {
                     </div>
                 </div>
                 <div className="Information-part">
-                    other information
-                    <div className="Opponent-Info">
+                    <div>
                         <div className="Each-Opponent">
                             <div className="Opponent-Info">
                                 Player 2's Hand 2:
                             </div>
                             <div className="Total-Card">
-                                <div className="Every-Card">
-                                    <img width={70} height={110} className="op-img" src={require("./Card/Clover 1.jpg")}>
-                                    </img>
-                                </div>
-                                <div className="Every-Card">
-                                    <img  width={70} height={110} src={require("./Card/Clover 1.jpg")}>
-                                    </img>
-                                </div>
-                                <div className="Every-Card">
-                                    <img width={70} height={110} src={require("./Card/Clover 1.jpg")}>
-                                    </img>
-                                </div>
-                                <div className="Every-Card">
-                                    <img width={70} height={110} src={require("./Card/Clover 1.jpg")}>
-                                    </img>
-                                </div>
-                                <div className="Every-Card">
-                                    <img width={70} height={110} src={require("./Card/Clover 1.jpg")}>
-                                    </img>
-                                </div>
+                                <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
+                                <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
+                                <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
+                                <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
                             </div>
                         </div>
                     </div>

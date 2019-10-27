@@ -72,10 +72,10 @@
 }
 
 .Choice-Part {
-  margin-top: 50px;
-  margin-bottom: auto;
+  margin: 50px auto auto;
   background-color: cadetblue;
-  padding: 20px;
+  padding: 20px 40px;
+  border-radius: 20px;
 }
 
 .Hint-Message {
@@ -96,11 +96,31 @@
 .Information-part {
   flex-grow: 1;
   background-color: bisque;
+  overflow: scroll;
+
+}
+
+.Information-part::-webkit-scrollbar {
+  display: none;
+}
+
+.Each-Opponent {
+  padding: 10px 5px 5px;
+}
+
+.Opponent-Info {
+  font-size: 18px;
+  height: 2em;
+  margin: 5px 0;
+}
+
+.Total-Card {
+  margin: 5px 0;
 }
 
 .Every-Card {
   display: inline;
-  padding-left: 5px;
+  margin: 0 5px;
 }
 
 .divider {
