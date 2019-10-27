@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Modal, Button, InputNumber, Divider } from 'antd';
+import { Modal, Button, InputNumber, Divider, message } from 'antd';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -18,13 +18,14 @@ class App extends React.Component {
             cardInfo: [[[]], [[]]],
             currentPlayer: 1,
             currentHand: 1,
-            // betList: [[10,12],[20]],
+            bet: [[10,12],[20]],
             betList: [{player: 1, hand: 1, bet: 10}, {player: 2, hand: 1, bet: 10}, {player: 3, hand: 1, bet: 10}],
             dealerLose: false
         };
     }
 
     startGame = () => {
+        this.convertBetList();
         axios.post("http://127.0.0.1:8080/startGame", this.state
         ).then(
             res => {
@@ -37,6 +38,22 @@ class App extends React.Component {
                 });
             }
         );
+    };
+
+    convertBetList = () => {
+        let bet = [];
+        for (let i = 0; i < this.state.betList.length; i++) {
+            let b = this.state.betList[i];
+            let p = b.player - 1;
+            if (bet.length < p) {
+                bet[p].push(b.bet);
+            } else {
+                bet.push([b.bet]);
+            }
+        }
+        this.setState({
+            bet: bet,
+        });
     };
 
     handleGameInfoOk = () => {
@@ -199,13 +216,19 @@ class App extends React.Component {
     drawCard = () => {
         console.log("start draw");
         axios.get('http://localhost:8080/drawCard',{
-            params:{playerNo: this.state.currentPlayer - 1, handNo: this.state.currentHand - 1 }
+            params:{playerNo: this.state.currentPlayer - 1, handNo: this.state.currentHand - 1}
         })
             .then(
                 res => {
                     console.log(res.data);
-                    this.state.cardInfo[this.state.currentPlayer - 1][this.state.currentHand - 1].push(res.data);
+                    this.state.cardInfo[this.state.currentPlayer - 1][this.state.currentHand - 1].push(res.data.newCard[0]);
                     this.forceUpdate();
+                    if (res.data.lose[0] === true) {
+                        this.onePlayerLostMessage();
+                        setTimeout(() => {
+                            this.nextDraw();
+                        }, 3000);
+                    }
                 }
                 )
             .catch(
@@ -216,7 +239,7 @@ class App extends React.Component {
     };
 
     revertCard = (cardNumber) => {
-        console.log("card number " + cardNumber);
+        // console.log("card number " + cardNumber);
         let color = Math.floor((cardNumber + 1) / 13);
         let value = cardNumber % 13;
         if (value === 0) {
@@ -226,19 +249,19 @@ class App extends React.Component {
 
         switch (color) {
             case 0:
-                console.log("color = 0");
+                // console.log("color = 0");
                 description += "Clover " + value;
                 break;
             case 1:
-                console.log("color = 1");
+                // console.log("color = 1");
                 description += "Spade " + value;
                 break;
             case 2:
-                console.log("color = 2");
+                // console.log("color = 2");
                 description += "diamond " + value;
                 break;
             default:
-                console.log("color = 3");
+                // console.log("color = 3");
                 description += "Heart " + value;
         }
         description += ".jpg";
@@ -247,7 +270,7 @@ class App extends React.Component {
 
     displayCard = (card, index) => {
         let imgSrc = this.revertCard(card);
-        console.log("load " + imgSrc);
+        // console.log("load " + imgSrc);
         return(
             <div key={index} className="Each-Card" >
                 <img width="15%" src={require("./Card/" + imgSrc)} alt={this.revertCard(index)} />
@@ -256,12 +279,17 @@ class App extends React.Component {
     };
 
     doubleBet = () => {
-        let betList = this.state.betList;
         console.log("double bet");
         this.setState({
-           betList: this.state.betList[this.state.currentPlayer - 1][this.state.currentHand - 1] * 2 }
-        );
+           bet: this.state.bet.map((b, i) => {
+               if (i === this.state.currentPlayer - 1) {
+                   b[this.state.currentHand - 1] *= 2;
+               }
+               return b;
+           })
+        });
         this.forceUpdate();
+
         axios.get("http://localhost:8080/doubleBet",{
             params:{playerNo: this.state.currentPlayer - 1, handNo: this.state.currentHand - 1}
         })
@@ -280,10 +308,16 @@ class App extends React.Component {
     nextDraw = () => {
         console.log("next player");
         if (this.state.currentPlayer <= this.state.playerNumber) {
-            this.setState({
+            if (this.state.currentHand < this.state.playerHandNumber[this.state.currentPlayer - 1]) {
+                this.setState({
+                    currentHand: this.state.currentHand + 1
+                });
+            } else {
+                this.setState({
                     currentPlayer: this.state.currentPlayer + 1,
                     currentHand: 1
                 });
+            }
             this.forceUpdate();
         } else {
             console.log("Now it is dealer's turn");
@@ -312,35 +346,70 @@ class App extends React.Component {
         console.log(this.state.currentPlayer);
     };
 
+    onePlayerLostMessage = () => {
+        message.info("Oops! You are over 21!");
+    };
+
+    showBet = () => {
+        if (this.state.currentPlayer <= this.state.playerNumber) {
+            return(
+                <div className="Player-Info">
+                    <div>
+                        Player {this.state.currentPlayer}'s Hand {this.state.currentHand}'s Turn:
+                    </div>
+                    <div>
+                        Current bet is: {this.state.bet[this.state.currentPlayer - 1][this.state.currentHand - 1]}
+                    </div>
+                </div>
+            )
+        } else {
+            return(
+                <div className="Player-Info">
+                    <div>
+                        Dealer's Turn:
+                    </div>
+                </div>
+            )
+        }
+    };
+
+    showAsk = () => {
+        if (this.state.GameStart && this.state.currentPlayer <= this.state.playerNumber) {
+            return(
+                <div className="Choice-Part">
+                    <div className="Hint-Message">
+                        Choose the operation you want to do:
+                    </div>
+                    <div className="Choice-Buttons">
+                        <div className="Each-Button">
+                            <Button type="primary" onClick={this.doubleBet} size="large">Double</Button>
+                        </div>
+                        <div className="Each-Button">
+                            <Button type="primary" onClick={this.drawCard} size="large">Draw</Button>
+                        </div>
+                        <div className="Each-Button">
+                            <Button type="primary" onClick={this.nextDraw} size="large">Pass</Button>
+                        </div>
+                    </div>
+                </div>
+            )
+        } else {
+            return(
+                <div className="Choice-Part-hidden" />
+            )
+        }
+    };
+
     render() {
         return (
             <div className="App">
                 <div className="Player-part">
                     <Button className="rule" type="primary" onClick={this.showRule} shape="round">Rule</Button>
-                    <div className="Player-Info">
-                        Player 1's Hand 1's Turn:
-                        <br/>
-                            Current bet is: {this.state.betList[this.state.currentPlayer - 1][this.state.currentHand - 1]}
-                    </div>
+                    {this.showBet()}
                     <div className="All=Card">
                         {this.state.cardInfo[this.state.currentPlayer - 1][this.state.currentHand - 1].map(this.displayCard)}
                     </div>
-                    <div className="Choice-Part">
-                        <div className="Hint-Message">
-                            Choose the operation you want to do:
-                        </div>
-                        <div className="Choice-Buttons">
-                            <div className="Each-Button">
-                                <Button type="primary" onClick={this.doubleBet} size="large">Double</Button>
-                            </div>
-                            <div className="Each-Button">
-                                <Button type="primary" onClick={this.drawCard} size="large">Draw</Button>
-                            </div>
-                            <div className="Each-Button">
-                                <Button type="primary" onClick={this.nextDraw} size="large">Pass</Button>
-                            </div>
-                        </div>
-                    </div>
+                    {this.showAsk()}
                 </div>
                 <div className="Information-part">
                     <div className="Each-Opponent">

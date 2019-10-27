@@ -49,10 +49,15 @@ public class Controller {
 
     @RequestMapping(value = "/drawCard", method = RequestMethod.GET)
     @ResponseBody
-    public int getOneCard(@RequestParam(name="playerNo") int playerNo, @RequestParam(name = "handNo") int handNo){
+    public String getOneCard(@RequestParam(name="playerNo") int playerNo, @RequestParam(name = "handNo") int handNo){
         System.out.println("receive " + playerNo + " " + handNo);
-        return deck.basicDraw(playerNo,handNo,false);
+        int num = deck.basicDraw(playerNo, handNo, false);
+        boolean largerThan21 = deck.getPlayerLose(playerNo, handNo);
 
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.append("newCard", num);
+        jsonObject.append("lose", largerThan21);
+        return jsonObject.toString();
     }
 
     @RequestMapping(value = "/doubleBet", method = RequestMethod.GET)

@@ -76,6 +76,14 @@
   background-color: cadetblue;
   padding: 20px 40px;
   border-radius: 20px;
+  height: 160px;
+}
+
+.Choice-Part-hidden {
+  margin: 50px auto auto;
+  padding: 20px 40px;
+  border-radius: 20px;
+  height: 160px;
 }
 
 .Hint-Message {
