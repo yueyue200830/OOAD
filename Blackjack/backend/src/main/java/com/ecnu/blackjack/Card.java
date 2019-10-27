@@ -16,20 +16,20 @@ public class Card {
     /**
      * @param cardNumber The card number
      */
-    Card (int cardNumber) {
+    Card(int cardNumber) {
         this.cardNumber = cardNumber;
         this.visibility = false;
     }
 
-    public boolean isVisible () {
+    public boolean isVisible() {
         return this.visibility;
     }
 
-    public int getCardNumber () {
+    public int getCardNumber() {
         return this.cardNumber;
     }
 
-    public void setVisibility (boolean visibility) {
+    public void setVisibility(boolean visibility) {
         this.visibility = visibility;
     }
 }

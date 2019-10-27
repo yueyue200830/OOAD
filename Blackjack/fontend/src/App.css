@@ -1,0 +1,19 @@
+@import '~antd/dist/antd.css';
+
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.Player-part {
+  width: 66%;
+  flex-shrink: 0;
+  background-color: aqua;
+}
+
+.Information-part {
+  flex-grow: 1;
+  background-color: bisque;
+}

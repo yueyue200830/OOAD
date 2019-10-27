@@ -15,7 +15,7 @@ public class CardSet {
     /**
      * Initialize 52 cards and sort the sequence randomly.
      */
-    CardSet () {
+    CardSet() {
         int cardNumber = 52;
 
         // Initialize cards
@@ -31,7 +31,7 @@ public class CardSet {
     /**
      * Remove the first card.
      */
-    private void removeCard () {
+    private void removeCard() {
         this.cards.remove(0);
     }
 
@@ -39,7 +39,7 @@ public class CardSet {
      * Get the first card and delete it from the set.
      * @return The first card in the set
      */
-    public Card drawCard () {
+    public Card drawCard() {
         Card firstCard = this.cards.get(0);
         this.removeCard();
         return firstCard;
