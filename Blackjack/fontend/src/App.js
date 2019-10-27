@@ -9,6 +9,7 @@ class App extends React.Component {
         this.state = {
             GameInfo: true,
             GameSetting: false,
+            GameStart: false,
             playerNumber: 3,
             playerHandNumber: [1, 1, 1],
             turn: 1,
@@ -27,8 +28,11 @@ class App extends React.Component {
         ).then(
             res => {
                 console.log("Start Game!");
+                console.log(res.data.info[0]);
                 this.setState({
-                    GameSetting: false
+                    GameSetting: false,
+                    GameStart: true,
+                    cardInfo: res.data.info[0],
                 });
             }
         );
@@ -37,8 +41,12 @@ class App extends React.Component {
     handleGameInfoOk = () => {
         this.setState({
             GameInfo: false,
-            GameSetting: true
         });
+        if (!this.state.GameStart) {
+            this.setState({
+                GameSetting: true
+            });
+        }
     };
 
     setPlayerNumber = (num) => {
@@ -181,10 +189,16 @@ class App extends React.Component {
         )
     };
 
+    showRule = () => {
+        this.setState({
+            GameInfo: true,
+        });
+    };
+
     drawCard = () => {
         console.log("start draw");
-        axios.get('/drawCard',{
-            params:{playerNo:1,handNo: 1}
+        axios.get("http://127.0.0.1:8080/drawCard",{
+            params:{playerNo: 1, handNo: 1}
         })
             .then(
                 res => {
@@ -204,9 +218,10 @@ class App extends React.Component {
         console.log("card number " + cardNumber);
         let color = Math.floor((cardNumber + 1) / 13);
         let value = cardNumber % 13;
+        if (value === 0) {
+            value = 13;
+        }
         let description = "";
-        //console.log("color: " + color);
-        // console.log("value: " + value);
         switch (color) {
             case 0:
                 console.log("color = 0");
@@ -220,10 +235,9 @@ class App extends React.Component {
                 console.log("color = 2");
                 description += "diamond " + value;
                 break;
-            case 3:
+            default:
                 console.log("color = 3");
                 description += "Heart " + value;
-                break;
         }
         description += ".jpg";
         //console.log("transfer over " + description);
@@ -235,8 +249,7 @@ class App extends React.Component {
         console.log("load " + imgSrc);
         return(
             <div key={index} className="Each-Card" >
-                <img width="120px" height="200px" src={require("./Card/" + imgSrc)}>
-                </img>
+                <img width="15%" src={require("./Card/" + imgSrc)} />
             </div>
         )
     };
@@ -248,7 +261,7 @@ class App extends React.Component {
            betList: this.state.betList[0][0]*2}
         );
         this.forceUpdate();
-        axios.get("/doubleBet",{
+        axios.get("http://127.0.0.1:8080/doubleBet",{
             params:{playerNo:1,handNo:1}
         })
             .then(
@@ -275,26 +288,17 @@ class App extends React.Component {
         console.log(this.state.currentPlayer);
     };
 
-    showGameInfo = () => {
-        this.setState({
-            GameInfo: true,
-        });
-    };
-
     render() {
         return (
             <div className="App">
                 <div className="Player-part">
-                    Player Page
-                    <div className="Player-Info">
-                        <Button className="rule" type="primary">Rule</Button>
-                    </div>
+                    <Button className="rule" type="primary" onClick={this.showRule} shape="round">Rule</Button>
                     <div className="Player-Info">
                         Player 1's Hand 1's Turn:
                         <br/>
-                            Current bet is: {this.state.betList[0][0]}
+                        Current bet is: {this.state.betList[0][0]}
                     </div>
-                    <div className="All=Card">
+                    <div className="All-Card">
                         {this.state.cardInfo[this.state.currentPlayer - 1][0].map(this.displayCard)}
                     </div>
                     <div className="Choice-Part">
@@ -303,13 +307,13 @@ class App extends React.Component {
                         </div>
                         <div className="Choice-Buttons">
                             <div className="Each-Button">
-                            <Button type="primary" onClick={this.doubleBet}>Double</Button>
+                                <Button type="primary" onClick={this.doubleBet} size="large">Double</Button>
                             </div>
                             <div className="Each-Button">
-                            <Button type="primary" onClick={this.drawCard}>Draw</Button>
+                                <Button type="primary" onClick={this.drawCard} size="large">Draw</Button>
                             </div>
                             <div className="Each-Button">
-                            <Button type="primary" onClick={this.nextDraw}>Pass</Button>
+                                <Button type="primary" onClick={this.nextDraw} size="large">Pass</Button>
                             </div>
                         </div>
                     </div>

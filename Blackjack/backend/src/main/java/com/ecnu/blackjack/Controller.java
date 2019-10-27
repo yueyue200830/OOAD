@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author Jiayi Zhu, Yiqing Tao
  * @date 2019-10-27 17:25
@@ -14,7 +16,7 @@ public class Controller {
     private Deck deck;
 
     @PostMapping(value = "startGame")
-    public void startGame(@RequestBody String response) {
+    public String startGame(@RequestBody String response) {
 
         JSONObject jsonObject = new JSONObject(response);
         int playerNumber = jsonObject.getInt("playerNumber");
@@ -36,13 +38,20 @@ public class Controller {
             }
             deck.setBet(bet, i);
         }
+
+        deck.initialDraw();
+
+        List<List<List<Integer>>> info = deck.getRoundInfo(false);
+        JSONObject jsonInfo = new JSONObject();
+        jsonInfo.append("info", info);
+        return jsonInfo.toString();
     }
 
     @RequestMapping(value = "/drawCard", method = RequestMethod.GET)
     @ResponseBody
     public int getOneCard(@RequestParam(name="playerNo") int playerNo, @RequestParam(name = "handNo") int handNo){
         System.out.println("receive " + playerNo + " " + handNo);
-        int cardNum = deck.basicDraw(1,1,true);
+        int cardNum = deck.basicDraw(0,0,false);
         return cardNum;
     }
 
