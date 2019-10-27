@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { Modal, Button, InputNumber, Divider } from 'antd';
 import axios from 'axios';
-import { Modal, Button, InputNumber, Divider } from 'antd';
 
 class App extends React.Component {
     constructor(props){
@@ -11,125 +10,17 @@ class App extends React.Component {
             GameInfo: true,
             GameSetting: false,
             playerNumber: 3,
-            playerHandNumber: [1,1],
+            playerHandNumber: [1, 1, 1],
             turn: 1,
             playerStatus: [true],
             initialDraw: true,
-            cardInfo: [[[2,16,48]],[[11,14,50]]],
+            cardInfo: [[[2, 16, 48]], [[11, 14, 50]]],
             currentPlayer: 1,
             currentHand: 1,
             // betList: [[10,12],[20]],
-            betList: [{player: 1, hand: 1, bet: 10}],
+            betList: [{player: 1, hand: 1, bet: 10}, {player: 2, hand: 1, bet: 10}, {player: 3, hand: 1, bet: 10}],
         };
     }
-
-    drawCard= () => {
-        console.log("start draw");
-        axios.get('/drawCard',{
-            params:{playerNo:1,handNo: 1}
-        })
-            .then(
-                res => {
-                    console.log(res.data);
-                    this.state.cardInfo[0][0].push(res.data);
-                    this.forceUpdate();
-                }
-                )
-            .catch(
-                res => {
-                    console.log("error");
-                }
-            )
-    }
-
-    revertCard= (cardNumber) => {
-        console.log("card number " + cardNumber);
-        let color = Math.floor((cardNumber + 1) / 13);
-        let value = cardNumber % 13;
-        let description = "";
-        //console.log("color: " + color);
-       // console.log("value: " + value);
-        switch (color) {
-            case 0:
-                console.log("color = 0");
-                description += "Clover " + value;
-                break;
-            case 1:
-                console.log("color = 1");
-                description += "Spade " + value;
-                break;
-            case 2:
-                console.log("color = 2");
-                description += "diamond " + value;
-                break;
-            case 3:
-                console.log("color = 3");
-                description += "Heart " + value;
-                break;
-        }
-        description += ".jpg";
-        //console.log("transfer over " + description);
-        return description;
-    }
-
-    displayCard= (card,index) => {
-        let imgSrc = this.revertCard(card);
-        console.log("load " + imgSrc);
-        return(
-            <div className="Each-Card" >
-                <img width="120px" height="200px" src={require("./Card/" + imgSrc)}>
-                </img>
-            </div>
-        )
-    }
-
-    doubleBet = ()=> {
-        let betList = this.state.betList;
-        console.log("double bet");
-        this.setState({
-           betList: this.state.betList[0][0]*2}
-        )
-        this.forceUpdate();
-        axios.get("/doubleBet",{
-            params:{playerNo:1,handNo:1}
-        })
-            .then(
-                res => {
-                    console.log("double success");
-                }
-            )
-            .catch(
-                res => {
-                    console.log("double fail");
-                }
-            )
-    }
-
-    nextDraw = ()=> {
-        console.log("next player");
-        let currentPlayer = this.state.currentPlayer;
-        if(this.state.currentPlayer <= this.state.playerNumber){
-            this.setState(
-                {
-                    currentPlayer: this.state.currentPlayer + 1
-                })
-        }
-        this.forceUpdate();
-        console.log(this.state.currentPlayer);
-    }
-
-    showGameInfo = () => {
-        this.setState({
-            GameInfo: true,
-        });
-    };
-
-    handleGameInfoOk = () => {
-        this.setState({
-            GameInfo: false,
-            GameSetting: true
-        });
-    };
 
     startGame = () => {
         axios.post("http://127.0.0.1:8080/startGame", this.state
@@ -141,6 +32,13 @@ class App extends React.Component {
                 });
             }
         );
+    };
+
+    handleGameInfoOk = () => {
+        this.setState({
+            GameInfo: false,
+            GameSetting: true
+        });
     };
 
     setPlayerNumber = (num) => {
@@ -283,13 +181,113 @@ class App extends React.Component {
         )
     };
 
+    drawCard = () => {
+        console.log("start draw");
+        axios.get('/drawCard',{
+            params:{playerNo:1,handNo: 1}
+        })
+            .then(
+                res => {
+                    console.log(res.data);
+                    this.state.cardInfo[0][0].push(res.data);
+                    this.forceUpdate();
+                }
+                )
+            .catch(
+                res => {
+                    console.log("error");
+                }
+            )
+    };
+
+    revertCard = (cardNumber) => {
+        console.log("card number " + cardNumber);
+        let color = Math.floor((cardNumber + 1) / 13);
+        let value = cardNumber % 13;
+        let description = "";
+        //console.log("color: " + color);
+        // console.log("value: " + value);
+        switch (color) {
+            case 0:
+                console.log("color = 0");
+                description += "Clover " + value;
+                break;
+            case 1:
+                console.log("color = 1");
+                description += "Spade " + value;
+                break;
+            case 2:
+                console.log("color = 2");
+                description += "diamond " + value;
+                break;
+            case 3:
+                console.log("color = 3");
+                description += "Heart " + value;
+                break;
+        }
+        description += ".jpg";
+        //console.log("transfer over " + description);
+        return description;
+    };
+
+    displayCard = (card, index) => {
+        let imgSrc = this.revertCard(card);
+        console.log("load " + imgSrc);
+        return(
+            <div key={index} className="Each-Card" >
+                <img width="120px" height="200px" src={require("./Card/" + imgSrc)}>
+                </img>
+            </div>
+        )
+    };
+
+    doubleBet = () => {
+        let betList = this.state.betList;
+        console.log("double bet");
+        this.setState({
+           betList: this.state.betList[0][0]*2}
+        );
+        this.forceUpdate();
+        axios.get("/doubleBet",{
+            params:{playerNo:1,handNo:1}
+        })
+            .then(
+                res => {
+                    console.log("double success");
+                }
+            )
+            .catch(
+                res => {
+                    console.log("double fail");
+                }
+            )
+    };
+
+    nextDraw = () => {
+        console.log("next player");
+        let currentPlayer = this.state.currentPlayer;
+        if (this.state.currentPlayer <= this.state.playerNumber) {
+            this.setState({
+                    currentPlayer: this.state.currentPlayer + 1
+                });
+        }
+        this.forceUpdate();
+        console.log(this.state.currentPlayer);
+    };
+
+    showGameInfo = () => {
+        this.setState({
+            GameInfo: true,
+        });
+    };
+
     render() {
         return (
             <div className="App">
                 <div className="Player-part">
                     Player Page
                     <div className="Player-Info">
-                        <Button className = "rule" type = "primary">Rule</Button>
+                        <Button className="rule" type="primary">Rule</Button>
                     </div>
                     <div className="Player-Info">
                         Player 1's Hand 1's Turn:
@@ -325,7 +323,7 @@ class App extends React.Component {
                             </div>
                             <div className="Total-Card">
                                 <div className="Every-Card">
-                                    <img width={70} height={110}class = "op-img" src={require("./Card/Clover 1.jpg")}>
+                                    <img width={70} height={110} className="op-img" src={require("./Card/Clover 1.jpg")}>
                                     </img>
                                 </div>
                                 <div className="Every-Card">
@@ -347,7 +345,7 @@ class App extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <Divider className="divider"></Divider>
+                    <Divider className="divider" />
                 </div>
                 <div>
                     <Modal
@@ -363,7 +361,7 @@ class App extends React.Component {
                             <InputNumber
                                 min={1}
                                 max={5}
-                                defaultValue={1}
+                                defaultValue={3}
                                 size="small"
                                 className="Game-setting-number-input"
                                 onChange = {this.setPlayerNumber} />
