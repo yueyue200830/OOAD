@@ -16,6 +16,7 @@ public class Controller {
     private Deck deck;
 
     @PostMapping(value = "startGame")
+    @ResponseBody
     public String startGame(@RequestBody String response) {
 
         JSONObject jsonObject = new JSONObject(response);
@@ -79,6 +80,5 @@ public class Controller {
         boolean dealerLose = deck.getDealerLose();
         jsonObject.append("dealerLose", dealerLose);
         return jsonObject.toString();
-
     }
 }
