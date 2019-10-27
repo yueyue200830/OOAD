@@ -51,15 +51,22 @@ public class Controller {
     @ResponseBody
     public int getOneCard(@RequestParam(name="playerNo") int playerNo, @RequestParam(name = "handNo") int handNo){
         System.out.println("receive " + playerNo + " " + handNo);
-        int cardNum = deck.basicDraw(0,0,false);
-        return cardNum;
+        return deck.basicDraw(playerNo,handNo,false);
+
     }
 
     @RequestMapping(value = "/doubleBet", method = RequestMethod.GET)
     @ResponseBody
     public String doubleBet(@RequestParam(name = "playerNo") int playerNo, @RequestParam(name = "handNo") int handNo){
         System.out.println("receive " + playerNo + " " + handNo);
-        deck.doubleBet(1,1);
+        deck.doubleBet(playerNo,handNo);
         return "Success";
+    }
+
+    @RequestMapping(value = "/dealerTurn", method = RequestMethod.GET)
+    @ResponseBody
+    public List<List<Integer>> dealerTurn() {
+        System.out.println("dealer turn");
+        return deck.askDealerToDraw();
     }
 }

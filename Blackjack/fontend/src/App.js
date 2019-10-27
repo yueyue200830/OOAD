@@ -15,11 +15,12 @@ class App extends React.Component {
             turn: 1,
             playerStatus: [true],
             initialDraw: true,
-            cardInfo: [[[2, 16, 48]], [[11, 14, 50]]],
+            cardInfo: [[[]], [[]]],
             currentPlayer: 1,
             currentHand: 1,
             // betList: [[10,12],[20]],
             betList: [{player: 1, hand: 1, bet: 10}, {player: 2, hand: 1, bet: 10}, {player: 3, hand: 1, bet: 10}],
+            dealerLose: false
         };
     }
 
@@ -197,13 +198,13 @@ class App extends React.Component {
 
     drawCard = () => {
         console.log("start draw");
-        axios.get("http://127.0.0.1:8080/drawCard",{
-            params:{playerNo: 1, handNo: 1}
+        axios.get('http://localhost:8080/drawCard',{
+            params:{playerNo: this.state.currentPlayer - 1, handNo: this.state.currentHand - 1 }
         })
             .then(
                 res => {
                     console.log(res.data);
-                    this.state.cardInfo[0][0].push(res.data);
+                    this.state.cardInfo[this.state.currentPlayer - 1][this.state.currentHand - 1].push(res.data);
                     this.forceUpdate();
                 }
                 )
@@ -222,6 +223,7 @@ class App extends React.Component {
             value = 13;
         }
         let description = "";
+
         switch (color) {
             case 0:
                 console.log("color = 0");
@@ -240,7 +242,6 @@ class App extends React.Component {
                 description += "Heart " + value;
         }
         description += ".jpg";
-        //console.log("transfer over " + description);
         return description;
     };
 
@@ -258,11 +259,11 @@ class App extends React.Component {
         let betList = this.state.betList;
         console.log("double bet");
         this.setState({
-           betList: this.state.betList[0][0]*2}
+           betList: this.state.betList[this.state.currentPlayer - 1][this.state.currentHand - 1] * 2 }
         );
         this.forceUpdate();
-        axios.get("http://127.0.0.1:8080/doubleBet",{
-            params:{playerNo:1,handNo:1}
+        axios.get("http://localhost:8080/doubleBet",{
+            params:{playerNo: this.state.currentPlayer - 1, handNo: this.state.currentHand - 1}
         })
             .then(
                 res => {
@@ -278,13 +279,36 @@ class App extends React.Component {
 
     nextDraw = () => {
         console.log("next player");
-        let currentPlayer = this.state.currentPlayer;
         if (this.state.currentPlayer <= this.state.playerNumber) {
             this.setState({
-                    currentPlayer: this.state.currentPlayer + 1
+                    currentPlayer: this.state.currentPlayer + 1,
+                    currentHand: 1
                 });
+            this.forceUpdate();
+        } else {
+            console.log("Now it is dealer's turn");
+            axios.get("http://localhost:8080/dealerTurn")
+                .then(
+                    res => {
+                        let loseCondition = res.data.pop();
+                        let dataCondition = res.data.pop();
+                        for(let i = 0;i < dataCondition.length; i++) {
+                            this.state.cardInfo[this.state.playerNumber][0].push(dataCondition[i]);
+                        }
+                        if(loseCondition) {
+                            this.setState({
+                                dealerLose: true
+                            })
+                        }
+                        this.forceUpdate();
+                    }
+                )
+                .catch(
+                    res=> {
+                        console.log("fail to complete dealer's turn");
+                    }
+                )
         }
-        this.forceUpdate();
         console.log(this.state.currentPlayer);
     };
 
@@ -296,10 +320,10 @@ class App extends React.Component {
                     <div className="Player-Info">
                         Player 1's Hand 1's Turn:
                         <br/>
-                        Current bet is: {this.state.betList[0][0]}
+                            Current bet is: {this.state.betList[this.state.currentPlayer - 1][this.state.currentHand - 1]}
                     </div>
-                    <div className="All-Card">
-                        {this.state.cardInfo[this.state.currentPlayer - 1][0].map(this.displayCard)}
+                    <div className="All=Card">
+                        {this.state.cardInfo[this.state.currentPlayer - 1][this.state.currentHand - 1].map(this.displayCard)}
                     </div>
                     <div className="Choice-Part">
                         <div className="Hint-Message">
