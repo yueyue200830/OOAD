@@ -16,7 +16,7 @@ public class Controller {
     private Deck deck;
 
     @PostMapping(value = "startGame")
-    public void startGame(@RequestBody String response) {
+    public String startGame(@RequestBody String response) {
 
         JSONObject jsonObject = new JSONObject(response);
         int playerNumber = jsonObject.getInt("playerNumber");
@@ -38,6 +38,13 @@ public class Controller {
             }
             deck.setBet(bet, i);
         }
+
+        deck.initialDraw();
+
+        List<List<List<Integer>>> info = deck.getRoundInfo(false);
+        JSONObject jsonInfo = new JSONObject();
+        jsonInfo.append("info", info);
+        return jsonInfo.toString();
     }
 
     @RequestMapping(value = "/drawCard", method = RequestMethod.GET)
