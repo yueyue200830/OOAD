@@ -403,7 +403,7 @@ class App extends React.Component {
                         <Divider />
                         <table className="Game-setting-table">
                             <tbody>
-                                {this.state.betList.map(this.adjustBet)}
+                            {this.state.betList.map(this.adjustBet)}
                             </tbody>
                         </table>
                         <div className="Game-info-ok-div">
@@ -440,7 +440,7 @@ class App extends React.Component {
                                 onClick={this.handleGameInfoOk}
                                 className="Game-info-ok"
                             >ok</Button>
-                      </div>
+                        </div>
                     </Modal>
                 </div>
             </div>
