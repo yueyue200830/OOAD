@@ -511,7 +511,9 @@ class App extends React.Component {
             } else{
                 return(
                     <div className="Player-round">
-                        Dealer Wins !
+                        <div className="Dealer-Win">
+                            Dealer Wins !
+                        </div>
                     </div>
                 )
             }
