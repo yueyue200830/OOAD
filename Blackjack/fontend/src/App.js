@@ -15,14 +15,14 @@ class App extends React.Component {
             turn: 1,
             playerStatus: [true],
             initialDraw: true,
-            cardInfo: [[[]], [[]]],
-            // cardInfo: [],
+            cardInfo: [],
             currentPlayer: 1,
             currentHand: 1,
-            bet: [[10,12],[20]],
+            bet: [],
             betList: [{player: 1, hand: 1, bet: 10}, {player: 2, hand: 1, bet: 10}, {player: 3, hand: 1, bet: 10}],
             dealerLose: false,
-            winnerList: [[]]
+            winnerList: [[]],
+            disableButton: false,
         };
     }
 
@@ -101,7 +101,6 @@ class App extends React.Component {
                 playerHandNumber: newPlayerHand
             });
         }
-
     };
 
     addHand = (index) => {
@@ -227,9 +226,15 @@ class App extends React.Component {
                     this.state.cardInfo[this.state.currentPlayer - 1][this.state.currentHand - 1].push(res.data.newCard[0]);
                     this.forceUpdate();
                     if (res.data.lose[0] === true) {
+                        this.setState({
+                            disableButton: true
+                        });
                         this.onePlayerLostMessage();
                         setTimeout(() => {
                             this.nextDraw();
+                            this.setState({
+                                disableButton: false
+                            });
                         }, 3000);
                     }
                 }
@@ -300,17 +305,9 @@ class App extends React.Component {
 
     displayPlayerHintText = (player, hand) => {
         if (player < this.state.playerNumber) {
-            return(
-                <div>
-                    Player {player + 1}'s Hand {hand + 1}
-                </div>
-            )
+            return "Player " + (player + 1) + "'s Hand " + (hand + 1);
         } else {
-            return(
-                <div>
-                    Dealer
-                </div>
-            )
+            return "Dealer";
         }
     };
 
@@ -469,13 +466,13 @@ class App extends React.Component {
                     </div>
                     <div className="Choice-Buttons">
                         <div className="Each-Button">
-                            <Button type="primary" onClick={this.doubleBet} size="large">Double</Button>
+                            <Button type="primary" onClick={this.doubleBet} size="large" disabled={this.state.disableButton}>Double</Button>
                         </div>
                         <div className="Each-Button">
-                            <Button type="primary" onClick={this.drawCard} size="large">Draw</Button>
+                            <Button type="primary" onClick={this.drawCard} size="large" disabled={this.state.disableButton}>Draw</Button>
                         </div>
                         <div className="Each-Button">
-                            <Button type="primary" onClick={this.nextDraw} size="large">Pass</Button>
+                            <Button type="primary" onClick={this.nextDraw} size="large" disabled={this.state.disableButton}>Pass</Button>
                         </div>
                     </div>
                 </div>
@@ -531,6 +528,7 @@ class App extends React.Component {
                     <Button className="rule" type="primary" onClick={this.showRule} shape="round">Rule</Button>
                     {this.showPlayerPart()}
                 </div>
+                <div className="Vertical-divider"/>
                 <div className="Information-part">
                     {this.state.cardInfo.map(this.displayHintCard)}
                 </div>
