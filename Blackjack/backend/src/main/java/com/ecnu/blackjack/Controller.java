@@ -82,4 +82,15 @@ public class Controller {
         jsonObject.append("dealerLose", dealerLose);
         return jsonObject.toString();
     }
+
+    @RequestMapping(value = "/getWinner", method = RequestMethod.GET)
+    @ResponseBody
+    public String getWinner() {
+        System.out.println("now get Winner");
+        JSONObject jsonObject = new JSONObject();
+        List<List<Integer>> winnerList = deck.judgeWin();
+        jsonObject.append("winnerList", winnerList);
+        System.out.println(winnerList);
+        return jsonObject.toString();
+    }
 }

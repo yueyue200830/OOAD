@@ -21,7 +21,8 @@ class App extends React.Component {
             currentHand: 1,
             bet: [[10,12],[20]],
             betList: [{player: 1, hand: 1, bet: 10}, {player: 2, hand: 1, bet: 10}, {player: 3, hand: 1, bet: 10}],
-            dealerLose: false
+            dealerLose: false,
+            winnerList: [[]]
         };
     }
 
@@ -271,7 +272,7 @@ class App extends React.Component {
     };
 
     displayHintCard = (playerCard, player) => {
-        if (this.state.GameStart) {
+        if (this.state.GameStart || this.state.currentPlayer > this.state.playerNumber) {
             return(
                 playerCard.map((handCard, hand) => {return this.displayHand(handCard, player, hand)})
             )
@@ -372,8 +373,10 @@ class App extends React.Component {
                             console.log(dataCondition);
                             this.setState({
                                 cardInfo: dataCondition,
-                                dealerLose: loseCondition
+                                dealerLose: loseCondition,
                             });
+                            console.log("set timeout ")
+                            setTimeout(() => {this.requestWinner()},5000);
                         }
                     )
                     .catch(
@@ -391,7 +394,25 @@ class App extends React.Component {
         }
         console.log(this.state.currentPlayer);
     };
-
+    requestWinner = () => {
+        axios.get("http://localhost:8080/getWinner")
+            .then(
+                res => {
+                    console.log("get result " + res.data.winnerList);
+                    console.log(res.data.winnerList[0]);
+                    this.setState({
+                        winnerList: res.data.winnerList[0],
+                        GameStart: false
+                    })
+                    console.log(this.state.GameStart);
+                }
+            )
+            .catch(
+                res => {
+                    console.log("fail to get winners");
+                }
+            )
+    }
     onePlayerLostMessage = () => {
         message.info("Oops! You are over 21!");
     };
@@ -418,7 +439,27 @@ class App extends React.Component {
             )
         }
     };
-
+    showWinner = () => {
+        return this.state.winnerList.map(this.showEveryWinner);
+    };
+    showEveryWinner = (winner,winnerIndex) => {
+        console.log("winner list");
+        if(winner.length != 0) {
+            console.log("winner list != 0");
+            return (
+                winner.map((hand, handNo) => {
+                    return this.showWinHand(hand, handNo, winnerIndex)
+                })
+            )
+        }
+    };
+    showWinHand = (hand,handNo,winnerIndex) => {
+       return(
+           <div className="Winner" key={winnerIndex}>
+               Player {winnerIndex + 1}'s Hand {handNo + 1} Wins! Earned {this.state.bet[winnerIndex][handNo]} dollars!
+           </div>
+       )
+    };
     showAsk = () => {
         if (this.state.GameStart && this.state.currentPlayer <= this.state.playerNumber) {
             return(
@@ -453,6 +494,33 @@ class App extends React.Component {
                     {this.showAsk()}
                 </div>
             )
+        }else if(this.state.currentPlayer > this.state.playerNumber){
+            console.log("enter this alter");
+            console.log(this.state.winnerList);
+            let dealerWin = true;
+            for(let i = 0;i < this.state.winnerList.length; i++) {
+                if (this.state.winnerList[i].length != 0) {
+                    dealerWin = false;
+                    break;
+                }
+            }
+            if(!dealerWin){
+                console.log("dealer not win");
+                return (
+                    <div className="Player-round">
+                        {this.showWinner()}
+                    </div>
+                )
+            } else{
+                return(
+                    <div className="Player-round">
+                        Dealer Wins !
+                    </div>
+                )
+            }
+        }
+        else{
+            console.log("else alter");
         }
     };
 
