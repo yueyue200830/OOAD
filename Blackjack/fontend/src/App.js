@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Modal, Button, InputNumber, Divider, message } from 'antd';
+import { Modal, Button, InputNumber, Divider, message, Card } from 'antd';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -16,6 +16,7 @@ class App extends React.Component {
             playerStatus: [true],
             initialDraw: true,
             cardInfo: [[[]], [[]]],
+            // cardInfo: [],
             currentPlayer: 1,
             currentHand: 1,
             bet: [[10,12],[20]],
@@ -41,7 +42,6 @@ class App extends React.Component {
     };
 
     convertBetList = () => {
-        console.log(this.state.betList);
         let bet = [];
         for (let i = 0; i < this.state.betList.length; i++) {
             let b = this.state.betList[i];
@@ -52,7 +52,6 @@ class App extends React.Component {
                 bet.push([b.bet]);
             }
         }
-        console.log(bet)
         this.setState({
             bet: bet,
         });
@@ -92,7 +91,7 @@ class App extends React.Component {
             let newPlayerHand = this.state.playerHandNumber;
 
             for (let i = this.state.playerNumber + 1; i <= num; i++) {
-                this.state.betList.push({player: i, hand: 1, bet: 10})
+                this.state.betList.push({player: i, hand: 1, bet: 10});
                 newPlayerHand.push(1);
             }
 
@@ -141,7 +140,7 @@ class App extends React.Component {
         if (index + 1 < this.state.betList.length && this.state.betList[index].player === this.state.betList[index + 1].player) {
             this.state.betList.splice(index, 1);
             this.setState({
-                betList: this.state.betList.map((b, i) => {
+                betList: this.state.betList.map((b) => {
                     if (b.player === player) {
                         b.hand -= 1;
                     }
@@ -271,33 +270,51 @@ class App extends React.Component {
         return description;
     };
 
-    displayHintCard = (playerCard, index) => {
+    displayHintCard = (playerCard, player) => {
         return(
-            playerCard.map(this.displayHand)
+            playerCard.map((handCard, hand) => {return this.displayHand(handCard, player, hand)})
         )
     };
 
-    displayHand = (hand, index) => {
+    displayHand = (handCard, player, hand) => {
+        // return(
+        //     <div key={hand}>
+        //         <div className="Each-Opponent">
+        //             {this.displayPlayerHintText(player, hand)}
+        //             <div className="Total-Card">
+        //                 {handCard.map(this.displayCard)}
+        //             </div>
+        //         </div>
+        //         <Divider className="divider" />
+        //     </div>
+        // )
         return(
-            hand.map(this.displaySmallCard)
+            <Card title={this.displayPlayerHintText(player, hand)} className="Hint-Card">
+                {handCard.map(this.displayCard)}
+            </Card>
         )
     };
 
-    displaySmallCard = (card, index) => {
-        let imgSrc = this.revertCard(card);
-        console.log("load " + imgSrc);
-        return(
-            <img width="15%" className="Every-Card" src={require("./Card" + imgSrc)} alt="Clover 1.jpg"/>
-        )
+    displayPlayerHintText = (player, hand) => {
+        if (player < this.state.playerNumber) {
+            return(
+                <div>
+                    Player {player + 1}'s Hand {hand + 1}
+                </div>
+            )
+        } else {
+            return(
+                <div>
+                    Dealer
+                </div>
+            )
+        }
     };
 
     displayCard = (card, index) => {
         let imgSrc = this.revertCard(card);
-        // console.log("load " + imgSrc);
         return(
-            <div key={index} className="Each-Card" >
-                <img width="15%" src={require("./Card/" + imgSrc)} alt={this.revertCard(index)} />
-            </div>
+            <img width="16%" key={index} className="Every-Card" src={require("./Card/" + imgSrc)} alt={imgSrc}/>
         )
     };
 
@@ -433,25 +450,18 @@ class App extends React.Component {
                 <div className="Player-part">
                     <Button className="rule" type="primary" onClick={this.showRule} shape="round">Rule</Button>
                     {this.showBet()}
-                    <div className="All=Card">
+                    <div className="All-Card">
                         {this.state.cardInfo[this.state.currentPlayer - 1][this.state.currentHand - 1].map(this.displayCard)}
                     </div>
                     {this.showAsk()}
                 </div>
                 <div className="Information-part">
-                    <div>
-                        <div className="Each-Opponent">
-                            <div className="Opponent-Info">
-                                Player 2's Hand 2:
-                            </div>
-                            <div className="Total-Card">
-                                <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
-                                <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
-                                <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
-                            </div>
-                        </div>
-                    </div>
-                    <Divider className="divider" />
+                    {/*<Card title="Default size card" className="Hint-Card">*/}
+                    {/*    <img width="16%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>*/}
+                    {/*    <img width="16%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>*/}
+                    {/*    <img width="16%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>*/}
+                    {/*</Card>*/}
+                    {this.state.cardInfo.map(this.displayHintCard)}
                 </div>
                 <div>
                     <Modal

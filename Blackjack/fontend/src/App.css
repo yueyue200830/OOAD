@@ -103,7 +103,8 @@
 
 .Information-part {
   flex-grow: 1;
-  background-color: bisque;
+  background-color: #ffe4c433;
+  /*background: #ECECEC;*/
   overflow: scroll;
 
 }
@@ -116,12 +117,6 @@
   padding: 10px 5px 5px;
 }
 
-.Opponent-Info {
-  font-size: 18px;
-  height: 2em;
-  margin: 5px 0;
-}
-
 .Total-Card {
   margin: 5px 0;
 }
@@ -129,6 +124,10 @@
 .Every-Card {
   display: inline;
   margin: 0 5px;
+}
+
+.Hint-Card {
+  margin: 10px;
 }
 
 .divider {
