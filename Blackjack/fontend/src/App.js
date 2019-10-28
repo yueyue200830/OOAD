@@ -271,9 +271,11 @@ class App extends React.Component {
     };
 
     displayHintCard = (playerCard, player) => {
-        return(
-            playerCard.map((handCard, hand) => {return this.displayHand(handCard, player, hand)})
-        )
+        if (this.state.GameStart) {
+            return(
+                playerCard.map((handCard, hand) => {return this.displayHand(handCard, player, hand)})
+            )
+        }
     };
 
     displayHand = (handCard, player, hand) => {
@@ -289,7 +291,7 @@ class App extends React.Component {
         //     </div>
         // )
         return(
-            <Card title={this.displayPlayerHintText(player, hand)} className="Hint-Card">
+            <Card key={hand} title={this.displayPlayerHintText(player, hand)} className="Hint-Card">
                 {handCard.map(this.displayCard)}
             </Card>
         )
@@ -437,9 +439,19 @@ class App extends React.Component {
                     </div>
                 </div>
             )
-        } else {
-            return(
-                <div className="Choice-Part-hidden" />
+        }
+    };
+
+    showPlayerPart = () => {
+        if (this.state.GameStart) {
+            return (
+                <div className="Player-round">
+                    {this.showBet()}
+                    <div className="All-Card">
+                        {this.state.cardInfo[this.state.currentPlayer - 1][this.state.currentHand - 1].map(this.displayCard)}
+                    </div>
+                    {this.showAsk()}
+                </div>
             )
         }
     };
@@ -449,18 +461,9 @@ class App extends React.Component {
             <div className="App">
                 <div className="Player-part">
                     <Button className="rule" type="primary" onClick={this.showRule} shape="round">Rule</Button>
-                    {this.showBet()}
-                    <div className="All-Card">
-                        {this.state.cardInfo[this.state.currentPlayer - 1][this.state.currentHand - 1].map(this.displayCard)}
-                    </div>
-                    {this.showAsk()}
+                    {this.showPlayerPart()}
                 </div>
                 <div className="Information-part">
-                    {/*<Card title="Default size card" className="Hint-Card">*/}
-                    {/*    <img width="16%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>*/}
-                    {/*    <img width="16%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>*/}
-                    {/*    <img width="16%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>*/}
-                    {/*</Card>*/}
                     {this.state.cardInfo.map(this.displayHintCard)}
                 </div>
                 <div>
