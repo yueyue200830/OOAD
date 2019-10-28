@@ -75,6 +75,7 @@ public class Controller {
     public String dealerTurn() {
         System.out.println("dealer turn");
         JSONObject jsonObject = new JSONObject();
+        deck.askDealerToDraw();
         List<List<List<Integer>>> finalInfo = deck.getRoundInfo(true);
         jsonObject.append("finalInfo", finalInfo);
         boolean dealerLose = deck.getDealerLose();

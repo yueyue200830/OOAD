@@ -41,16 +41,18 @@ class App extends React.Component {
     };
 
     convertBetList = () => {
+        console.log(this.state.betList);
         let bet = [];
         for (let i = 0; i < this.state.betList.length; i++) {
             let b = this.state.betList[i];
             let p = b.player - 1;
-            if (bet.length < p) {
+            if (bet.length > p) {
                 bet[p].push(b.bet);
             } else {
                 bet.push([b.bet]);
             }
         }
+        console.log(bet)
         this.setState({
             bet: bet,
         });
@@ -138,13 +140,14 @@ class App extends React.Component {
         let player = this.state.betList[index].player;
         if (index + 1 < this.state.betList.length && this.state.betList[index].player === this.state.betList[index + 1].player) {
             this.state.betList.splice(index, 1);
-            for (let i = index; i < this.state.betList.length; i++) {
-                if (this.state.betList[i].player === player) {
-                    this.state.betList[i].hand -= 1;
-                } else {
-                    break;
-                }
-            }
+            this.setState({
+                betList: this.state.betList.map((b, i) => {
+                    if (b.player === player) {
+                        b.hand -= 1;
+                    }
+                    return b;
+                })
+            });
         } else if (this.state.betList[index].hand !== 1) {
             this.state.betList.splice(index, 1);
         } else {
@@ -267,23 +270,27 @@ class App extends React.Component {
         description += ".jpg";
         return description;
     };
+
     displayHintCard = (playerCard, index) => {
         return(
             playerCard.map(this.displayHand)
         )
-    }
-    displayHand = (hand,index) => {
+    };
+
+    displayHand = (hand, index) => {
         return(
             hand.map(this.displaySmallCard)
         )
-    }
-    displaySmallCard = (card,index) => {
+    };
+
+    displaySmallCard = (card, index) => {
         let imgSrc = this.revertCard(card);
         console.log("load " + imgSrc);
         return(
             <img width="15%" className="Every-Card" src={require("./Card" + imgSrc)} alt="Clover 1.jpg"/>
         )
-    }
+    };
+
     displayCard = (card, index) => {
         let imgSrc = this.revertCard(card);
         // console.log("load " + imgSrc);
@@ -323,48 +330,45 @@ class App extends React.Component {
 
     nextDraw = () => {
         console.log("next player");
-        if (this.state.currentPlayer <= this.state.playerNumber) {
-            if (this.state.currentHand < this.state.playerHandNumber[this.state.currentPlayer - 1]) {
-                this.setState({
-                    currentHand: this.state.currentHand + 1
-                });
+        if (this.state.currentHand < this.state.playerHandNumber[this.state.currentPlayer - 1]) {
+            this.setState({
+                currentHand: this.state.currentHand + 1
+            });
+        } else {
+            if (this.state.currentPlayer === this.state.playerNumber) {
+                this.setState(
+                    {
+                        currentPlayer: this.state.currentPlayer + 1,
+                        currentHand: 1
+                    }
+                );
+                console.log("Now it is dealer's turn");
+                axios.get("http://localhost:8080/dealerTurn")
+                    .then(
+                        res => {
+                            console.log(res.data);
+                            let loseCondition = res.data.dealerLose[0];
+                            let dataCondition = res.data.finalInfo[0];
+                            console.log(loseCondition);
+                            console.log(dataCondition);
+                            this.setState({
+                                cardInfo: dataCondition,
+                                dealerLose: loseCondition
+                            });
+                        }
+                    )
+                    .catch(
+                        res => {
+                            console.log("fail to complete dealer's turn");
+                            console.log(res);
+                        }
+                    )
             } else {
                 this.setState({
                     currentPlayer: this.state.currentPlayer + 1,
                     currentHand: 1
                 });
             }
-            this.forceUpdate();
-        } else {
-            let self = this;
-            this.setState(
-                {
-                    currentPlayer: this.state.currentPlayer + 1,
-                    currentHand: 1
-                }
-            )
-            console.log("Now it is dealer's turn");
-            axios.get("http://localhost:8080/dealerTurn")
-                .then(
-                    res => {
-                        console.log(res.data);
-                        let loseCondition = res.data.dealerLose;
-                        let dataCondition = res.data.finalInfo[0];
-                        console.log(loseCondition);
-                        console.log(dataCondition);
-                        this.setState({
-                            cardInfo: dataCondition,
-                            dealerLose: loseCondition
-                        });
-                        this.forceUpdate();
-                    }
-                )
-                .catch(
-                    res=> {
-                        console.log("fail to complete dealer's turn");
-                        console.log(res);
-                    }
-                )
         }
         console.log(this.state.currentPlayer);
     };
@@ -441,7 +445,6 @@ class App extends React.Component {
                                 Player 2's Hand 2:
                             </div>
                             <div className="Total-Card">
-
                                 <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
                                 <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
                                 <img width="15%" className="Every-Card" src={require("./Card/Clover 1.jpg")} alt="Clover 1.jpg"/>
