@@ -15,6 +15,11 @@ import java.util.List;
 public class Controller {
     private Deck deck;
 
+    /**
+     * Start Game. Create a deck, set bet and do initial draw.
+     * @param response the player number, hand number and bet list.
+     * @return the card information for all players.
+     */
     @PostMapping(value = "startGame")
     @ResponseBody
     public String startGame(@RequestBody String response) {
@@ -49,6 +54,12 @@ public class Controller {
         return jsonInfo.toString();
     }
 
+    /**
+     * A player get one card from the card set for a specific hand.
+     * @param playerNo The player number.
+     * @param handNo The hand number of the player.
+     * @return The new card number and whether the sum is larger than 21 or not.
+     */
     @RequestMapping(value = "/drawCard", method = RequestMethod.GET)
     @ResponseBody
     public String getOneCard(@RequestParam(name="playerNo") int playerNo, @RequestParam(name = "handNo") int handNo){
@@ -62,6 +73,12 @@ public class Controller {
         return jsonObject.toString();
     }
 
+    /**
+     * Double the bet based on the player number and hand number.
+     * @param playerNo The player number.
+     * @param handNo The hand number of the player.
+     * @return success
+     */
     @RequestMapping(value = "/doubleBet", method = RequestMethod.GET)
     @ResponseBody
     public String doubleBet(@RequestParam(name = "playerNo") int playerNo, @RequestParam(name = "handNo") int handNo){
@@ -70,6 +87,10 @@ public class Controller {
         return "Success";
     }
 
+    /**
+     * Ask dealer to draw.
+     * @return The final card information
+     */
     @RequestMapping(value = "/dealerTurn", method = RequestMethod.GET)
     @ResponseBody
     public String dealerTurn() {
@@ -83,6 +104,10 @@ public class Controller {
         return jsonObject.toString();
     }
 
+    /**
+     * Get the winner list.
+     * @return The list of winner.
+     */
     @RequestMapping(value = "/getWinner", method = RequestMethod.GET)
     @ResponseBody
     public String getWinner() {

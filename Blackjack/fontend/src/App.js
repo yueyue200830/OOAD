@@ -26,6 +26,9 @@ class App extends React.Component {
         };
     }
 
+    /**
+     * Start game by sending setting data to the backend and get the cards information.
+     */
     startGame = () => {
         this.convertBetList();
         axios.post("http://127.0.0.1:8080/startGame", this.state
@@ -42,6 +45,9 @@ class App extends React.Component {
         );
     };
 
+    /**
+     * Convert the bet list to another list.
+     */
     convertBetList = () => {
         let bet = [];
         for (let i = 0; i < this.state.betList.length; i++) {
@@ -58,6 +64,9 @@ class App extends React.Component {
         });
     };
 
+    /**
+     * Click handler of the ok button in the rule.
+     */
     handleGameInfoOk = () => {
         this.setState({
             GameInfo: false,
@@ -69,6 +78,10 @@ class App extends React.Component {
         }
     };
 
+    /**
+     * Set player number and change the input panel correspondingly.
+     * @param num The input player number
+     */
     setPlayerNumber = (num) => {
         if (num < this.state.playerNumber) {
             let newBetList = [];
@@ -103,6 +116,10 @@ class App extends React.Component {
         }
     };
 
+    /**
+     * Add a hand in the input button.
+     * @param index The player number.
+     */
     addHand = (index) => {
         let newBetList = [];
         let player = this.state.betList[index].player;
@@ -135,6 +152,10 @@ class App extends React.Component {
         });
     };
 
+    /**
+     * Delete a hand of the player.
+     * @param index The player number.
+     */
     deleteHand = (index) => {
         let player = this.state.betList[index].player;
         if (index + 1 < this.state.betList.length && this.state.betList[index].player === this.state.betList[index + 1].player) {
@@ -165,6 +186,11 @@ class App extends React.Component {
         this.forceUpdate();
     };
 
+    /**
+     * Function is called when the bet is changed.
+     * @param index The index of the bet to be changed.
+     * @param value The changed value.
+     */
     changeBet = (index, value) => {
         this.setState({
             betList: this.state.betList.map((bet, i) => {
@@ -176,6 +202,12 @@ class App extends React.Component {
         });
     };
 
+    /**
+     * The html for setting part.
+     * @param bet One of betList.
+     * @param index The index.
+     * @returns {html} One setting line.
+     */
     adjustBet = (bet, index) => {
         return (
             <tr key={index} className="Game-setting-table-tr">
@@ -209,12 +241,18 @@ class App extends React.Component {
         )
     };
 
+    /**
+     * Click button to show the rule.
+     */
     showRule = () => {
         this.setState({
             GameInfo: true,
         });
     };
 
+    /**
+     * Draw a card for a player's hand.
+     */
     drawCard = () => {
         console.log("start draw");
         axios.get('http://localhost:8080/drawCard',{
@@ -246,8 +284,12 @@ class App extends React.Component {
             )
     };
 
+    /**
+     * Revert card number to the image name.
+     * @param cardNumber The card number.
+     * @returns {string} The image name.
+     */
     revertCard = (cardNumber) => {
-        // console.log("card number " + cardNumber);
         let color = Math.floor((cardNumber + 1) / 13);
         let value = cardNumber % 13;
         if (value === 0) {
@@ -257,25 +299,27 @@ class App extends React.Component {
 
         switch (color) {
             case 0:
-                // console.log("color = 0");
                 description += "Clover " + value;
                 break;
             case 1:
-                // console.log("color = 1");
                 description += "Spade " + value;
                 break;
             case 2:
-                // console.log("color = 2");
                 description += "diamond " + value;
                 break;
             default:
-                // console.log("color = 3");
                 description += "Heart " + value;
         }
         description += ".jpg";
         return description;
     };
 
+    /**
+     * Display players' cards in the right panel.
+     * @param playerCard A list of a player's cards.
+     * @param player The player's number.
+     * @returns {html} All hands html of a player.
+     */
     displayHintCard = (playerCard, player) => {
         if (this.state.GameStart || this.state.currentPlayer > this.state.playerNumber) {
             return(
@@ -284,25 +328,38 @@ class App extends React.Component {
         }
     };
 
+    /**
+     * Display a hand of a player.
+     * @param handCard All cards of a hand.
+     * @param player The player's number.
+     * @param hand The hand's number.
+     * @returns {html} An html to show a hand's cards.
+     */
     displayHand = (handCard, player, hand) => {
-        // return(
-        //     <div key={hand}>
-        //         <div className="Each-Opponent">
-        //             {this.displayPlayerHintText(player, hand)}
-        //             <div className="Total-Card">
-        //                 {handCard.map(this.displayCard)}
-        //             </div>
-        //         </div>
-        //         <Divider className="divider" />
-        //     </div>
-        // )
-        return(
-            <Card key={hand} title={this.displayPlayerHintText(player, hand)} className="Hint-Card">
-                {handCard.map(this.displayCard)}
-            </Card>
-        )
+        if (player + 1 === this.state.currentPlayer && hand + 1 === this.state.currentHand) {
+            return(
+                <Card key={hand}
+                      title={this.displayPlayerHintText(player, hand)}
+                      className="Hint-Card"
+                      style={{backgroundColor: "#92511f"}}>
+                    {handCard.map(this.displayCard)}
+                </Card>
+            )
+        } else {
+            return (
+                <Card key={hand} title={this.displayPlayerHintText(player, hand)} className="Hint-Card">
+                    {handCard.map(this.displayCard)}
+                </Card>
+            )
+        }
     };
 
+    /**
+     * Display player's hint text.
+     * @param player The player number.
+     * @param hand The hand number.
+     * @returns {string} hint text.
+     */
     displayPlayerHintText = (player, hand) => {
         if (player < this.state.playerNumber) {
             return "Player " + (player + 1) + "'s Hand " + (hand + 1);
@@ -311,6 +368,12 @@ class App extends React.Component {
         }
     };
 
+    /**
+     * Display a cards.
+     * @param card The card number.
+     * @param index The index of the card.
+     * @returns {html} an html for a image card.
+     */
     displayCard = (card, index) => {
         let imgSrc = this.revertCard(card);
         return(
@@ -318,6 +381,9 @@ class App extends React.Component {
         )
     };
 
+    /**
+     * Double the bet.
+     */
     doubleBet = () => {
         console.log("double bet");
         this.setState({
@@ -345,6 +411,9 @@ class App extends React.Component {
             )
     };
 
+    /**
+     * Turn to the next player / hand.
+     */
     nextDraw = () => {
         console.log("next player");
         if (this.state.currentHand < this.state.playerHandNumber[this.state.currentPlayer - 1]) {
@@ -372,7 +441,7 @@ class App extends React.Component {
                                 cardInfo: dataCondition,
                                 dealerLose: loseCondition,
                             });
-                            console.log("set timeout ")
+                            console.log("set timeout ");
                             setTimeout(() => {this.requestWinner()},5000);
                         }
                     )
@@ -391,6 +460,10 @@ class App extends React.Component {
         }
         console.log(this.state.currentPlayer);
     };
+
+    /**
+     * Get the winner.
+     */
     requestWinner = () => {
         axios.get("http://localhost:8080/getWinner")
             .then(
@@ -399,8 +472,9 @@ class App extends React.Component {
                     console.log(res.data.winnerList[0]);
                     this.setState({
                         winnerList: res.data.winnerList[0],
-                        GameStart: false
-                    })
+                        GameStart: false,
+                        currentPlayer: this.state.currentPlayer + 1
+                    });
                     console.log(this.state.GameStart);
                 }
             )
@@ -409,11 +483,19 @@ class App extends React.Component {
                     console.log("fail to get winners");
                 }
             )
-    }
+    };
+
+    /**
+     * Show lost hint if the sum is larger than 21.
+     */
     onePlayerLostMessage = () => {
         message.info("Oops! You are over 21!");
     };
 
+    /**
+     * Show text for current player.
+     * @returns {html} Return html of the player.
+     */
     showBet = () => {
         if (this.state.currentPlayer <= this.state.playerNumber) {
             return(
@@ -436,27 +518,50 @@ class App extends React.Component {
             )
         }
     };
+
+    /**
+     * Show winners.
+     * @returns {html} the html of all winning players.
+     */
     showWinner = () => {
         return this.state.winnerList.map(this.showEveryWinner);
     };
-    showEveryWinner = (winner,winnerIndex) => {
-        console.log("winner list");
-        if(winner.length != 0) {
-            console.log("winner list != 0");
+
+    /**
+     * Show all winning hands of a player..
+     * @param winner The player number.
+     * @param winnerIndex The index of winner.
+     * @returns {*}
+     */
+    showEveryWinner = (winner, winnerIndex) => {
+        if (winner.length !== 0) {
             return (
-                winner.map((hand, handNo) => {
-                    return this.showWinHand(hand, handNo, winnerIndex)
+                winner.map((hand, handIndex) => {
+                    return this.showWinHand(hand, handIndex, winnerIndex)
                 })
             )
         }
     };
-    showWinHand = (hand,handNo,winnerIndex) => {
+
+    /**
+     * Show a winning hand.
+     * @param hand The hand number.
+     * @param handIndex The hand index.
+     * @param winnerIndex The winner index.
+     * @returns {html} Return the html of the winning hand.
+     */
+    showWinHand = (hand, handIndex, winnerIndex) => {
        return(
            <div className="Winner" key={winnerIndex}>
-               Player {winnerIndex + 1}'s Hand {handNo + 1} Wins! Earned {this.state.bet[winnerIndex][handNo]} dollars!
+               Player {winnerIndex + 1}'s Hand {hand + 1} Wins! Earned {this.state.bet[winnerIndex][hand]} dollars!
            </div>
        )
     };
+
+    /**
+     * The ask html with pass, double bet and draw function.
+     * @returns {html} Return the html for ask.
+     */
     showAsk = () => {
         if (this.state.GameStart && this.state.currentPlayer <= this.state.playerNumber) {
             return(
@@ -480,6 +585,10 @@ class App extends React.Component {
         }
     };
 
+    /**
+     * The left of current player's panel.
+     * @returns {html} Current player's panel.
+     */
     showPlayerPart = () => {
         if (this.state.GameStart) {
             return (
@@ -491,36 +600,64 @@ class App extends React.Component {
                     {this.showAsk()}
                 </div>
             )
-        }else if(this.state.currentPlayer > this.state.playerNumber){
-            console.log("enter this alter");
+        } else if (this.state.currentPlayer > this.state.playerNumber){
             console.log(this.state.winnerList);
             let dealerWin = true;
             for(let i = 0;i < this.state.winnerList.length; i++) {
-                if (this.state.winnerList[i].length != 0) {
+                if (this.state.winnerList[i].length !== 0) {
                     dealerWin = false;
                     break;
                 }
             }
-            if(!dealerWin){
+            if (!dealerWin) {
                 console.log("dealer not win");
                 return (
                     <div className="Player-round">
                         {this.showWinner()}
+                        <Button
+                            type="primary"
+                            size="large"
+                            onClick={this.playAgain}
+                            className="Game-info-ok"
+                            style={{marginTop:"30px"}}
+                        >Play Again</Button>
                     </div>
                 )
-            } else{
+            } else {
                 return(
                     <div className="Player-round">
                         <div className="Dealer-Win">
                             Dealer Wins !
                         </div>
+                        <Button
+                            type="primary"
+                            size="large"
+                            onClick={this.playAgain}
+                            className="Game-info-ok"
+                            style={{marginTop:"30px"}}
+                        >Play Again</Button>
                     </div>
                 )
             }
         }
-        else{
-            console.log("else alter");
-        }
+    };
+
+    playAgain = () => {
+        this.setState({
+            GameSetting: true,
+            GameStart: false,
+            playerNumber: 3,
+            playerHandNumber: [1, 1, 1],
+            turn: 1,
+            playerStatus: [true],
+            initialDraw: true,
+            cardInfo: [],
+            currentPlayer: 1,
+            currentHand: 1,
+            betList: [{player: 1, hand: 1, bet: 10}, {player: 2, hand: 1, bet: 10}, {player: 3, hand: 1, bet: 10}],
+            dealerLose: false,
+            winnerList: [[]],
+        });
     };
 
     render() {

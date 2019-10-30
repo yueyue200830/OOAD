@@ -5,7 +5,8 @@
   display: flex;
   flex-direction: row;
   height: 100vh;
-  background-color: #d9eef7db;
+  background-color: #207a54;
+  color: #fafdfc;
 }
 
 .Game-info-ok-div {
@@ -62,10 +63,17 @@
   display: flex;
   flex-direction: column;
 }
+
 .Winner {
-  font-size: 20px;
+  font-size: 24px;
   height: 2.5em;
 }
+
+.Dealer-Win {
+  font-size: 24px;
+  height: 2em;
+}
+
 .Player-Info {
   margin: auto auto 30px;
   text-align: center;
@@ -83,7 +91,7 @@
 
 .Choice-Part {
   margin: 30px auto auto;
-  background-color: #a9ddf1a6;
+  background-color: #3a8c69;
   padding: 20px 40px;
   border-radius: 20px;
   height: 160px;
@@ -106,7 +114,6 @@
 
 .Information-part {
   flex-grow: 1;
-  /*background-color: #ffe4c433;*/
   overflow: scroll;
 }
 
@@ -129,6 +136,12 @@
 
 .Hint-Card {
   margin: 10px;
+  background-color: #207a54;
+  color: #fafdfc;
+}
+
+.ant-card-head {
+  color: #fafdfc;
 }
 
 .Vertical-divider {
@@ -136,6 +149,20 @@
   margin: 10px 5px;
   width: 1px;
   flex-shrink: 0;
-  background-color: rgba(0, 0, 0, .1);
+  background-color: #fafdfc;
 }
 
+.ant-btn-primary {
+  background-color: #d57327;
+  border-color: #d57327;
+}
+
+.ant-btn-primary:focus {
+  background-color: #d57327;
+  border-color: #d57327;
+}
+
+.ant-btn-primary:hover {
+  background-color: #e27a2a;
+  border-color: #e27a2a;
+}
