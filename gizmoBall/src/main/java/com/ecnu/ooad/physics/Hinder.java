@@ -1,4 +1,4 @@
-package com.ecnu.ooad.component;
+package com.ecnu.ooad.physics;
 
 /**
  * @author Yiqing Tao
