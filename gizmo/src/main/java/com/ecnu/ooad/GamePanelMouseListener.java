@@ -7,6 +7,10 @@ import com.ecnu.ooad.physics.Tool;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * @author Yiqing Tao
+ * @date 2019-11-17 12:51
+ */
 public class GamePanelMouseListener implements MouseListener {
         private Manager manager;
 
@@ -18,10 +22,10 @@ public class GamePanelMouseListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
             System.out.println("mouse clicked");
-            if(MouseEvent.BUTTON1 == e.getButton()) {
+            if (MouseEvent.BUTTON1 == e.getButton()) {
                 int condition = this.manager.getIngredientCondition();
                 System.out.println(condition);
-                switch(condition){
+                switch (condition) {
                     case 0:
                         break;
                     case 1:
@@ -44,10 +48,7 @@ public class GamePanelMouseListener implements MouseListener {
                         break;
                     default:
                         break;
-
-
                 }
-
             }
         }
 

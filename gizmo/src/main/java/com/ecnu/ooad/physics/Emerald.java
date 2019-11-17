@@ -27,7 +27,7 @@ public class Emerald extends Obstacle {
         this.initEmerald(worldX, worldY, this.width, this.height);
     }
 
-    public void initEmerald(float worldX, float worldY, float width, float height) {
+    private void initEmerald(float worldX, float worldY, float width, float height) {
         this.height = height;
         this.width = width;
         this.color = Color.green;
@@ -63,6 +63,6 @@ public class Emerald extends Obstacle {
     @Override
     public void drawMe(Graphics2D g) {
         g.setColor(this.color);
-        g.fillRect((int)this.square.getPosition().x, (int)this.square.getPosition().y , (int)this.getWidth(), (int)this.getHeight());
+        g.fillRect((int) this.square.getPosition().x, (int) this.square.getPosition().y , (int) this.getWidth(), (int) this.getHeight());
     }
 }

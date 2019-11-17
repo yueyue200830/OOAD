@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public class OperationPanel extends JPanel {
     public OperationPanel() {
-        this.setSize(200,200);
+        this.setSize(200, 200);
         this.setVisible(true);
         this.setBackground(Color.green);
         this.createButtons();

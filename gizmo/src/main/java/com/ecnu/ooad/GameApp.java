@@ -13,7 +13,7 @@ import java.awt.*;
  */
 public class GameApp {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("gizmo ball");
+        JFrame frame = new JFrame("Gizmo Ball");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(Constants.FRAME_WIDTH, Constants.FRAME_HIGHT);
 

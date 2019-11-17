@@ -15,38 +15,26 @@ import java.awt.*;
  * @date 2019-11-16 20:34
  */
 public class Ball {
-    float worldX;
-    float worldY;
-    float r;
+    private float worldX;
+    private float worldY;
+    private float r;
     public Body ballInWorld;
-    Color color = Color.cyan;
+    private Color color = Color.cyan;
 
-    public Ball(float worldX,float worldY){
+    public Ball() {
+        this(42f, 50f);
+    }
+
+    public Ball(float worldX, float worldY) {
         this.worldX = worldX;
         this.worldY = worldY;
         this.r = 5f;
         initBallInWorld();
     }
 
-    public Ball(){
-        this(42f,50f);
-    }
-
-    public float getPixelX(){
-        return ballInWorld.getPosition().x - r;
-    }
-
-    public float getPixelY(){
-        return ballInWorld.getPosition().y - r;
-    }
-
-    public float getWidthOrHeight(){
-        return r*2;
-    }
-
-    private void initBallInWorld(){
+    private void initBallInWorld() {
         BodyDef bd = new BodyDef();
-        bd.position = new Vec2(worldX,worldY);
+        bd.position = new Vec2(worldX, worldY);
         bd.type = BodyType.DYNAMIC;
 
         FixtureDef fd = new FixtureDef();
@@ -61,8 +49,20 @@ public class Ball {
         ballInWorld.createFixture(fd);
     }
 
+    public float getPixelX() {
+        return ballInWorld.getPosition().x - r;
+    }
+
+    public float getPixelY() {
+        return ballInWorld.getPosition().y - r;
+    }
+
+    public float getWidthOrHeight() {
+        return r * 2;
+    }
+
     public void drawMe(Graphics2D g) {
         g.setColor(color);
-        g.fillOval((int)this.getPixelX(), (int)this.getPixelY(), (int)this.getWidthOrHeight(), (int)this.getWidthOrHeight());
+        g.fillOval((int) this.getPixelX(), (int) this.getPixelY(), (int) this.getWidthOrHeight(), (int) this.getWidthOrHeight());
     }
 }

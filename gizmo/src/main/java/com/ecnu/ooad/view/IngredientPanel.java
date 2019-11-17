@@ -15,7 +15,7 @@ public class IngredientPanel extends JPanel {
     private Manager manager;
 
     public IngredientPanel(Manager manager) {
-        this.setSize(200,200);
+        this.setSize(200, 200);
         this.setVisible(true);
         this.setBackground(Color.blue);
         this.manager = manager;

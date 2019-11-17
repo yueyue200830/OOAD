@@ -14,23 +14,22 @@ import java.util.Vector;
  */
 public class Manager {
     public static World world = new World(new Vec2(0f,10f));
-    Vector<Ball> ballList;
-    Vector<Tool> toolList;
+    private Vector<Ball> ballList;
+    private Vector<Tool> toolList;
     private int ingredientCondition;
 
     /**
      * mouse: 0, ball: 1, absorber: 2, slope: 3, diamond: 4, emerald: 5, straightTrack: 6, curveTrack: 7,
      * hinderLeft: 8, hinderRight: 9
      */
-
-    public Manager(){
+    public Manager() {
         ballList = new Vector<>();
         toolList = new Vector<>();
         initObjs();
     }
 
-    private void initObjs(){
-        Ball ball = new Ball(42f,50f);
+    private void initObjs() {
+        Ball ball = new Ball(42f, 50f);
         ballList.add(ball);
     }
 
@@ -41,11 +40,12 @@ public class Manager {
     public void addTool(Tool tool) {
         toolList.add(tool);
     }
+
     public void step(){
-        world.step(Constants.TIME_STEP,6,6);
+        world.step(Constants.TIME_STEP, 6, 6);
     }
 
-    public void draw(Graphics2D g){
+    public void draw(Graphics2D g) {
         ballList.forEach(it->it.drawMe(g));
         toolList.forEach(it->it.drawMe(g));
     }
