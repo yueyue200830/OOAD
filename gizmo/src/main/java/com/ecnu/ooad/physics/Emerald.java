@@ -1,7 +1,6 @@
 package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Manager;
-import com.ecnu.ooad.view.GamePanel;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -33,11 +32,11 @@ public class Emerald extends Obstacle {
         this.color = Color.green;
 
         BodyDef bd = new BodyDef();
-        bd.position = new Vec2(worldX,worldY);
+        bd.position = new Vec2(worldX, worldY);
         bd.type = BodyType.STATIC;
         FixtureDef fd = new FixtureDef();
         PolygonShape ps = new PolygonShape();
-        ps.setAsBox(this.width,this.height);
+        ps.setAsBox(this.width / 2, this.height / 2);
         fd.shape = ps;
 
         this.square = Manager.world.createBody(bd);
@@ -63,6 +62,6 @@ public class Emerald extends Obstacle {
     @Override
     public void drawMe(Graphics2D g) {
         g.setColor(this.color);
-        g.fillRect((int) this.square.getPosition().x, (int) this.square.getPosition().y , (int) this.getWidth(), (int) this.getHeight());
+        g.fillRect((int) (this.square.getPosition().x - this.getWidth()/2), (int) (this.square.getPosition().y - this.getHeight()/2), (int) this.getWidth(), (int) this.getHeight());
     }
 }
