@@ -1,6 +1,8 @@
 package com.ecnu.ooad;
 
 import com.ecnu.ooad.physics.Ball;
+import com.ecnu.ooad.physics.Emerald;
+import com.ecnu.ooad.physics.Tool;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -32,6 +34,7 @@ public class GamePanelMouseListener implements MouseListener {
                     case 4:
                         break;
                     case 5:
+                        this.addEmerald(e);
                         break;
                     case 6:
                         break;
@@ -54,6 +57,15 @@ public class GamePanelMouseListener implements MouseListener {
             int y = e.getY();
             Ball newBall = new Ball(x,y);
             manager.addBall(newBall);
+        }
+
+        public void addEmerald(MouseEvent e) {
+            System.out.println("add emerald");
+            int x = e.getX();
+            int y = e.getY();
+            Emerald emerald = new Emerald(x,y);
+            System.out.println(emerald);
+            this.manager.addTool((Tool) emerald);
         }
 
         @Override

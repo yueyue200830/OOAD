@@ -25,6 +25,7 @@ public class Manager {
 
     public Manager(){
         ballList = new Vector<>();
+        toolList = new Vector<>();
         initObjs();
     }
 
@@ -38,6 +39,7 @@ public class Manager {
     }
 
     public void addTool(Tool tool) {
+        toolList.add(tool);
     }
     public void step(){
         world.step(Constants.TIME_STEP,6,6);
@@ -45,6 +47,7 @@ public class Manager {
 
     public void draw(Graphics2D g){
         ballList.forEach(it->it.drawMe(g));
+        toolList.forEach(it->it.drawMe(g));
     }
 
     public void setIngredientCondition(int condition) {
