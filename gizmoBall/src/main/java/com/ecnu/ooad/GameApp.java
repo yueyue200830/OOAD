@@ -17,13 +17,15 @@ public class GameApp {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(Constants.FRAME_WIDTH , Constants.FRAME_HIGHT);
 
+        Manager manager = new Manager();
         MenuBar bar = new MenuBar();
         GamePanel gamePanel = new GamePanel();
-        ToolPanel toolPanel = new ToolPanel();
+        gamePanel.setManager(manager);
+        //ToolPanel toolPanel = new ToolPanel();
         frame.add(gamePanel, BorderLayout.CENTER);
-        frame.add(toolPanel, BorderLayout.EAST);
+       // frame.add(toolPanel, BorderLayout.EAST);
         frame.setJMenuBar(bar);
         frame.setVisible(true);
-        new Thread(gamePanel).start();
+        //new Thread(gamePanel).start();
     }
 }

@@ -1,5 +1,6 @@
 package com.ecnu.ooad.view;
 
+import com.ecnu.ooad.GamePanelMouseListener;
 import com.ecnu.ooad.Manager;
 import com.ecnu.ooad.Constants;
 
@@ -12,13 +13,18 @@ import java.awt.*;
  */
 public class GamePanel extends JPanel implements Runnable {
     private Manager manager;
+    private GamePanelMouseListener mouseListener;
 
     public GamePanel(){
         this.setSize(Constants.GAME_WIDTH, Constants.GAME_HIGHT);
         this.setVisible(true);
         this.setBackground(Color.black);
+        this.manager = new Manager();
 
-        manager = new Manager();
+    }
+
+    public Manager getManager() {
+        return this.manager;
     }
 
     @Override

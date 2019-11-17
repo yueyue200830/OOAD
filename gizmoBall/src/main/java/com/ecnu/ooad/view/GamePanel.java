@@ -17,13 +17,13 @@ public class GamePanel extends JPanel implements Runnable {
         this.setSize(Constants.GAME_WIDTH, Constants.GAME_HIGHT);
         this.setVisible(true);
         this.setBackground(Color.BLACK);
-        manager = new Manager();
+        //manager = new Manager();
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        manager.draw((Graphics2D) g);
+        this.manager.draw((Graphics2D) g);
         g.dispose();
     }
 
@@ -33,11 +33,15 @@ public class GamePanel extends JPanel implements Runnable {
             while (true) {
                 Thread.sleep(30);
                 this.repaint();
-                manager.step();
+                this.manager.step();
                 System.out.println("run!!!!");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
     }
 }

@@ -19,13 +19,15 @@ public class GameApp {
 
         MenuBar bar = new MenuBar();
         GamePanel gamePanel = new GamePanel();
-        ToolPanel toolPanel = new ToolPanel();
-
+        ToolPanel toolPanel = new ToolPanel(gamePanel.getManager());
+        GamePanelMouseListener mouseListener = new GamePanelMouseListener(gamePanel.getManager());
+        gamePanel.addMouseListener(mouseListener);
         frame.add(gamePanel, BorderLayout.CENTER);
         frame.add(toolPanel, BorderLayout.EAST);
         frame.setJMenuBar(bar);
         frame.setVisible(true);
 
         new Thread(gamePanel).start();
+        //new Thread(toolPanel).start();
     }
 }

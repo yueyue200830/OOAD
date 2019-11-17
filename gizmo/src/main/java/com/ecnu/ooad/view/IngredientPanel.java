@@ -1,5 +1,8 @@
 package com.ecnu.ooad.view;
 
+import com.ecnu.ooad.IngredientActionListener;
+import com.ecnu.ooad.Manager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,12 +12,16 @@ import java.awt.*;
  */
 public class IngredientPanel extends JPanel {
 
-    public IngredientPanel() {
+    private Manager manager;
+
+    public IngredientPanel(Manager manager) {
         this.setSize(200,200);
         this.setVisible(true);
         this.setBackground(Color.blue);
+        this.manager = manager;
         this.createIngredientBar();
         this.setLayout(new GridLayout(5, 2));
+       // System.out.println("new ingredient " + this.manager);
     }
 
     public void createIngredientBar() {
@@ -29,6 +36,16 @@ public class IngredientPanel extends JPanel {
         JRadioButton btnHinderLeft = new JRadioButton("hinderLeft");
         JRadioButton btnHinderRight = new JRadioButton("hinderRight");
         ButtonGroup bg = new ButtonGroup();
+        btnMouse.addActionListener(new IngredientActionListener(this.manager));
+        btnBall.addActionListener(new IngredientActionListener(this.manager));
+        btnAbsorber.addActionListener(new IngredientActionListener(this.manager));
+        btnSlope.addActionListener(new IngredientActionListener(this.manager));
+        btnDiamond.addActionListener(new IngredientActionListener(this.manager));
+        btnEmerald.addActionListener(new IngredientActionListener(this.manager));
+        btnStraightTrack.addActionListener(new IngredientActionListener(this.manager));
+        btnCurveTrack.addActionListener(new IngredientActionListener(this.manager));
+        btnHinderLeft.addActionListener(new IngredientActionListener(this.manager));
+        btnHinderRight.addActionListener(new IngredientActionListener(this.manager));
         bg.add(btnBall);
         bg.add(btnMouse);
         bg.add(btnAbsorber);

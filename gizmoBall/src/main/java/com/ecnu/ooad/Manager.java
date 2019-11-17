@@ -17,15 +17,15 @@ import java.util.List;
 public class Manager {
     private List<Ball> ballList;
     private List<Tool> toolList;
-    public World world;
+    public static World world = new World(new Vec2(0f, -10f));
 
 
     public Manager() {
-        world = new World(new Vec2(0f,-10f));
+        //world = new World(new Vec2(0f,-10f));
         Ball ball = new Ball(42f, 50f);
-        BodyDef body = ball.getBd();
-        ball.setBall(world.createBody(body));
-        ball.setFeaturefd();
+       // BodyDef body = ball.getBd();
+//        ball.setBall(world.createBody(body));
+//        ball.setFeaturefd();
         ballList = new ArrayList<>();
         toolList = new ArrayList<>();
 
@@ -33,8 +33,10 @@ public class Manager {
     }
 
     public void step() {
-        this.world.step(Constants.TIME_STEP,6,6);
+        world.step(Constants.TIME_STEP,6,6);
         System.out.println("manager!!");
+        Ball ball = ballList.get(0);
+        System.out.println(ball.getBall().m_linearVelocity.y + "," + ball.getBall().m_invMass + "," + ball.getBall().m_force);
     }
 
     public void draw(Graphics2D g) {

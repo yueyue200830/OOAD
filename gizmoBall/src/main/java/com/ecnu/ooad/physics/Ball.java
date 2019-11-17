@@ -1,6 +1,7 @@
 package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
+import com.ecnu.ooad.Manager;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
@@ -16,7 +17,7 @@ public class Ball {
     private float worldY;
     private float radius;
     private Body ball;
-    private BodyDef bd;
+    //private BodyDef bd;
     private FixtureDef fd;
     private Color color;
 
@@ -32,7 +33,7 @@ public class Ball {
         return Constants.mile2Pixel(this.radius * 2);
     }
     private void initBallWorld() {
-        bd = new BodyDef();
+        BodyDef bd = new BodyDef();
         bd.position = new Vec2(this.worldX, this.worldY);
         bd.type = BodyType.DYNAMIC;
 
@@ -43,17 +44,30 @@ public class Ball {
         fd.density = 0.5f;
         fd.friction = 0.3f;
         fd.restitution = 0.9f;
+        this.ball = Manager.world.createBody(bd);
+        ball.createFixture(this.fd);
     }
 
     public void setFeaturefd() {
         ball.createFixture(this.fd);
+        ball.setGravityScale(10);
+        this.ball.setActive(true);
+        this.ball.setAwake(true);
+        System.out.println(ball.m_gravityScale);
     }
 
     public void drawMe(Graphics2D g) {
         g.setColor(this.color);
-        g.fillOval((int)this.getWorldX(),(int)this.getWorldY(), this.getWidthOrHeight(), this.getWidthOrHeight());
+        g.fillOval((int)this.getPixelX(),(int)this.getPixelY(), this.getWidthOrHeight(), this.getWidthOrHeight());
     }
 
+    public float getPixelX() {
+        return this.ball.getPosition().x - this.radius;
+    }
+
+    public float getPixelY() {
+        return this.ball.getPosition().y - this.radius;
+    }
     public float getWorldX() {
         return worldX;
     }
@@ -70,9 +84,9 @@ public class Ball {
         return ball;
     }
 
-    public BodyDef getBd() {
-        return bd;
-    }
+//    public BodyDef getBd() {
+//        return bd;
+//    }
 
     public void setWorldX(float worldX) {
         this.worldX = worldX;
@@ -90,9 +104,9 @@ public class Ball {
         this.ball = ball;
     }
 
-    public void setBd(BodyDef bd) {
-        this.bd = bd;
-    }
+//    public void setBd(BodyDef bd) {
+//        this.bd = bd;
+//    }
 
     public void setFd(FixtureDef fd) {
         this.fd = fd;

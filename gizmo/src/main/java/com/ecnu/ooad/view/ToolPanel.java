@@ -1,6 +1,7 @@
 package com.ecnu.ooad.view;
 
 import com.ecnu.ooad.Constants;
+import com.ecnu.ooad.Manager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,15 +12,22 @@ import java.awt.*;
  */
 public class ToolPanel extends JPanel {
     private GridBagConstraints gbc;
+    private Manager manager;
 
-    public ToolPanel() {
+    public ToolPanel(Manager manager) {
         this.setSize(Constants.TOOL_WIDTH, Constants.TOOL_HIGHT);
         this.setVisible(true);
         this.setBackground(Color.red);
         this.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
+        this.manager = manager;
         this.initPanel();
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+        //System.out.println("tool panel to be set manager " + this.manager);
     }
 
     private void initPanel() {
@@ -37,7 +45,7 @@ public class ToolPanel extends JPanel {
         gbc.gridheight = 11;
         gbc.weightx = 0.5;
         gbc.weighty = 0.8;
-        this.add(new IngredientPanel(), gbc);
+        this.add(new IngredientPanel(this.manager), gbc);
 
         JLabel labelOperation = new JLabel("Operation Bar");
         gbc.gridx = 0;

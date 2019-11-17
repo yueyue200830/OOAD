@@ -1,7 +1,5 @@
 package com.ecnu.ooad.view;
 
-import com.ecnu.ooad.Constants;
-import com.sun.xml.internal.messaging.saaj.soap.JpegDataContentHandler;
 
 import javax.swing.*;
 import java.awt.*;
