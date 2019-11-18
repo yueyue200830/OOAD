@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- * @author Yiqing Tao
+ * @author Yiqing Tao, Jiayi Zhu
  * @date 2019-11-17 12:51
  */
 public class GamePanelMouseListener implements MouseListener {
@@ -14,34 +14,33 @@ public class GamePanelMouseListener implements MouseListener {
 
     public GamePanelMouseListener(Manager manager) {
         this.manager = manager;
-        System.out.println("new listener");
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("mouse clicked");
-        if (MouseEvent.BUTTON1 == e.getButton()) {
+        if (MouseEvent.BUTTON1 == e.getButton() && !this.manager.isPlayMode()) {
             int condition = this.manager.getIngredientCondition();
+            int[] position = this.getSquareMiddlePoint(e.getX(), e.getY());
             System.out.println(condition);
             switch (condition) {
                 case 0:
                     break;
                 case 1:
-                    this.addBall(e);
+                    this.addBall(position);
                     break;
                 case 2:
                     break;
                 case 3:
-                    this.addSlope(e);
+                    this.addSlope(position);
                     break;
                 case 4:
-                    this.addDiamond(e);
+                    this.addDiamond(position);
                     break;
                 case 5:
-                    this.addEmerald(e);
+                    this.addEmerald(position);
                     break;
                 case 6:
-                    this.addStraightTrack(e);
+                    this.addStraightTrack(position);
                     break;
                 case 7:
                     break;
@@ -55,46 +54,53 @@ public class GamePanelMouseListener implements MouseListener {
         }
     }
 
-    public void addBall(MouseEvent e) {
+    public int[] getSquareMiddlePoint(int x, int y) {
+        int[] pos = new int[2];
+        pos[0] = x / 20 * 20 + 10;
+        pos[1] = y / 20 * 20 + 10;
+        return pos;
+    }
+
+    public void addBall(int[] pos) {
         System.out.println("add ball");
-        int x = e.getX();
-        int y = e.getY();
+        int x = pos[0];
+        int y = pos[1];
         Ball newBall = new Ball(x, y);
         manager.addBall(newBall);
     }
 
-    public void addSlope(MouseEvent e) {
+    public void addSlope(int[] pos) {
         System.out.println("add slop");
-        int x = e.getX();
-        int y = e.getY();
-        Slope slope = new Slope(x, y, 1, this.manager.getAngle());
+        int x = pos[0];
+        int y = pos[1];
+        Slope slope = new Slope(x, y, 1, this.manager.getDirection());
         manager.addTool(slope);
     }
 
-    public void addEmerald(MouseEvent e) {
+    public void addEmerald(int[] pos) {
         System.out.println("add emerald");
-        int x = e.getX();
-        int y = e.getY();
+        int x = pos[0];
+        int y = pos[1];
         Emerald emerald = new Emerald(x, y);
         this.manager.addTool(emerald);
     }
 
-    public void addDiamond(MouseEvent e) {
+    public void addDiamond(int[] pos) {
         System.out.println("add diamond");
-        int x = e.getX();
-        int y = e.getY();
+        int x = pos[0];
+        int y = pos[1];
         Diamond diamond = new Diamond(x, y);
         System.out.println(diamond);
         this.manager.addTool(diamond);
     }
 
-    public void addStraightTrack(MouseEvent e) {
+    public void addStraightTrack(int[] pos) {
         System.out.println("add track");
-        int x = e.getX();
-        int y = e.getY();
-        StraightTrack straightTrack = new StraightTrack(x,y);
+        int x = pos[0];
+        int y = pos[1];
+        StraightTrack straightTrack = new StraightTrack(x, y, manager.getDirection());
         System.out.println(straightTrack);
-        this.manager.addTool((Tool) straightTrack);
+        this.manager.addTool(straightTrack);
     }
 
     public void addHinderLeft(MouseEvent e) {

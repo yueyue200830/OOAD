@@ -76,6 +76,6 @@ public class ToolPanel extends JPanel {
         gbc.gridheight = 8;
         gbc.weightx = 0.5;
         gbc.weighty = 0.8;
-        this.add(new ModePanel(), gbc);
+        this.add(new ModePanel(this.manager), gbc);
     }
 }

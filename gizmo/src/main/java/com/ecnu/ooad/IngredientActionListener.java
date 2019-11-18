@@ -19,6 +19,7 @@ public class IngredientActionListener implements ActionListener {
         String command = e.getActionCommand();
         if ("mouse".equals(command)) {
             System.out.println("mouse section");
+            this.manager.setIngredientCondition(0);
         } else if ("ball".equals(command)) {
             this.manager.setIngredientCondition(1);
         } else if ("absorber".equals(command)) {
@@ -48,6 +49,16 @@ public class IngredientActionListener implements ActionListener {
         } else if ("rotate".equals(command)) {
             System.out.println("rotate");
             this.manager.rotate();
+        } else if ("delete".equals(command)) {
+            // somthing
+        } else if ("zoom in".equals(command)) {
+            // somthing
+        } else if ("zoom out".equals(command)) {
+            // somthing
+        } else if ("Design Mode".equals(command)) {
+            this.manager.setIsPlayMode(false);
+        } else if ("Play Mode".equals(command)) {
+            this.manager.setIsPlayMode(true);
         }
     }
 }

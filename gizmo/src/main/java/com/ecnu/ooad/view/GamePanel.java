@@ -6,6 +6,7 @@ import com.ecnu.ooad.Constants;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Line2D;
 
 /**
  * @author Jiayi Zhu
@@ -26,9 +27,23 @@ public class GamePanel extends JPanel implements Runnable {
         return this.manager;
     }
 
+    private void paintLines(Graphics2D g) {
+        Line2D lin;
+        for (int i = 1; i < 600 / 20; i++) {
+            lin = new Line2D.Float(0, 20 * i, 600, 20 * i);
+            g.draw(lin);
+
+            lin = new Line2D.Float(20 * i, 0, 20 * i, 600);
+            g.draw(lin);
+        }
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        if (!this.manager.isPlayMode()) {
+            paintLines((Graphics2D) g);
+        }
         manager.draw((Graphics2D) g);
         g.dispose();
     }
@@ -39,7 +54,9 @@ public class GamePanel extends JPanel implements Runnable {
             while (true) {
                 Thread.sleep(30);
                 this.repaint();
-                manager.step();
+                if (this.manager.isPlayMode()) {
+                    manager.step();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

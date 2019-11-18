@@ -1,5 +1,8 @@
 package com.ecnu.ooad.view;
 
+import com.ecnu.ooad.IngredientActionListener;
+import com.ecnu.ooad.Manager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,7 +11,10 @@ import java.awt.*;
  * @date 2019-11-16 21:09
  */
 public class ModePanel extends JPanel {
-    public ModePanel() {
+    private Manager manager;
+
+    public ModePanel(Manager manager) {
+        this.manager = manager;
         this.setSize(200, 200);
         this.setVisible(true);
         this.setBackground(Color.yellow);
@@ -19,6 +25,8 @@ public class ModePanel extends JPanel {
     private void createMode() {
         JButton btnDesign = new JButton("Design Mode");
         JButton btnPlay = new JButton("Play Mode");
+        btnDesign.addActionListener(new IngredientActionListener(this.manager));
+        btnPlay.addActionListener(new IngredientActionListener(this.manager));
         this.add(btnDesign);
         this.add(btnPlay);
     }
