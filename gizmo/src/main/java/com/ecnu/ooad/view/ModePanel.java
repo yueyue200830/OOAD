@@ -1,6 +1,5 @@
 package com.ecnu.ooad.view;
 
-import com.ecnu.ooad.IngredientActionListener;
 import com.ecnu.ooad.Manager;
 
 import javax.swing.*;
@@ -25,8 +24,8 @@ public class ModePanel extends JPanel {
     private void createMode() {
         JButton btnDesign = new JButton("Design Mode");
         JButton btnPlay = new JButton("Play Mode");
-        btnDesign.addActionListener(new IngredientActionListener(this.manager));
-        btnPlay.addActionListener(new IngredientActionListener(this.manager));
+        btnDesign.addActionListener(new ModeActionListener(this.manager));
+        btnPlay.addActionListener(new ModeActionListener(this.manager));
         this.add(btnDesign);
         this.add(btnPlay);
     }

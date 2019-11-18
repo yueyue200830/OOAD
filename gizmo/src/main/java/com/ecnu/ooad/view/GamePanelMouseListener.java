@@ -1,5 +1,6 @@
-package com.ecnu.ooad;
+package com.ecnu.ooad.view;
 
+import com.ecnu.ooad.Manager;
 import com.ecnu.ooad.physics.*;
 
 import java.awt.event.MouseEvent;
@@ -21,7 +22,6 @@ public class GamePanelMouseListener implements MouseListener {
         if (MouseEvent.BUTTON1 == e.getButton() && !this.manager.isPlayMode()) {
             int condition = this.manager.getIngredientCondition();
             int[] position = this.getSquareMiddlePoint(e.getX(), e.getY());
-            System.out.println(condition);
             switch (condition) {
                 case 0:
                     break;
@@ -45,10 +45,10 @@ public class GamePanelMouseListener implements MouseListener {
                 case 7:
                     break;
                 case 8:
-                    this.addHinderLeft(e);
+                    this.addHinderLeft(position);
                     break;
                 default:
-                    this.addHinderRight(e);
+                    this.addHinderRight(position);
                     break;
             }
         }
@@ -62,7 +62,6 @@ public class GamePanelMouseListener implements MouseListener {
     }
 
     public void addBall(int[] pos) {
-        System.out.println("add ball");
         int x = pos[0];
         int y = pos[1];
         Ball newBall = new Ball(x, y);
@@ -70,7 +69,6 @@ public class GamePanelMouseListener implements MouseListener {
     }
 
     public void addSlope(int[] pos) {
-        System.out.println("add slop");
         int x = pos[0];
         int y = pos[1];
         Slope slope = new Slope(x, y, 1, this.manager.getDirection());
@@ -78,7 +76,6 @@ public class GamePanelMouseListener implements MouseListener {
     }
 
     public void addEmerald(int[] pos) {
-        System.out.println("add emerald");
         int x = pos[0];
         int y = pos[1];
         Emerald emerald = new Emerald(x, y);
@@ -86,7 +83,6 @@ public class GamePanelMouseListener implements MouseListener {
     }
 
     public void addDiamond(int[] pos) {
-        System.out.println("add diamond");
         int x = pos[0];
         int y = pos[1];
         Diamond diamond = new Diamond(x, y);
@@ -95,7 +91,6 @@ public class GamePanelMouseListener implements MouseListener {
     }
 
     public void addStraightTrack(int[] pos) {
-        System.out.println("add track");
         int x = pos[0];
         int y = pos[1];
         StraightTrack straightTrack = new StraightTrack(x, y, manager.getDirection());
@@ -103,16 +98,16 @@ public class GamePanelMouseListener implements MouseListener {
         this.manager.addTool(straightTrack);
     }
 
-    public void addHinderLeft(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
+    public void addHinderLeft(int[] pos) {
+        int x = pos[0];
+        int y = pos[1];
         HinderLeft hinderLeft = new HinderLeft(x, y);
         this.manager.addTool((Tool) hinderLeft);
     }
 
-    public  void addHinderRight(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
+    public  void addHinderRight(int[] pos) {
+        int x = pos[0];
+        int y = pos[1];
         HinderRight hinderRight = new HinderRight(x, y);
         this.manager.addTool((Tool) hinderRight);
     }

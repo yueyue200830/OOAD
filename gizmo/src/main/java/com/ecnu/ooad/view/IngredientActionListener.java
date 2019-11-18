@@ -1,4 +1,6 @@
-package com.ecnu.ooad;
+package com.ecnu.ooad.view;
+
+import com.ecnu.ooad.Manager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,19 +48,6 @@ public class IngredientActionListener implements ActionListener {
         } else if ("hinderRight".equals(command)) {
             this.manager.setIngredientCondition(9);
 
-        } else if ("rotate".equals(command)) {
-            System.out.println("rotate");
-            this.manager.rotate();
-        } else if ("delete".equals(command)) {
-            // somthing
-        } else if ("zoom in".equals(command)) {
-            // somthing
-        } else if ("zoom out".equals(command)) {
-            // somthing
-        } else if ("Design Mode".equals(command)) {
-            this.manager.setIsPlayMode(false);
-        } else if ("Play Mode".equals(command)) {
-            this.manager.setIsPlayMode(true);
         }
     }
 }

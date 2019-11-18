@@ -1,6 +1,5 @@
 package com.ecnu.ooad.view;
 
-import com.ecnu.ooad.IngredientActionListener;
 import com.ecnu.ooad.Manager;
 
 import javax.swing.*;
@@ -55,8 +54,8 @@ public class IngredientPanel extends JPanel {
         bg.add(btnCurveTrack);
         bg.add(btnHinderLeft);
         bg.add(btnHinderRight);
-        this.add(btnBall);
         this.add(btnMouse);
+        this.add(btnBall);
         this.add(btnAbsorber);
         this.add(btnSlope);
         this.add(btnDiamond);

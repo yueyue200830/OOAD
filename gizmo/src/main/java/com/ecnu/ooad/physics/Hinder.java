@@ -22,15 +22,15 @@ public class Hinder implements Tool {
     public Hinder(float x, float y) {
         this.color = Color.LIGHT_GRAY;
         this.initHinder(x, y);
-
     }
-    public void initHinder(float x, float y) {
+
+    private void initHinder(float x, float y) {
         BodyDef bd = new BodyDef();
-        bd.position = new Vec2(x,y);
+        bd.position = new Vec2(x, y + Constants.GRID_LENGTH / 2 - Constants.HINDER_HEIGHT / 2);
         bd.type = BodyType.STATIC;
         FixtureDef fd = new FixtureDef();
         PolygonShape ps = new PolygonShape();
-        ps.setAsBox(Constants.HINDER_WIDTH, Constants.HINDER_HEIGHT);
+        ps.setAsBox(Constants.HINDER_WIDTH / 2, Constants.HINDER_HEIGHT / 2);
         fd.shape = ps;
 
         this.body = Manager.world.createBody(bd);
@@ -41,6 +41,8 @@ public class Hinder implements Tool {
     @Override
     public void drawMe(Graphics2D g) {
         g.setColor(this.color);
-        g.fillRect((int) this.body.getPosition().x - Constants.HINDER_WIDTH / 2, (int) this.body.getPosition().y - Constants.HINDER_HEIGHT / 2, Constants.HINDER_WIDTH, Constants.HINDER_HEIGHT);
+        int x = (int) this.body.getPosition().x;
+        int y = (int) this.body.getPosition().y;
+        g.fillRect(x - Constants.HINDER_WIDTH / 2, y - Constants.HINDER_HEIGHT / 2, Constants.HINDER_WIDTH, Constants.HINDER_HEIGHT);
     }
 }

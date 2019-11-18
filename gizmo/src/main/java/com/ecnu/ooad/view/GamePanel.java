@@ -1,6 +1,5 @@
 package com.ecnu.ooad.view;
 
-import com.ecnu.ooad.GamePanelMouseListener;
 import com.ecnu.ooad.Manager;
 import com.ecnu.ooad.Constants;
 
@@ -14,7 +13,6 @@ import java.awt.geom.Line2D;
  */
 public class GamePanel extends JPanel implements Runnable {
     private Manager manager;
-    private GamePanelMouseListener mouseListener;
 
     public GamePanel() {
         this.setSize(Constants.GAME_WIDTH, Constants.GAME_HIGHT);

@@ -1,6 +1,8 @@
 package com.ecnu.ooad;
 
 import com.ecnu.ooad.physics.Ball;
+import com.ecnu.ooad.physics.HinderLeft;
+import com.ecnu.ooad.physics.HinderRight;
 import com.ecnu.ooad.physics.Tool;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
@@ -19,6 +21,8 @@ public class Manager {
     private int ingredientCondition;
     private int direction;
     private boolean isPlayMode;
+    private boolean hasLeftHinder;
+    private boolean hasRightHinder;
 
     /**
      * mouse: 0, ball: 1, absorber: 2, slope: 3, diamond: 4, emerald: 5, straightTrack: 6, curveTrack: 7,
@@ -29,6 +33,7 @@ public class Manager {
         toolList = new Vector<>();
         direction = 0;
         isPlayMode = false;
+        hasLeftHinder = hasRightHinder = false;
     }
 
     public void addBall(Ball ball) {
@@ -36,6 +41,19 @@ public class Manager {
     }
 
     public void addTool(Tool tool) {
+        if (HinderLeft.class.isInstance(tool)) {
+            if (hasLeftHinder) {
+                return;
+            } else {
+                hasLeftHinder = true;
+            }
+        } else if (HinderRight.class.isInstance(tool)) {
+            if (hasRightHinder) {
+                return;
+            } else {
+                hasRightHinder = true;
+            }
+        }
         toolList.add(tool);
     }
 

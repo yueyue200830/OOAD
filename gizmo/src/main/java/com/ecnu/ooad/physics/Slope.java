@@ -15,8 +15,6 @@ import java.awt.*;
  * @date 2019-11-14 16:51
  */
 public class Slope extends Obstacle {
-    private float worldX;
-    private float worldY;
     private float edge;
     private Body body;
     private Color color;
@@ -27,8 +25,6 @@ public class Slope extends Obstacle {
     }
 
     public Slope(float worldX, float worldY, float scaleRate, int direction) {
-        this.worldX = worldX;
-        this.worldY = worldY;
         this.direction = direction;
         this.color = Color.WHITE;
         this.edge = 20;
