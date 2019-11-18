@@ -20,7 +20,7 @@ public class Ball {
     private Color color = Color.cyan;
 
     public Ball(float worldX, float worldY) {
-        this.radius = 10f;
+        this.radius = 8f;
         initBallInWorld(worldX, worldY);
     }
 

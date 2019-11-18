@@ -21,7 +21,6 @@ public class IngredientPanel extends JPanel {
         this.manager = manager;
         this.createIngredientBar();
         this.setLayout(new GridLayout(5, 2));
-       // System.out.println("new ingredient " + this.manager);
     }
 
     public void createIngredientBar() {

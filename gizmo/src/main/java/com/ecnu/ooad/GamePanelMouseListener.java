@@ -11,11 +11,9 @@ import java.awt.event.MouseListener;
  */
 public class GamePanelMouseListener implements MouseListener {
     private Manager manager;
-    private int angle;
 
     public GamePanelMouseListener(Manager manager) {
         this.manager = manager;
-        this.angle = 0;
         System.out.println("new listener");
     }
 
@@ -95,10 +93,6 @@ public class GamePanelMouseListener implements MouseListener {
         StraightTrack straightTrack = new StraightTrack(x,y);
         System.out.println(straightTrack);
         this.manager.addTool((Tool) straightTrack);
-    }
-
-    public void rotate() {
-        this.angle = (this.angle + 1) % 4;
     }
 
     @Override
