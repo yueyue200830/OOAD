@@ -40,8 +40,8 @@ public class StraightTrack extends Track {
         FixtureDef fdRight = new FixtureDef();
         PolygonShape psLeft = new PolygonShape();
         PolygonShape psRight = new PolygonShape();
-        psLeft.setAsBox(Constants.TRACK_WIDTH, Constants.GRID_LENGTH / 2);
-        psRight.setAsBox(Constants.TRACK_WIDTH, Constants.GRID_LENGTH / 2);
+        psLeft.setAsBox(Constants.TRACK_WIDTH / 2, Constants.GRID_LENGTH / 2);
+        psRight.setAsBox(Constants.TRACK_WIDTH / 2, Constants.GRID_LENGTH / 2);
         fdLeft.shape = psLeft;
         fdRight.shape = psRight;
 
@@ -54,8 +54,8 @@ public class StraightTrack extends Track {
     @Override
     public void drawMe(Graphics2D g) {
         g.setColor(this.color);
-        g.fillRect((int) this.leftBody.getPosition().x - (int) Constants.TRACK_WIDTH / 2, (int) this.leftBody.getPosition().y - (int) Constants.TRACK_WIDTH / 2, (int) Constants.TRACK_WIDTH, (int) Constants.GRID_LENGTH);
-        g.fillRect((int) this.rightBody.getPosition().x - (int) Constants.TRACK_WIDTH / 2, (int) this.rightBody.getPosition().y - (int) Constants.TRACK_WIDTH / 2, (int) Constants.TRACK_WIDTH, (int) Constants.GRID_LENGTH);
+        g.fillRect((int) this.leftBody.getPosition().x - (int) Constants.TRACK_WIDTH / 2, (int) this.leftBody.getPosition().y - (int) Constants.GRID_LENGTH / 2, (int) Constants.TRACK_WIDTH, (int) Constants.GRID_LENGTH);
+        g.fillRect((int) this.rightBody.getPosition().x - (int) Constants.TRACK_WIDTH / 2, (int) this.rightBody.getPosition().y - (int) Constants.GRID_LENGTH / 2, (int) Constants.TRACK_WIDTH, (int) Constants.GRID_LENGTH);
 
     }
 }
