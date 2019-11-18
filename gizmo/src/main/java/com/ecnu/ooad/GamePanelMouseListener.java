@@ -43,6 +43,7 @@ public class GamePanelMouseListener implements MouseListener {
                     this.addEmerald(e);
                     break;
                 case 6:
+                    this.addStraightTrack(e);
                     break;
                 case 7:
                     break;

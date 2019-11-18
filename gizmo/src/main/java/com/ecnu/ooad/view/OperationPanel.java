@@ -1,5 +1,8 @@
 package com.ecnu.ooad.view;
 
+import com.ecnu.ooad.IngredientActionListener;
+import com.ecnu.ooad.Manager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,7 +11,10 @@ import java.awt.*;
  * @date 2019-11-16 21:09
  */
 public class OperationPanel extends JPanel {
-    public OperationPanel() {
+    private Manager manager;
+
+    public OperationPanel(Manager manager) {
+        this.manager = manager;
         this.setSize(200, 200);
         this.setVisible(true);
         this.setBackground(Color.green);
@@ -17,10 +23,14 @@ public class OperationPanel extends JPanel {
     }
 
     private void createButtons() {
+        JButton btnRotate = new JButton("rotate");
+        JButton btnDelete = new JButton("delete");
         JButton btnZoomIn = new JButton("zoom in");
         JButton btnZoomOut = new JButton("zoom out");
-        JButton btnDelete = new JButton("delete");
-        JButton btnRotate = new JButton("rotate");
+        btnRotate.addActionListener(new IngredientActionListener(this.manager));
+        btnDelete.addActionListener(new IngredientActionListener(this.manager));
+        btnZoomIn.addActionListener(new IngredientActionListener(this.manager));
+        btnZoomOut.addActionListener(new IngredientActionListener(this.manager));
         this.add(btnRotate);
         this.add(btnDelete);
         this.add(btnZoomIn);

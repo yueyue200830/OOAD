@@ -15,7 +15,7 @@ import java.awt.*;
  * @date 2019-11-14 16:51
  */
 public class Emerald extends Obstacle {
-    private Body square;
+    private Body body;
     private float height;
     private float width;
     private Color color;
@@ -39,29 +39,25 @@ public class Emerald extends Obstacle {
         ps.setAsBox(this.width / 2, this.height / 2);
         fd.shape = ps;
 
-        this.square = Manager.world.createBody(bd);
-        this.square.createFixture(fd);
+        this.body = Manager.world.createBody(bd);
+        this.body.createFixture(fd);
     }
 
-    public Body getSquare() {
-        return square;
+    public Body getBody() {
+        return body;
     }
 
-    public float getHeight() {
-        return height;
+    public float getInnerX() {
+        return this.body.getPosition().x - this.width / 2;
     }
 
-    public float getWidth() {
-        return width;
-    }
-
-    public Color getColor() {
-        return color;
+    public float getInnerY() {
+        return this.body.getPosition().y - this.height / 2;
     }
 
     @Override
     public void drawMe(Graphics2D g) {
         g.setColor(this.color);
-        g.fillRect((int) (this.square.getPosition().x - this.getWidth()/2), (int) (this.square.getPosition().y - this.getHeight()/2), (int) this.getWidth(), (int) this.getHeight());
+        g.fillRect((int) getInnerX(), (int) getInnerY(), (int) this.width, (int) this.height);
     }
 }

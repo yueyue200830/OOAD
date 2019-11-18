@@ -15,54 +15,46 @@ import java.awt.*;
  * @date 2019-11-16 20:34
  */
 public class Ball {
-    private float worldX;
-    private float worldY;
-    private float r;
-    public Body ballInWorld;
+    private float radius;
+    public Body body;
     private Color color = Color.cyan;
 
-    public Ball() {
-        this(42f, 50f);
-    }
-
     public Ball(float worldX, float worldY) {
-        this.worldX = worldX;
-        this.worldY = worldY;
-        this.r = 5f;
-        initBallInWorld();
+        this.radius = 10f;
+        initBallInWorld(worldX, worldY);
     }
 
-    private void initBallInWorld() {
+    private void initBallInWorld(float worldX, float worldY) {
         BodyDef bd = new BodyDef();
         bd.position = new Vec2(worldX, worldY);
         bd.type = BodyType.DYNAMIC;
 
         FixtureDef fd = new FixtureDef();
         CircleShape cs = new CircleShape();
-        cs.m_radius = r;
+        cs.m_radius = radius;
         fd.shape = cs;
         fd.density = 0.5f;
         fd.friction = 0.3f;
         fd.restitution = 0.6f;
 
-        this.ballInWorld = Manager.world.createBody(bd);
-        this.ballInWorld.createFixture(fd);
+        this.body = Manager.world.createBody(bd);
+        this.body.createFixture(fd);
     }
 
-    public float getPixelX() {
-        return ballInWorld.getPosition().x - r;
+    public float getInnerX() {
+        return body.getPosition().x - radius;
     }
 
-    public float getPixelY() {
-        return ballInWorld.getPosition().y - r;
+    public float getInnerY() {
+        return body.getPosition().y - radius;
     }
 
-    public float getWidthOrHeight() {
-        return r * 2;
+    public float getDelimiter() {
+        return radius * 2;
     }
 
     public void drawMe(Graphics2D g) {
         g.setColor(color);
-        g.fillOval((int) this.getPixelX(), (int) this.getPixelY(), (int) this.getWidthOrHeight(), (int) this.getWidthOrHeight());
+        g.fillOval((int) this.getInnerX(), (int) this.getInnerY(), (int) this.getDelimiter(), (int) this.getDelimiter());
     }
 }

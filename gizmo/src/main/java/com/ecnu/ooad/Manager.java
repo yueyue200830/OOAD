@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.Vector;
 
 /**
- * @author Jiayi Zhu
+ * @author Jiayi Zhu, Yiqing Tao
  * @date 2019-11-16 20:33
  */
 public class Manager {
@@ -17,6 +17,7 @@ public class Manager {
     private Vector<Ball> ballList;
     private Vector<Tool> toolList;
     private int ingredientCondition;
+    private int angle;
 
     /**
      * mouse: 0, ball: 1, absorber: 2, slope: 3, diamond: 4, emerald: 5, straightTrack: 6, curveTrack: 7,
@@ -25,6 +26,7 @@ public class Manager {
     public Manager() {
         ballList = new Vector<>();
         toolList = new Vector<>();
+        angle = 0;
         initObjs();
     }
 
@@ -57,5 +59,13 @@ public class Manager {
 
     public int getIngredientCondition() {
         return ingredientCondition;
+    }
+
+    public void rotate() {
+        this.angle = (this.angle + 1) % 4;
+    }
+
+    public int getAngle() {
+        return angle;
     }
 }

@@ -27,7 +27,6 @@ public class ToolPanel extends JPanel {
 
     public void setManager(Manager manager) {
         this.manager = manager;
-        //System.out.println("tool panel to be set manager " + this.manager);
     }
 
     private void initPanel() {
@@ -61,7 +60,7 @@ public class ToolPanel extends JPanel {
         gbc.gridheight = 5;
         gbc.weightx = 0.5;
         gbc.weighty = 0.8;
-        this.add(new OperationPanel(), gbc);
+        this.add(new OperationPanel(this.manager), gbc);
 
         JLabel labelMode = new JLabel("Mode Bar");
         gbc.gridx = 0;
