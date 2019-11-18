@@ -45,8 +45,8 @@ public class Ball {
         fd.friction = 0.3f;
         fd.restitution = 0.6f;
 
-        ballInWorld = Manager.world.createBody(bd);
-        ballInWorld.createFixture(fd);
+        this.ballInWorld = Manager.world.createBody(bd);
+        this.ballInWorld.createFixture(fd);
     }
 
     public float getPixelX() {
