@@ -1,9 +1,6 @@
 package com.ecnu.ooad;
 
-import com.ecnu.ooad.physics.Ball;
-import com.ecnu.ooad.physics.Diamond;
-import com.ecnu.ooad.physics.Emerald;
-import com.ecnu.ooad.physics.Tool;
+import com.ecnu.ooad.physics.*;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -43,6 +40,7 @@ public class GamePanelMouseListener implements MouseListener {
                         this.addEmerald(e);
                         break;
                     case 6:
+                        this.addStraightTrack(e);
                         break;
                     case 7:
                         break;
@@ -78,6 +76,15 @@ public class GamePanelMouseListener implements MouseListener {
             Diamond diamond = new Diamond(x,y);
             System.out.println(diamond);
             this.manager.addTool((Tool) diamond);
+        }
+
+        public void addStraightTrack(MouseEvent e) {
+            System.out.println("add track");
+            int x = e.getX();
+            int y = e.getY();
+            StraightTrack straightTrack = new StraightTrack(x,y);
+            System.out.println(straightTrack);
+            this.manager.addTool((Tool) straightTrack);
         }
         @Override
         public void mousePressed(MouseEvent e) {
