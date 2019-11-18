@@ -46,8 +46,10 @@ public class GamePanelMouseListener implements MouseListener {
                 case 7:
                     break;
                 case 8:
+                    this.addHinderLeft(e);
                     break;
                 default:
+                    this.addHinderRight(e);
                     break;
             }
         }
@@ -95,6 +97,19 @@ public class GamePanelMouseListener implements MouseListener {
         this.manager.addTool((Tool) straightTrack);
     }
 
+    public void addHinderLeft(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        HinderLeft hinderLeft = new HinderLeft(x, y);
+        this.manager.addTool((Tool) hinderLeft);
+    }
+
+    public  void addHinderRight(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        HinderRight hinderRight = new HinderRight(x, y);
+        this.manager.addTool((Tool) hinderRight);
+    }
     @Override
     public void mousePressed(MouseEvent e) {
         System.out.println("mouse pressed");
