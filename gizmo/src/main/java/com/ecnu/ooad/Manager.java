@@ -17,7 +17,8 @@ public class Manager {
     private Vector<Ball> ballList;
     private Vector<Tool> toolList;
     private int ingredientCondition;
-    private int angle;
+    private int direction;
+    private boolean isPlayMode;
 
     /**
      * mouse: 0, ball: 1, absorber: 2, slope: 3, diamond: 4, emerald: 5, straightTrack: 6, curveTrack: 7,
@@ -26,13 +27,8 @@ public class Manager {
     public Manager() {
         ballList = new Vector<>();
         toolList = new Vector<>();
-        angle = 0;
-        initObjs();
-    }
-
-    private void initObjs() {
-        Ball ball = new Ball(42f, 50f);
-        ballList.add(ball);
+        direction = 0;
+        isPlayMode = false;
     }
 
     public void addBall(Ball ball) {
@@ -62,10 +58,18 @@ public class Manager {
     }
 
     public void rotate() {
-        this.angle = (this.angle + 1) % 4;
+        this.direction = (this.direction + 1) % 4;
     }
 
-    public int getAngle() {
-        return angle;
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setIsPlayMode(boolean isPlayMode) {
+        this.isPlayMode = isPlayMode;
+    }
+
+    public boolean isPlayMode() {
+        return isPlayMode;
     }
 }

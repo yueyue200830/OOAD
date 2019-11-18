@@ -20,16 +20,16 @@ public class Slope extends Obstacle {
     private float edge;
     private Body body;
     private Color color;
-    private int angle;
+    private int direction;
 
     public Slope(float worldX, float worldY) {
         this(worldX, worldY, 1, 0);
     }
 
-    public Slope(float worldX, float worldY, float scaleRate, int angle) {
+    public Slope(float worldX, float worldY, float scaleRate, int direction) {
         this.worldX = worldX;
         this.worldY = worldY;
-        this.angle = angle;
+        this.direction = direction;
         this.color = Color.WHITE;
         this.edge = 20;
         initSlope(worldX, worldY);
@@ -42,7 +42,7 @@ public class Slope extends Obstacle {
         bd.type = BodyType.STATIC;
 
         PolygonShape ps = new PolygonShape();
-        switch (angle) {
+        switch (direction) {
             case 0:
                 ps.set(new Vec2[]{new Vec2(0, 0), new Vec2(edge, 0), new Vec2(0, edge)}, 3);
                 break;
@@ -72,7 +72,7 @@ public class Slope extends Obstacle {
         int x = (int) this.body.getPosition().x;
         int y = (int) this.body.getPosition().y;
         int e = (int) this.edge;
-        switch (angle) {
+        switch (direction) {
             case 0:
                 g.fillPolygon(new int[]{x, x, x + e}, new int[]{y, y + e, y}, 3);
                 break;
