@@ -87,6 +87,15 @@ public class GamePanelMouseListener implements MouseListener {
         this.manager.addTool(diamond);
     }
 
+    public void addStraightTrack(MouseEvent e) {
+        System.out.println("add track");
+        int x = e.getX();
+        int y = e.getY();
+        StraightTrack straightTrack = new StraightTrack(x,y);
+        System.out.println(straightTrack);
+        this.manager.addTool((Tool) straightTrack);
+    }
+
     public void rotate() {
         this.angle = (this.angle + 1) % 4;
     }
