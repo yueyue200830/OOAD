@@ -41,6 +41,18 @@ public class Ball {
         return radius * 2;
     }
 
+    public float getPositionX() {
+        return positionX;
+    }
+
+    public float getPositionY() {
+        return positionY;
+    }
+
+    public float getRadius() {
+        return radius;
+    }
+
     public void drawMe(@NotNull Graphics2D g) {
         g.setColor(color);
         g.fillOval((int) this.getInnerX(), (int) this.getInnerY(), (int) this.getDelimiter(), (int) this.getDelimiter());

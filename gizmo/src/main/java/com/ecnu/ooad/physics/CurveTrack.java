@@ -17,25 +17,23 @@ import java.awt.*;
  * @date 2019-11-16 10:55
  */
 public class CurveTrack extends Track {
-    private int x;
-    private int y;
     private Body body1;
     private Body body2;
     private Body body3;
     private Color color = Color.yellow;
-    private int direction;
 
     public CurveTrack(float x, float y, int direction) {
         super(x, y);
-        this.x = (int) x;
-        this.y = (int) y;
+        this.positionX = (int) x;
+        this.positionY = (int) y;
         this.direction = direction;
         this.initCurveTrack();
     }
 
+
     private void initCurveTrack() {
-        float posX = x - Constants.GRID_LENGTH / 2;
-        float posY = y - Constants.GRID_LENGTH / 2;
+        float posX = this.positionX - Constants.GRID_LENGTH / 2;
+        float posY = this.positionY - Constants.GRID_LENGTH / 2;
         float edge = (float) (10 - 4 * Math.sqrt(2) + 4f);
         float length = Constants.GRID_LENGTH;
         float dif = length - edge;
@@ -113,29 +111,29 @@ public class CurveTrack extends Track {
         int dotx, doty;
 
         if (direction == 0) {
-            x = this.x - Constants.GRID_LENGTH / 2 * 3 + 1;
-            y = this.y - Constants.GRID_LENGTH / 2 + 1;
+            x = (int) this.positionX - Constants.GRID_LENGTH / 2 * 3 + 1;
+            y = (int) this.positionY - Constants.GRID_LENGTH / 2 + 1;
             startAngle = 0;
-            dotx = this.x - Constants.GRID_LENGTH / 2;
-            doty = this.y + Constants.GRID_LENGTH / 2 - 2;
+            dotx = (int) this.positionX - Constants.GRID_LENGTH / 2;
+            doty = (int) this.positionY + Constants.GRID_LENGTH / 2 - 2;
         } else if (direction == 1) {
-            x = this.x - Constants.GRID_LENGTH / 2 + 1;
-            y = this.y - Constants.GRID_LENGTH / 2 + 1;
+            x = (int) this.positionX - Constants.GRID_LENGTH / 2 + 1;
+            y = (int) this.positionX - Constants.GRID_LENGTH / 2 + 1;
             startAngle = 90;
-            dotx = this.x + Constants.GRID_LENGTH / 2 - 2;
-            doty = this.y + Constants.GRID_LENGTH / 2 - 2;
+            dotx = (int) this.positionX + Constants.GRID_LENGTH / 2 - 2;
+            doty = (int) this.positionY + Constants.GRID_LENGTH / 2 - 2;
         } else if (direction == 2) {
-            x = this.x - Constants.GRID_LENGTH / 2 + 1;
-            y = this.y - Constants.GRID_LENGTH / 2 * 3 + 1;
+            x = (int) this.positionX - Constants.GRID_LENGTH / 2 + 1;
+            y = (int) this.positionY - Constants.GRID_LENGTH / 2 * 3 + 1;
             startAngle = 180;
-            dotx = this.x + Constants.GRID_LENGTH / 2 - 2;
-            doty = this.y - Constants.GRID_LENGTH / 2;
+            dotx = (int) this.positionX + Constants.GRID_LENGTH / 2 - 2;
+            doty = (int) this.positionY - Constants.GRID_LENGTH / 2;
         } else {
-            x = this.x - Constants.GRID_LENGTH / 2 * 3 + 1;
-            y = this.y - Constants.GRID_LENGTH / 2 * 3 + 1;
+            x = (int) this.positionX - Constants.GRID_LENGTH / 2 * 3 + 1;
+            y = (int) this.positionY - Constants.GRID_LENGTH / 2 * 3 + 1;
             startAngle = 270;
-            dotx = this.x - Constants.GRID_LENGTH / 2;
-            doty = this.y - Constants.GRID_LENGTH / 2;
+            dotx = (int) this.positionX - Constants.GRID_LENGTH / 2;
+            doty = (int) this.positionY - Constants.GRID_LENGTH / 2;
         }
 
         g.drawArc(x, y, width, height, startAngle, arcAngle);

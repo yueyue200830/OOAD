@@ -41,6 +41,14 @@ public class Emerald extends Obstacle {
         return this.body.getPosition().y - this.height / 2;
     }
 
+    public float getHeight() {
+        return height;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
     @Override
     public void drawMe(@NotNull Graphics2D g) {
         g.setColor(this.color);

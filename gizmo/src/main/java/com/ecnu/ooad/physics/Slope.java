@@ -31,6 +31,10 @@ public class Slope extends Obstacle {
         this.body = BodyUtil.initTriangle(worldX, worldY, this.edge, this.direction);
     }
 
+    public float getEdge() {
+        return edge;
+    }
+
     @Override
     public void drawMe(@NotNull Graphics2D g) {
         g.setColor(this.color);

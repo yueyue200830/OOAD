@@ -2,7 +2,7 @@ package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.Manager;
-import com.ecnu.ooad.Utils.BodyUtil;
+//import com.ecnu.ooad.Utils.BodyUtil;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -21,7 +21,8 @@ public class StraightTrack extends Track {
     private Body leftBody;
     private Body rightBody;
     private Color color;
-    private int direction;
+    private float boxWidth;
+    private float boxHeight;
 
     public StraightTrack(float x, float y, int direction) {
         super(x, y);
@@ -43,8 +44,6 @@ public class StraightTrack extends Track {
     }
 
     private void initStraightTrack(float xLeft, float xRight, float yLeft, float yRight) {
-        float boxWidth;
-        float boxHeight;
         if(this.direction == 0) {
             boxWidth = Constants.HINDER_WIDTH / 2;
             boxHeight = Constants.GRID_LENGTH;
@@ -52,9 +51,17 @@ public class StraightTrack extends Track {
             boxWidth = Constants.GRID_LENGTH;
             boxHeight = Constants.TRACK_WIDTH / 2;
         }
-        this.leftBody = BodyUtil.initRectangle(xLeft, yLeft, boxWidth, boxHeight);
-        this.rightBody = BodyUtil.initRectangle(xRight, yRight, boxWidth, boxHeight);
+        this.leftBody = com.ecnu.ooad.utils.BodyUtil.initRectangle(xLeft, yLeft, boxWidth, boxHeight);
+        this.rightBody = com.ecnu.ooad.utils.BodyUtil.initRectangle(xRight, yRight, boxWidth, boxHeight);
 
+    }
+
+    public float getBoxWidth() {
+        return boxWidth;
+    }
+
+    public float getBoxHeight() {
+        return boxHeight;
     }
 
     @Override

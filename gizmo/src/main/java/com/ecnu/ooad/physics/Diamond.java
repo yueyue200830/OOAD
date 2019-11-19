@@ -38,6 +38,10 @@ public class Diamond extends Obstacle {
         return this.radius * 2;
     }
 
+    public float getRadius() {
+        return radius;
+    }
+
     @Override
     public void drawMe(@NotNull Graphics2D g) {
         g.setColor(this.color);
