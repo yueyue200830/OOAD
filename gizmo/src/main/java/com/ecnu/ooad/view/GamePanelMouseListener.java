@@ -43,6 +43,7 @@ public class GamePanelMouseListener implements MouseListener {
                     this.addStraightTrack(position);
                     break;
                 case 7:
+                    this.addCurveTrack(position);
                     break;
                 case 8:
                     this.addHinderLeft(position);
@@ -86,7 +87,6 @@ public class GamePanelMouseListener implements MouseListener {
         int x = pos[0];
         int y = pos[1];
         Diamond diamond = new Diamond(x, y);
-        System.out.println(diamond);
         this.manager.addTool(diamond);
     }
 
@@ -94,8 +94,14 @@ public class GamePanelMouseListener implements MouseListener {
         int x = pos[0];
         int y = pos[1];
         StraightTrack straightTrack = new StraightTrack(x, y, manager.getDirection());
-        System.out.println(straightTrack);
         this.manager.addTool(straightTrack);
+    }
+
+    public void addCurveTrack(int[] pos) {
+        int x = pos[0];
+        int y = pos[1];
+        CurveTrack curveTrack = new CurveTrack(x, y, manager.getDirection());
+        this.manager.addTool(curveTrack);
     }
 
     public void addHinderLeft(int[] pos) {

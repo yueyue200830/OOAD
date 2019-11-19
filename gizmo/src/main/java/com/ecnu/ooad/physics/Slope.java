@@ -34,7 +34,6 @@ public class Slope extends Obstacle {
     private void initSlope(float worldX, float worldY) {
         BodyDef bd = new BodyDef();
         bd.position.set(new Vec2(worldX - edge / 2, worldY - edge / 2));
-        bd.bullet = true;
         bd.type = BodyType.STATIC;
 
         PolygonShape ps = new PolygonShape();
@@ -54,9 +53,6 @@ public class Slope extends Obstacle {
 
         FixtureDef fd = new FixtureDef();
         fd.shape = ps;
-        fd.friction = 0.3f;
-        fd.restitution = 0.8f;
-        fd.density = 1;
 
         this.body = Manager.world.createBody(bd);
         this.body.createFixture(fd);
