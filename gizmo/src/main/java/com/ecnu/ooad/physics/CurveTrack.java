@@ -17,16 +17,13 @@ import java.awt.*;
  * @date 2019-11-16 10:55
  */
 public class CurveTrack extends Track {
-    private Body body1;
-    private Body body2;
-    private Body body3;
+
     private Color color = Color.yellow;
 
     public CurveTrack(float x, float y, int direction) {
         super(x, y);
-        this.positionX = x;
-        this.positionY = y;
         this.direction = direction;
+        this.bodies = new Body[3];
         this.initCurveTrack();
     }
 
@@ -90,12 +87,12 @@ public class CurveTrack extends Track {
         fd2.shape = ps2;
         fd3.shape = ps3;
 
-        this.body1 = Manager.world.createBody(bd1);
-        this.body2 = Manager.world.createBody(bd2);
-        this.body3 = Manager.world.createBody(bd3);
-        this.body1.createFixture(fd1);
-        this.body2.createFixture(fd2);
-        this.body3.createFixture(fd3);
+        this.bodies[0] = Manager.world.createBody(bd1);
+        this.bodies[1] = Manager.world.createBody(bd2);
+        this.bodies[2] = Manager.world.createBody(bd3);
+        this.bodies[0].createFixture(fd1);
+        this.bodies[1].createFixture(fd2);
+        this.bodies[2].createFixture(fd3);
     }
 
     @Override
@@ -138,15 +135,5 @@ public class CurveTrack extends Track {
 
         g.drawArc(x, y, width, height, startAngle, arcAngle);
         g.fillRect(dotx, doty, 2, 2);
-    }
-
-    // TODO Change three body into bodyList.
-    @Override
-    public Body[] getBodies() {
-        Body[] bodies = new Body[3];
-        bodies[0] = this.body1;
-        bodies[1] = this.body2;
-        bodies[2] = this.body3;
-        return bodies;
     }
 }

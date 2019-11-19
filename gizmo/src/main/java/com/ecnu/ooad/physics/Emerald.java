@@ -26,19 +26,15 @@ public class Emerald extends Obstacle {
     }
 
     private void initEmerald(float worldX, float worldY) {
-        this.body = BodyUtil.initRectangle(worldX, worldY, this.width, this.height);
-    }
-
-    public Body getBody() {
-        return body;
+        this.bodies[0] = BodyUtil.initRectangle(worldX, worldY, this.width, this.height);
     }
 
     public float getInnerX() {
-        return this.body.getPosition().x - this.width / 2;
+        return this.bodies[0].getPosition().x - this.width / 2;
     }
 
     public float getInnerY() {
-        return this.body.getPosition().y - this.height / 2;
+        return this.bodies[0].getPosition().y - this.height / 2;
     }
 
     public float getHeight() {

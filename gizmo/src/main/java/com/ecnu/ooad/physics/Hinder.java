@@ -12,17 +12,16 @@ import java.awt.*;
  * @date 2019-11-14 16:51
  */
 public class Hinder extends Tool {
-    private Body body;
     private Color color;
     private float width;
     private float height;
-
 
     public Hinder(float x, float y) {
         super(x, y);
         this.color = Color.LIGHT_GRAY;
         this.width = Constants.HINDER_WIDTH;
         this.height = Constants.HINDER_HEIGHT;
+        this.bodies = new Body[1];
         this.initHinder(x, y);
     }
 
@@ -37,15 +36,14 @@ public class Hinder extends Tool {
     private void initHinder(float x, float y) {
         float leftCornerX = x;
         float leftCornerY = y + Constants.GRID_LENGTH / 2 - Constants.HINDER_HEIGHT / 2;
-        this.body = BodyUtil.initRectangle(leftCornerX, leftCornerY, this.width, this.height);
-
-
+        this.bodies[0] = BodyUtil.initRectangle(leftCornerX, leftCornerY, this.width, this.height);
     }
+
     @Override
     public void drawMe(@NotNull Graphics2D g) {
         g.setColor(this.color);
-        int x = (int) this.body.getPosition().x;
-        int y = (int) this.body.getPosition().y;
+        int x = (int) this.bodies[0].getPosition().x;
+        int y = (int) this.bodies[0].getPosition().y;
         g.fillRect(x - Constants.HINDER_WIDTH / 2, y - Constants.HINDER_HEIGHT / 2, Constants.HINDER_WIDTH, Constants.HINDER_HEIGHT);
     }
 }

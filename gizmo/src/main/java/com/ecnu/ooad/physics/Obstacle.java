@@ -14,6 +14,7 @@ public class Obstacle extends Tool {
 
     public Obstacle(float x, float y) {
         super(x, y);
+        this.bodies = new Body[1];
     }
 
     @Override

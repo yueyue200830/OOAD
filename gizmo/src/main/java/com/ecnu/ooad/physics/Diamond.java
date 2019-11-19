@@ -22,16 +22,16 @@ public class Diamond extends Obstacle {
     }
 
     private void initDiamond(float worldX, float worldY) {
-      this.body = BodyUtil.initCircle(worldX, worldY, this.radius, true);
+      this.bodies[0] = BodyUtil.initCircle(worldX, worldY, this.radius, true);
 
     }
 
     public float getInnerX() {
-        return body.getPosition().x - this.radius;
+        return bodies[0].getPosition().x - this.radius;
     }
 
     public float getInnerY() {
-        return body.getPosition().y - this.radius;
+        return bodies[0].getPosition().y - this.radius;
     }
 
     public float getDelimiter() {
