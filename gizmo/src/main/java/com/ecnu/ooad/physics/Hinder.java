@@ -1,14 +1,9 @@
 package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
-import com.ecnu.ooad.Manager;
-import com.ecnu.ooad.Utils.BodyUtil;
-import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.common.Vec2;
+import com.ecnu.ooad.utils.BodyUtil;
 import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.BodyType;
-import org.jbox2d.dynamics.FixtureDef;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -34,7 +29,7 @@ public class Hinder extends Tool {
 
     }
     @Override
-    public void drawMe(Graphics2D g) {
+    public void drawMe(@NotNull Graphics2D g) {
         g.setColor(this.color);
         int x = (int) this.body.getPosition().x;
         int y = (int) this.body.getPosition().y;

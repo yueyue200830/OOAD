@@ -1,7 +1,7 @@
 package com.ecnu.ooad;
 
 /**
- * @author Jiayi Zhu
+ * @author Jiayi Zhu, Yiqing Tao
  * @date 2019-11-16 20:44
  */
 public class Constants {

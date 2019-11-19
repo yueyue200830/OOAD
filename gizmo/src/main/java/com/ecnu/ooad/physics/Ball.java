@@ -1,18 +1,13 @@
 package com.ecnu.ooad.physics;
 
-import com.ecnu.ooad.Manager;
-import com.ecnu.ooad.Utils.BodyUtil;
-import org.jbox2d.collision.shapes.CircleShape;
-import org.jbox2d.common.Vec2;
+import com.ecnu.ooad.utils.BodyUtil;
 import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.BodyType;
-import org.jbox2d.dynamics.FixtureDef;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
 /**
- * @author Jiayi Zhu
+ * @author Jiayi Zhu, Yiqing Tao
  * @date 2019-11-16 20:34
  */
 public class Ball {
@@ -46,7 +41,7 @@ public class Ball {
         return radius * 2;
     }
 
-    public void drawMe(Graphics2D g) {
+    public void drawMe(@NotNull Graphics2D g) {
         g.setColor(color);
         g.fillOval((int) this.getInnerX(), (int) this.getInnerY(), (int) this.getDelimiter(), (int) this.getDelimiter());
     }
