@@ -2,6 +2,7 @@ package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.Manager;
+import com.ecnu.ooad.Utils.BodyUtil;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -24,6 +25,7 @@ public class StraightTrack extends Track {
     public StraightTrack(float x, float y, int direction) {
         super(x, y);
         this.direction = direction % 2;
+        this.color = Color.yellow;
         float xLeft, yLeft, xRight, yRight;
         if (this.direction == 0) {
             xLeft = x - Constants.GRID_LENGTH / 2 + Constants.TRACK_WIDTH / 4;
@@ -40,31 +42,17 @@ public class StraightTrack extends Track {
     }
 
     private void initStraightTrack(float xLeft, float xRight, float yLeft, float yRight) {
-        this.color = Color.yellow;
-        BodyDef bdLeft = new BodyDef();
-        BodyDef bdRight = new BodyDef();
-        bdLeft.position = new Vec2(xLeft, yLeft);
-        bdRight.position = new Vec2(xRight, yRight);
-        bdLeft.type = BodyType.STATIC;
-        bdRight.type = BodyType.STATIC;
-        FixtureDef fdLeft = new FixtureDef();
-        FixtureDef fdRight = new FixtureDef();
-        PolygonShape psLeft = new PolygonShape();
-        PolygonShape psRight = new PolygonShape();
-        if (this.direction == 0) {
-            psLeft.setAsBox(Constants.TRACK_WIDTH / 4, Constants.GRID_LENGTH / 2);
-            psRight.setAsBox(Constants.TRACK_WIDTH / 4, Constants.GRID_LENGTH / 2);
+        float boxWidth;
+        float boxHeight;
+        if(this.direction == 0) {
+            boxWidth = Constants.HINDER_WIDTH / 2;
+            boxHeight = Constants.GRID_LENGTH;
         } else {
-            psLeft.setAsBox(Constants.GRID_LENGTH / 2, Constants.TRACK_WIDTH / 4);
-            psRight.setAsBox(Constants.GRID_LENGTH / 2, Constants.TRACK_WIDTH / 4);
+            boxWidth = Constants.GRID_LENGTH;
+            boxHeight = Constants.TRACK_WIDTH / 2;
         }
-        fdLeft.shape = psLeft;
-        fdRight.shape = psRight;
-
-        this.leftBody = Manager.world.createBody(bdLeft);
-        this.rightBody = Manager.world.createBody(bdRight);
-        this.leftBody.createFixture(fdLeft);
-        this.rightBody.createFixture(fdRight);
+        this.leftBody = BodyUtil.initRectangle(xLeft, yLeft, boxWidth, boxHeight);
+        this.rightBody = BodyUtil.initRectangle(xRight, yRight, boxWidth, boxHeight);
 
     }
 
