@@ -29,6 +29,5 @@ public class GameApp {
         frame.setVisible(true);
 
         new Thread(gamePanel).start();
-        //new Thread(toolPanel).start();
     }
 }

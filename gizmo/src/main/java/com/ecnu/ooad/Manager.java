@@ -1,11 +1,10 @@
 package com.ecnu.ooad;
 
 import com.ecnu.ooad.physics.Ball;
-import com.ecnu.ooad.physics.HinderLeft;
-import com.ecnu.ooad.physics.HinderRight;
 import com.ecnu.ooad.physics.Tool;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.Vector;
@@ -21,8 +20,8 @@ public class Manager {
     private int ingredientCondition;
     private int direction;
     private boolean isPlayMode;
-    private boolean hasLeftHinder;
-    private boolean hasRightHinder;
+    private GameGrids gamegrids;
+    private Object currentObject;
 
     /**
      * mouse: 0, ball: 1, absorber: 2, slope: 3, diamond: 4, emerald: 5, straightTrack: 6, curveTrack: 7,
@@ -33,31 +32,30 @@ public class Manager {
         toolList = new Vector<>();
         direction = 0;
         isPlayMode = false;
-        hasLeftHinder = hasRightHinder = false;
+        gamegrids = new GameGrids();
     }
 
-    public void addBall(Ball ball) {
-        this.ballList.add(ball);
-    }
+    public void addBall(Ball ball, @NotNull int[] pos) {
+        int x = pos[0] / Constants.GRID_LENGTH;
+        int y = pos[1] / Constants.GRID_LENGTH;
 
-    public void addTool(Tool tool) {
-        if (HinderLeft.class.isInstance(tool)) {
-            if (hasLeftHinder) {
-                return;
-            } else {
-                hasLeftHinder = true;
-            }
-        } else if (HinderRight.class.isInstance(tool)) {
-            if (hasRightHinder) {
-                return;
-            } else {
-                hasRightHinder = true;
-            }
+        if (gamegrids.addObject(x, y, ball)) {
+            ballList.add(ball);
+            currentObject = ball;
         }
-        toolList.add(tool);
     }
 
-    public void step(){
+    public void addTool(Tool tool, @NotNull int[] pos) {
+        int x = pos[0] / Constants.GRID_LENGTH;
+        int y = pos[1] / Constants.GRID_LENGTH;
+
+        if (gamegrids.addObject(x, y, tool)) {
+            toolList.add(tool);
+            currentObject = tool;
+        }
+    }
+
+    public void step() {
         world.step(Constants.TIME_STEP, 6, 6);
     }
 
@@ -67,7 +65,6 @@ public class Manager {
     }
 
     public void setIngredientCondition(int condition) {
-        System.out.println("set condition");
         this.ingredientCondition = condition;
     }
 
@@ -77,6 +74,13 @@ public class Manager {
 
     public void rotate() {
         this.direction = (this.direction + 1) % 4;
+    }
+
+    public void selectObject(int x, int y) {
+        Object obj = gamegrids.getObject(x, y);
+        if (obj != null) {
+            currentObject = obj;
+        }
     }
 
     public int getDirection() {

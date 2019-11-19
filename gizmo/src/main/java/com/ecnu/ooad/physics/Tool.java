@@ -1,5 +1,7 @@
 package com.ecnu.ooad.physics;
 
+import org.jetbrains.annotations.Contract;
+
 import java.awt.*;
 
 /**
@@ -11,6 +13,7 @@ public class Tool {
     protected float positionY;
     protected int direction;
 
+    @Contract(pure = true)
     public Tool(float x, float y) {
         this.positionX = x;
         this.positionY = y;

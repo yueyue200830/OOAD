@@ -8,11 +8,12 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
 /**
- * @author Yiqing Tao
+ * @author Yiqing Tao, Jiayi Zhu
  * @date 2019-11-16 10:55
  */
 public class CurveTrack extends Track {
@@ -100,7 +101,7 @@ public class CurveTrack extends Track {
     }
 
     @Override
-    public void drawMe(Graphics2D g) {
+    public void drawMe(@NotNull Graphics2D g) {
         g.setColor(color);
         Stroke stroke = new BasicStroke(2);
         g.setStroke(stroke);

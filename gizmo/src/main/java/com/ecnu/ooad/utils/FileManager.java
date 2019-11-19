@@ -1,4 +1,4 @@
-package com.ecnu.ooad.Utils;
+package com.ecnu.ooad.utils;
 
 /**
  * @author Yiqing Tao

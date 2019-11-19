@@ -1,4 +1,4 @@
-package com.ecnu.ooad.Utils;
+package com.ecnu.ooad.utils;
 
 import com.ecnu.ooad.Manager;
 import org.jbox2d.collision.shapes.CircleShape;
@@ -8,6 +8,7 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Yiqing Tao
@@ -16,6 +17,7 @@ import org.jbox2d.dynamics.FixtureDef;
 
 public class BodyUtil {
 
+    @NotNull
     public static Body initRectangle(float x, float y, float boxWidth, float boxHeight){
         BodyDef bd = new BodyDef();
         bd.position = new Vec2(x, y);
@@ -28,9 +30,9 @@ public class BodyUtil {
         Body currentBody = Manager.world.createBody(bd);
         currentBody.createFixture(fd);
         return currentBody;
-
     }
 
+    @NotNull
     public static Body initTriangle(float x, float y, float edge, int direction) {
         BodyDef bd = new BodyDef();
         bd.position.set(new Vec2(x - edge / 2, y - edge / 2));
@@ -59,6 +61,7 @@ public class BodyUtil {
         return currentBody;
     }
 
+    @NotNull
     public static Body initCircle(float x, float y, float radius, boolean isStatic) {
         BodyDef bd = new BodyDef();
         bd.position = new Vec2(x, y);
@@ -79,6 +82,5 @@ public class BodyUtil {
         Body currentBody = Manager.world.createBody(bd);
         currentBody.createFixture(fd);
         return currentBody;
-
     }
 }

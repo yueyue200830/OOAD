@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author Jiayi Zhu
+ * @author Jiayi Zhu, Yiqing Tao
  * @date 2019-11-16 21:08
  */
 public class IngredientPanel extends JPanel {
