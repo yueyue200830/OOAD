@@ -30,9 +30,10 @@ public class CurveTrack extends Track {
         this.initCurveTrack();
     }
 
+
     private void initCurveTrack() {
-        float posX = positionX - Constants.GRID_LENGTH / 2;
-        float posY = positionY - Constants.GRID_LENGTH / 2;
+        float posX = this.positionX - Constants.GRID_LENGTH / 2;
+        float posY = this.positionY - Constants.GRID_LENGTH / 2;
         float edge = (float) (10 - 4 * Math.sqrt(2) + 4f);
         float length = Constants.GRID_LENGTH;
         float dif = length - edge;

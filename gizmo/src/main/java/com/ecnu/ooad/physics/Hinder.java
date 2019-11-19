@@ -14,17 +14,30 @@ import java.awt.*;
 public class Hinder extends Tool {
     private Body body;
     private Color color;
+    private float width;
+    private float height;
+
 
     public Hinder(float x, float y) {
         super(x, y);
         this.color = Color.LIGHT_GRAY;
+        this.width = Constants.HINDER_WIDTH;
+        this.height = Constants.HINDER_HEIGHT;
         this.initHinder(x, y);
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
     }
 
     private void initHinder(float x, float y) {
         float leftCornerX = x;
         float leftCornerY = y + Constants.GRID_LENGTH / 2 - Constants.HINDER_HEIGHT / 2;
-        this.body = BodyUtil.initRectangle(leftCornerX, leftCornerY, Constants.HINDER_WIDTH, Constants.HINDER_HEIGHT);
+        this.body = BodyUtil.initRectangle(leftCornerX, leftCornerY, this.width, this.height);
 
 
     }

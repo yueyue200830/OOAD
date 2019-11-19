@@ -41,6 +41,18 @@ public class Ball {
         return radius * 2;
     }
 
+    public float getPositionX() {
+        return positionX;
+    }
+
+    public float getPositionY() {
+        return positionY;
+    }
+
+    public float getRadius() {
+        return radius;
+    }
+
     public Body getBody() {
         return body;
     }
