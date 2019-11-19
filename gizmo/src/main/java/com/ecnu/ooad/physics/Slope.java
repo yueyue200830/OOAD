@@ -1,6 +1,8 @@
 package com.ecnu.ooad.physics;
 
+import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.Manager;
+import com.ecnu.ooad.Utils.BodyUtil;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -15,47 +17,24 @@ import java.awt.*;
  * @date 2019-11-14 16:51
  */
 public class Slope extends Obstacle {
+
     private float edge;
-    private Body body;
     private Color color;
-    private int direction;
 
     public Slope(float worldX, float worldY) {
         this(worldX, worldY, 1, 0);
     }
 
     public Slope(float worldX, float worldY, float scaleRate, int direction) {
+        super(worldX, worldY);
         this.direction = direction;
         this.color = Color.WHITE;
-        this.edge = 20;
+        this.edge = Constants.EDGE;
         initSlope(worldX, worldY);
     }
 
     private void initSlope(float worldX, float worldY) {
-        BodyDef bd = new BodyDef();
-        bd.position.set(new Vec2(worldX - edge / 2, worldY - edge / 2));
-        bd.type = BodyType.STATIC;
-
-        PolygonShape ps = new PolygonShape();
-        switch (direction) {
-            case 0:
-                ps.set(new Vec2[]{new Vec2(0, 0), new Vec2(edge, 0), new Vec2(0, edge)}, 3);
-                break;
-            case 1:
-                ps.set(new Vec2[]{new Vec2(0, 0), new Vec2(edge, 0), new Vec2(edge, edge)}, 3);
-                break;
-            case 2:
-                ps.set(new Vec2[]{new Vec2(edge, 0), new Vec2(edge, edge), new Vec2(0, edge)}, 3);
-                break;
-            default:
-                ps.set(new Vec2[]{new Vec2(0, 0), new Vec2(edge, edge), new Vec2(0, edge)}, 3);
-        }
-
-        FixtureDef fd = new FixtureDef();
-        fd.shape = ps;
-
-        this.body = Manager.world.createBody(bd);
-        this.body.createFixture(fd);
+        this.body = BodyUtil.initTriangle(worldX, worldY, this.edge, this.direction);
     }
 
     @Override

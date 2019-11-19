@@ -14,6 +14,9 @@ public class Constants {
     public static final int GRID_LENGTH = 20;
     public static final int HINDER_WIDTH = 20;
     public static final int HINDER_HEIGHT = 2;
+    public static final int EMERALD_WIDTH = 20;
+    public static final int EMERALD_HEIGHT = 20;
+    public static final int EDGE = 20;
     public static final float RATE = 10f;
     public static final float TRACK_WIDTH = 2;
     public static final float TIME_STEP = 1f / 30f;

@@ -2,6 +2,7 @@ package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.Manager;
+import com.ecnu.ooad.Utils.BodyUtil;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -15,26 +16,20 @@ import java.awt.*;
  * @author Yiqing Tao
  * @date 2019-11-14 16:51
  */
-public class Hinder implements Tool {
+public class Hinder extends Tool {
     private Body body;
     private Color color;
 
     public Hinder(float x, float y) {
+        super(x, y);
         this.color = Color.LIGHT_GRAY;
         this.initHinder(x, y);
     }
 
     private void initHinder(float x, float y) {
-        BodyDef bd = new BodyDef();
-        bd.position = new Vec2(x, y + Constants.GRID_LENGTH / 2 - Constants.HINDER_HEIGHT / 2);
-        bd.type = BodyType.STATIC;
-        FixtureDef fd = new FixtureDef();
-        PolygonShape ps = new PolygonShape();
-        ps.setAsBox(Constants.HINDER_WIDTH / 2, Constants.HINDER_HEIGHT / 2);
-        fd.shape = ps;
-
-        this.body = Manager.world.createBody(bd);
-        this.body.createFixture(fd);
+        float leftCornerX = x;
+        float leftCornerY = y + Constants.GRID_LENGTH / 2 - Constants.HINDER_HEIGHT / 2;
+        this.body = BodyUtil.initRectangle(leftCornerX, leftCornerY, Constants.HINDER_WIDTH, Constants.HINDER_HEIGHT);
 
 
     }

@@ -1,6 +1,7 @@
 package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Manager;
+import com.ecnu.ooad.Utils.BodyUtil;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -15,30 +16,19 @@ import java.awt.*;
  * @date 2019-11-16 10:56
  */
 public class Diamond extends Obstacle {
-    private Body body;
+
     private float radius;
     private Color color;
 
     public Diamond(float x, float y) {
+        super(x, y);
         this.radius = 10f;
         this.color = Color.white;
         this.initDiamond(x, y);
     }
 
     private void initDiamond(float worldX, float worldY) {
-        BodyDef bd = new BodyDef();
-        bd.type = BodyType.STATIC;
-        bd.position = new Vec2(worldX, worldY);
-        FixtureDef fd = new FixtureDef();
-        CircleShape cs = new CircleShape();
-        cs.m_radius = this.radius;
-        fd.shape = cs;
-        fd.density = 0.5f;
-        fd.friction = 0.3f;
-        fd.restitution = 0.6f;
-
-        this.body = Manager.world.createBody(bd);
-        this.body.createFixture(fd);
+      this.body = BodyUtil.initCircle(worldX, worldY, this.radius, true);
 
     }
 

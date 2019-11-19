@@ -1,6 +1,7 @@
 package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Manager;
+import com.ecnu.ooad.Utils.BodyUtil;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -18,27 +19,19 @@ public class Ball {
     private float radius;
     public Body body;
     private Color color = Color.cyan;
+    private float positionX;
+    private float positionY;
 
     public Ball(float worldX, float worldY) {
+        this.positionX = worldX;
+        this.positionY = worldY;
         this.radius = 8f;
-        initBallInWorld(worldX, worldY);
+        this.initBallInWorld(this.positionX, this.positionY);
     }
 
     private void initBallInWorld(float worldX, float worldY) {
-        BodyDef bd = new BodyDef();
-        bd.position = new Vec2(worldX, worldY);
-        bd.type = BodyType.DYNAMIC;
 
-        FixtureDef fd = new FixtureDef();
-        CircleShape cs = new CircleShape();
-        cs.m_radius = radius;
-        fd.shape = cs;
-        fd.density = 0.5f;
-        fd.friction = 0.3f;
-        fd.restitution = 0.6f;
-
-        this.body = Manager.world.createBody(bd);
-        this.body.createFixture(fd);
+        this.body = BodyUtil.initCircle(worldX, worldY, this.radius, false);
     }
 
     public float getInnerX() {

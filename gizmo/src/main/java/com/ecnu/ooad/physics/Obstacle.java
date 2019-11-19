@@ -1,12 +1,23 @@
 package com.ecnu.ooad.physics;
 
+import org.jbox2d.dynamics.Body;
+
 import java.awt.*;
 
 /**
  * @author Yiqing Tao
  * @date 2019-11-14 16:51
  */
-public abstract class Obstacle implements Tool {
+public class Obstacle extends Tool {
+
+    protected Body body;
+
+    public Obstacle(float x, float y) {
+        super(x, y);
+    }
+
     @Override
-    public abstract void drawMe(Graphics2D g);
+    public void drawMe(Graphics2D g){
+
+    }
 }

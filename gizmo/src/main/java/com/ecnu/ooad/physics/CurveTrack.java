@@ -23,6 +23,7 @@ public class CurveTrack extends Track {
     private int direction;
 
     public CurveTrack(float x, float y, int direction) {
+        super(x, y);
         this.x = (int) x;
         this.y = (int) y;
         this.direction = direction;

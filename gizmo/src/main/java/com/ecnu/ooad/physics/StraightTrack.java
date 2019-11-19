@@ -22,6 +22,7 @@ public class StraightTrack extends Track {
     private int direction;
 
     public StraightTrack(float x, float y, int direction) {
+        super(x, y);
         this.direction = direction % 2;
         float xLeft, yLeft, xRight, yRight;
         if (this.direction == 0) {
