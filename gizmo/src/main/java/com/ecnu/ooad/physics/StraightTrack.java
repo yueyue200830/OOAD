@@ -43,8 +43,8 @@ public class StraightTrack extends Track {
         this.color = Color.yellow;
         BodyDef bdLeft = new BodyDef();
         BodyDef bdRight = new BodyDef();
-        bdLeft.position = new Vec2(xLeft,yLeft);
-        bdRight.position = new Vec2(xRight,yRight);
+        bdLeft.position = new Vec2(xLeft, yLeft);
+        bdRight.position = new Vec2(xRight, yRight);
         bdLeft.type = BodyType.STATIC;
         bdRight.type = BodyType.STATIC;
         FixtureDef fdLeft = new FixtureDef();
