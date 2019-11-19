@@ -12,7 +12,7 @@ import java.awt.*;
  */
 public class Ball {
     private float radius;
-    public Body body;
+    private Body body;
     private Color color = Color.cyan;
     private float positionX;
     private float positionY;
@@ -39,6 +39,10 @@ public class Ball {
 
     public float getDelimiter() {
         return radius * 2;
+    }
+
+    public Body getBody() {
+        return body;
     }
 
     public void drawMe(@NotNull Graphics2D g) {

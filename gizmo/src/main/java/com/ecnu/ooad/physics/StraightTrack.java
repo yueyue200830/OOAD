@@ -1,14 +1,8 @@
 package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
-import com.ecnu.ooad.Manager;
-import com.ecnu.ooad.Utils.BodyUtil;
-import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.common.Vec2;
+import com.ecnu.ooad.utils.BodyUtil;
 import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.BodyType;
-import org.jbox2d.dynamics.FixtureDef;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -74,5 +68,13 @@ public class StraightTrack extends Track {
             g.fillRect((int) (leftX - length / 2), (int) (leftY - width / 4), length, (int) width);
             g.fillRect((int) (rightX - length / 2), (int) (rightY - width / 4 * 3), length, (int) width);
         }
+    }
+
+    @Override
+    public Body[] getBodies() {
+        Body[] bodies = new Body[2];
+        bodies[0] = leftBody;
+        bodies[1] = rightBody;
+        return bodies;
     }
 }

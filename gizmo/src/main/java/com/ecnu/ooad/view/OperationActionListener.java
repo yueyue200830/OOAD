@@ -26,7 +26,7 @@ public class OperationActionListener implements ActionListener {
             System.out.println("rotate");
             this.manager.rotate();
         } else if ("delete".equals(command)) {
-            // somthing
+            this.manager.deleteObject();
         } else if ("zoom in".equals(command)) {
             // somthing
         } else if ("zoom out".equals(command)) {

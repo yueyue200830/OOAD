@@ -1,8 +1,8 @@
 package com.ecnu.ooad;
 
-import com.ecnu.ooad.physics.Ball;
-import com.ecnu.ooad.physics.Tool;
+import com.ecnu.ooad.physics.*;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -72,8 +72,56 @@ public class Manager {
         return ingredientCondition;
     }
 
+    // TODO: add body list for all classes.
+    public void deleteObject() {
+        if (currentObject == null) {
+            return;
+        }
+
+        if (currentObject instanceof Tool) {
+            Body[] bodyList = ((Tool) currentObject).getBodies();
+            for (Body body : bodyList) {
+                Manager.world.destroyBody(body);
+            }
+            this.toolList.removeElement(currentObject);
+            this.gamegrids.removeObject(currentObject);
+            this.currentObject = null;
+        } else {
+            Body body = ((Ball) currentObject).getBody();
+            Manager.world.destroyBody(body);
+            this.ballList.removeElement(currentObject);
+            this.gamegrids.removeObject(ballList);
+            this.currentObject = null;
+        }
+    }
+
     public void rotate() {
-        this.direction = (this.direction + 1) % 4;
+        if (currentObject == null) {
+            return;
+        }
+
+        if (currentObject instanceof CurveTrack || currentObject instanceof StraightTrack || currentObject instanceof Slope) {
+
+            Tool toolObject = (Tool) currentObject;
+            float x = toolObject.getPositionX();
+            float y = toolObject.getPositionY();
+            int direction = (toolObject.getDirection() + 1) % 4;
+            int[] pos = new int[2];
+            pos[0] = (int) x;
+            pos[1] = (int) y;
+
+            this.deleteObject();
+
+            Tool newTool;
+            if (toolObject instanceof CurveTrack) {
+                newTool = new CurveTrack(x, y, direction);
+            } else if (toolObject instanceof StraightTrack) {
+                newTool = new StraightTrack(x, y, direction);
+            } else {
+                newTool = new Slope(x, y, 1, direction);
+            }
+            this.addTool(newTool, pos);
+        }
     }
 
     public void selectObject(int x, int y) {

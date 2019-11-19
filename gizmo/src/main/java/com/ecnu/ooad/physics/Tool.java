@@ -1,5 +1,6 @@
 package com.ecnu.ooad.physics;
 
+import org.jbox2d.dynamics.Body;
 import org.jetbrains.annotations.Contract;
 
 import java.awt.*;
@@ -12,6 +13,7 @@ public class Tool {
     protected float positionX;
     protected float positionY;
     protected int direction;
+    protected Body[] bodies;
 
     @Contract(pure = true)
     public Tool(float x, float y) {
@@ -33,5 +35,9 @@ public class Tool {
 
     public int getDirection() {
         return direction;
+    }
+
+    public Body[] getBodies() {
+        return bodies;
     }
 }

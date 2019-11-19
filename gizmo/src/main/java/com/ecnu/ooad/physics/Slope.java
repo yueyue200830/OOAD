@@ -2,6 +2,7 @@ package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
+import org.jbox2d.dynamics.Body;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -50,5 +51,12 @@ public class Slope extends Obstacle {
             default:
                 g.fillPolygon(new int[]{x, x + e, x}, new int[]{y, y + e, y + e}, 3);
         }
+    }
+
+    @Override
+    public Body[] getBodies() {
+        Body[] bodies = new Body[1];
+        bodies[0] = body;
+        return bodies;
     }
 }

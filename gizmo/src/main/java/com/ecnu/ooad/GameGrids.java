@@ -23,6 +23,13 @@ public class GameGrids {
         return grids[x][y] != null;
     }
 
+    /**
+     * Add the object to the grid x, y.
+     * @param x Position X.
+     * @param y Position Y.
+     * @param object The object to be added.
+     * @return Return true if the object is added to the grid.
+     */
     public boolean addObject(int x, int y, Object object) {
         if (hasObject(x, y)) {
             return false;
@@ -48,6 +55,21 @@ public class GameGrids {
 
     public Object getObject(int x, int y) {
         return grids[x][y];
+    }
+
+    public void removeObject(Object object) {
+        for (int i = 0; i < 30; i++) {
+            for (int j = 0; j < 30; j++) {
+                if (this.grids[i][j] == object) {
+                    this.grids[i][j] = null;
+                }
+            }
+        }
+        if (object instanceof HinderLeft) {
+            this.hasLeftHinder = false;
+        } else if (object instanceof HinderRight) {
+            this.hasRightHinder = false;
+        }
     }
 
 }
