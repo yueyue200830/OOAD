@@ -18,7 +18,9 @@ import java.awt.*;
 public class CurveTrack extends Track {
     private int x;
     private int y;
-    private Body body;
+    private Body body1;
+    private Body body2;
+    private Body body3;
     private Color color = Color.yellow;
     private int direction;
 
@@ -30,42 +32,70 @@ public class CurveTrack extends Track {
     }
 
     private void initCurveTrack() {
-        BodyDef bd = new BodyDef();
-        bd.position.set(new Vec2(x - Constants.GRID_LENGTH / 2, y - Constants.GRID_LENGTH / 2));
-        bd.bullet = true;
-        bd.type = BodyType.STATIC;
-
-        float edge = (float) ((Math.sqrt(2f) - 1f) / 2f / Math.sqrt(2f) * (double) Constants.GRID_LENGTH);
-        System.out.println(edge);
+        float posX = x - Constants.GRID_LENGTH / 2;
+        float posY = y - Constants.GRID_LENGTH / 2;
+        float edge = (float) (10 - 4 * Math.sqrt(2) + 4f);
         float length = Constants.GRID_LENGTH;
         float dif = length - edge;
 
-        PolygonShape ps = new PolygonShape();
+        BodyDef bd1 = new BodyDef();
+        bd1.position.set(new Vec2(posX, posY));
+        bd1.type = BodyType.STATIC;
+        BodyDef bd2 = new BodyDef();
+        bd2.type = BodyType.STATIC;
+        BodyDef bd3 = new BodyDef();
+        bd3.type = BodyType.STATIC;
+
+        PolygonShape ps1 = new PolygonShape();
+        PolygonShape ps2 = new PolygonShape();
+        PolygonShape ps3 = new PolygonShape();
         switch (direction) {
             case 0:
-                ps.set(new Vec2[]{new Vec2(0, 0), new Vec2(length, 0), new Vec2(length, length),
-                        new Vec2(length-1, length), new Vec2(length-1, edge+1), new Vec2(length-1-edge, 1),
-                        new Vec2(0, 1)}, 7);
+                bd2.position.set(new Vec2(posX + length / 2, posY + 0.5f));
+                bd3.position.set(new Vec2(posX + length - 0.5f, posY + length / 2));
+
+                ps1.set(new Vec2[]{new Vec2(dif, 0), new Vec2(length, 0), new Vec2(length, edge)}, 3);
+                ps2.setAsBox(length / 2, 0.5f);
+                ps3.setAsBox(0.5f, length / 2);
                 break;
             case 1:
-                ps.set(new Vec2[]{new Vec2(0, 0), new Vec2(length, 0), new Vec2(length, 1),
-                        new Vec2(edge+1, 1), new Vec2(1, edge+1), new Vec2(1, length),
-                        new Vec2(0, length)}, 7);
+                bd2.position.set(new Vec2(posX + length / 2, posY + 0.5f));
+                bd3.position.set(new Vec2(posX + 0.5f, posY + length / 2));
+
+                ps1.set(new Vec2[]{new Vec2(0, 0), new Vec2(edge, 0), new Vec2(0, edge)}, 3);
+                ps2.setAsBox(length / 2, 0.5f);
+                ps3.setAsBox(0.5f, length / 2);
                 break;
             case 2:
-                ps.set(new Vec2[]{new Vec2(0, 0), new Vec2(0.5f, 0), new Vec2(0.5f, length-edge-1),
-                        new Vec2(edge+1, length-1), new Vec2(length, length-1), new Vec2(length, length),
-                        new Vec2(0, length)}, 7);
+                bd2.position.set(new Vec2(posX + length / 2, posY + length - 0.5f));
+                bd3.position.set(new Vec2(posX + 0.5f, posY + length / 2));
+
+                ps1.set(new Vec2[]{new Vec2(0, dif), new Vec2(edge, length), new Vec2(0, length)}, 3);
+                ps2.setAsBox(length / 2, 0.5f);
+                ps3.setAsBox(0.5f, length / 2);
                 break;
             default:
-                ps.set(new Vec2[]{new Vec2(length, dif), new Vec2(length, length), new Vec2(dif, length)}, 3);
+                bd2.position.set(new Vec2(posX + length / 2, posY + length - 0.5f));
+                bd3.position.set(new Vec2(posX + length - 0.5f, posY + length / 2));
+
+                ps1.set(new Vec2[]{new Vec2(length, dif), new Vec2(length, length), new Vec2(dif, length)}, 3);
+                ps2.setAsBox(length / 2, 0.5f);
+                ps3.setAsBox(0.5f, length / 2);
         }
 
-        FixtureDef fd = new FixtureDef();
-        fd.shape = ps;
+        FixtureDef fd1 = new FixtureDef();
+        FixtureDef fd2 = new FixtureDef();
+        FixtureDef fd3 = new FixtureDef();
+        fd1.shape = ps1;
+        fd2.shape = ps2;
+        fd3.shape = ps3;
 
-        this.body = Manager.world.createBody(bd);
-        this.body.createFixture(fd);
+        this.body1 = Manager.world.createBody(bd1);
+        this.body2 = Manager.world.createBody(bd2);
+        this.body3 = Manager.world.createBody(bd3);
+        this.body1.createFixture(fd1);
+        this.body2.createFixture(fd2);
+        this.body3.createFixture(fd3);
     }
 
     @Override
