@@ -1,7 +1,6 @@
 package com.ecnu.ooad.view;
 
 import com.ecnu.ooad.Manager;
-import com.ecnu.ooad.physics.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,30 +29,10 @@ public class GamePanelMouseListener implements MouseListener {
                     this.selectObject(position);
                     break;
                 case 1:
-                    this.addBall(position);
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    this.addSlope(position);
-                    break;
-                case 4:
-                    this.addDiamond(position);
-                    break;
-                case 5:
-                    this.addEmerald(position);
-                    break;
-                case 6:
-                    this.addStraightTrack(position);
-                    break;
-                case 7:
-                    this.addCurveTrack(position);
-                    break;
-                case 8:
-                    this.addHinderLeft(position);
+                    manager.addBall(position);
                     break;
                 default:
-                    this.addHinderRight(position);
+                    manager.addTool(condition, position);
                     break;
             }
         }
@@ -70,63 +49,6 @@ public class GamePanelMouseListener implements MouseListener {
         int x = pos[0] / 20;
         int y = pos[1] / 20;
         manager.selectObject(x, y);
-    }
-
-    // TODO Put new method into manager.
-    public void addBall(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        Ball newBall = new Ball(x, y);
-        manager.addBall(newBall, pos);
-    }
-
-    public void addSlope(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        Slope slope = new Slope(x, y, 1, this.manager.getDirection());
-        manager.addTool(slope, pos);
-    }
-
-    public void addEmerald(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        Emerald emerald = new Emerald(x, y);
-        this.manager.addTool(emerald, pos);
-    }
-
-    public void addDiamond(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        Diamond diamond = new Diamond(x, y);
-        this.manager.addTool(diamond, pos);
-    }
-
-    public void addStraightTrack(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        StraightTrack straightTrack = new StraightTrack(x, y, manager.getDirection());
-        this.manager.addTool(straightTrack, pos);
-    }
-
-    public void addCurveTrack(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        CurveTrack curveTrack = new CurveTrack(x, y, manager.getDirection());
-        this.manager.addTool(curveTrack, pos);
-    }
-
-    public void addHinderLeft(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        HinderLeft hinderLeft = new HinderLeft(x, y);
-        this.manager.addTool(hinderLeft, pos);
-    }
-
-    public  void addHinderRight(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        HinderRight hinderRight = new HinderRight(x, y);
-        this.manager.addTool(hinderRight, pos);
     }
 
     @Override

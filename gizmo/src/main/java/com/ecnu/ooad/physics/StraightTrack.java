@@ -11,7 +11,7 @@ import java.awt.*;
  * @author Yiqing Tao, Jiayi Zhu
  * @date 2019-11-14 16:51
  */
-public class StraightTrack extends Track {
+public class StraightTrack extends Tool {
     private Color color;
     private float boxWidth;
     private float boxHeight;

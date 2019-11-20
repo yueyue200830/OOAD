@@ -35,23 +35,50 @@ public class Manager {
         gamegrids = new GameGrids();
     }
 
-    public void addBall(Ball ball, @NotNull int[] pos) {
+    public void addBall(@NotNull int[] pos) {
         int x = pos[0] / Constants.GRID_LENGTH;
         int y = pos[1] / Constants.GRID_LENGTH;
 
-        if (gamegrids.addObject(x, y, ball)) {
+        if (gamegrids.canAddObject(x, y, 1)) {
+            Ball ball = new Ball(pos[0], pos[1]);
+            gamegrids.addObject(x, y, ball);
             ballList.add(ball);
             currentObject = ball;
         }
     }
 
-    public void addTool(Tool tool, @NotNull int[] pos) {
+    public void addTool(int condition, @NotNull int[] pos) {
+        this.addTool(condition, pos, 0);
+    }
+
+    public void addTool(int condition, @NotNull int[] pos, int direction) {
         int x = pos[0] / Constants.GRID_LENGTH;
         int y = pos[1] / Constants.GRID_LENGTH;
 
-        if (gamegrids.addObject(x, y, tool)) {
-            toolList.add(tool);
-            currentObject = tool;
+        if (gamegrids.canAddObject(x, y, condition)) {
+            Tool newTool;
+            if (condition == 2) {
+                // TODO Add hole
+                return;
+            } else if (condition == 3) {
+                newTool = new Slope(pos[0], pos[1], 1, direction);
+            } else if (condition == 4) {
+                newTool = new Diamond(pos[0], pos[1]);
+            } else if (condition == 5) {
+                newTool = new Emerald(pos[0], pos[1]);
+            } else if (condition == 6) {
+                newTool = new StraightTrack(pos[0], pos[1], direction);
+            } else if (condition == 7) {
+                newTool = new CurveTrack(pos[0], pos[1], direction);
+            } else if (condition == 8) {
+                newTool = new HinderLeft(pos[0], pos[1]);
+            } else {
+                newTool = new HinderRight(pos[0], pos[1]);
+            }
+
+            gamegrids.addObject(x, y, newTool);
+            toolList.add(newTool);
+            currentObject = newTool;
         }
     }
 
@@ -72,7 +99,6 @@ public class Manager {
         return ingredientCondition;
     }
 
-    // TODO: add body list for all classes.
     public void deleteObject() {
         if (currentObject == null) {
             return;
@@ -112,15 +138,16 @@ public class Manager {
 
             this.deleteObject();
 
-            Tool newTool;
+            int condition;
             if (toolObject instanceof CurveTrack) {
-                newTool = new CurveTrack(x, y, direction);
+                condition = 7;
             } else if (toolObject instanceof StraightTrack) {
-                newTool = new StraightTrack(x, y, direction);
+                condition = 6;
             } else {
-                newTool = new Slope(x, y, 1, direction);
+                condition = 3;
             }
-            this.addTool(newTool, pos);
+
+            this.addTool(condition, pos, direction);
         }
     }
 
@@ -129,10 +156,6 @@ public class Manager {
         if (obj != null) {
             currentObject = obj;
         }
-    }
-
-    public int getDirection() {
-        return direction;
     }
 
     public void setIsPlayMode(boolean isPlayMode) {
