@@ -1,7 +1,6 @@
 package com.ecnu.ooad.view;
 
 import com.ecnu.ooad.Manager;
-import com.ecnu.ooad.physics.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,8 +50,6 @@ public class GamePanelMouseListener implements MouseListener {
         int y = pos[1] / 20;
         manager.selectObject(x, y);
     }
-
-
 
     @Override
     public void mousePressed(MouseEvent e) {

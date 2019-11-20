@@ -1,9 +1,6 @@
 package com.ecnu.ooad.utils;
 
-import com.sun.deploy.util.StringUtils;
-
 import java.io.*;
-import java.net.URL;
 
 /**
  * @author Yiqing Tao
