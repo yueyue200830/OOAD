@@ -18,9 +18,10 @@ public class GameApp {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(Constants.FRAME_WIDTH, Constants.FRAME_HIGHT);
 
-        MenuBar bar = new MenuBar();
+
         GamePanel gamePanel = new GamePanel();
         ToolPanel toolPanel = new ToolPanel(gamePanel.getManager());
+        MenuBar bar = new MenuBar(gamePanel.getManager());
         GamePanelMouseListener mouseListener = new GamePanelMouseListener(gamePanel.getManager());
         gamePanel.addMouseListener(mouseListener);
         frame.add(gamePanel, BorderLayout.CENTER);
