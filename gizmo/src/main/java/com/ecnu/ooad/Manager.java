@@ -7,6 +7,7 @@ import org.jbox2d.dynamics.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -129,6 +130,21 @@ public class Manager {
         if (obj != null) {
             currentObject = obj;
         }
+    }
+
+    public Vector<Ball> getBallList() {
+        return ballList;
+    }
+
+    public Vector<Tool> getToolList() {
+        return toolList;
+    }
+
+    public java.util.List<Object> getObjectList() {
+        java.util.List<Object> objectList = new ArrayList<>();
+        objectList.addAll(this.ballList);
+        objectList.addAll(this.toolList);
+        return objectList;
     }
 
     public int getDirection() {

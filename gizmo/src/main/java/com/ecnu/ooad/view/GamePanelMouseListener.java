@@ -76,7 +76,7 @@ public class GamePanelMouseListener implements MouseListener {
     public void addBall(@NotNull int[] pos) {
         int x = pos[0];
         int y = pos[1];
-        Ball newBall = new Ball(x, y);
+        Ball newBall = new Ball(x, y,1);
         manager.addBall(newBall, pos);
     }
 

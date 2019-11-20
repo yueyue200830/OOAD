@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class TransformUtil {
 
-    public static String objectToJson(Object[] objectList) {
+    public static String objectToJson(List<Object> objectList) {
         JSONArray jsonArray = new JSONArray();
         for(Object o : objectList) {
             JSONObject jsonObject = new JSONObject();
@@ -22,7 +22,7 @@ public class TransformUtil {
                 jsonObject.put("type", "ball");
                 jsonObject.put("subType", "ball");
                 jsonObject.put("positionX", ball.getPositionX());
-                jsonObject.put("positionY", ball.getPositionX());
+                jsonObject.put("positionY", ball.getPositionY());
                 jsonObject.put("scaleRate", ball.getScaleRate());
                 jsonObject.put("radius", ball.getRadius());
             } else if(Tool.class.isInstance(o)) {
@@ -30,7 +30,7 @@ public class TransformUtil {
                 jsonObject.put("scaleRate", tool.getScaleRate());
                 jsonObject.put("type", "tool");
                 jsonObject.put("positionX", tool.getPositionX());
-                jsonObject.put("positionY",tool.getPositionX());
+                jsonObject.put("positionY",tool.getPositionY());
                 jsonObject.put("direction", tool.getDirection());
                 if(Diamond.class.isInstance(tool)) {
                     Diamond diamond = (Diamond) tool;
