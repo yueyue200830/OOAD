@@ -18,7 +18,6 @@ public class Manager {
     private Vector<Ball> ballList;
     private Vector<Tool> toolList;
     private int ingredientCondition;
-    private int direction;
     private boolean isPlayMode;
     private GameGrids gamegrids;
     private Object currentObject;
@@ -30,7 +29,6 @@ public class Manager {
     public Manager() {
         ballList = new Vector<>();
         toolList = new Vector<>();
-        direction = 0;
         isPlayMode = false;
         gamegrids = new GameGrids();
     }

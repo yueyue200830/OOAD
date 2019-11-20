@@ -28,7 +28,6 @@ public class Ball {
     }
 
     private void initBallInWorld(float worldX, float worldY) {
-
         this.body = BodyUtil.initCircle(worldX, worldY, this.radius, false);
     }
 

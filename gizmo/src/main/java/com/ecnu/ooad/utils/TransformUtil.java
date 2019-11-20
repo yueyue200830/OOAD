@@ -1,4 +1,4 @@
-package com.ecnu.ooad.Utils;
+package com.ecnu.ooad.utils;
 
 import com.ecnu.ooad.physics.*;
 import org.json.JSONArray;
