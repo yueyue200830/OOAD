@@ -19,8 +19,15 @@ public class GameGrids {
         hasLeftHinder = hasRightHinder = false;
     }
 
-    public boolean hasObject(int x, int y) {
-        return grids[x][y] != null;
+    public boolean canAddObject(int x, int y, int condition) {
+        boolean canAdd = grids[x][y] == null;
+        if (condition == 8 && hasLeftHinder) {
+            canAdd = false;
+        }
+        if (condition == 9 && hasRightHinder) {
+            canAdd = false;
+        }
+        return canAdd;
     }
 
     /**
@@ -28,29 +35,27 @@ public class GameGrids {
      * @param x Position X.
      * @param y Position Y.
      * @param object The object to be added.
-     * @return Return true if the object is added to the grid.
      */
-    public boolean addObject(int x, int y, Object object) {
-        if (hasObject(x, y)) {
-            return false;
+    public void addObject(int x, int y, Object object) {
+        if (grids[x][y] != null) {
+            return;
         }
         if (object instanceof HinderLeft) {
             if (hasLeftHinder) {
-                return false;
+                return;
             } else {
                 hasLeftHinder = true;
             }
         }
         if (object instanceof HinderRight) {
             if (hasRightHinder) {
-                return false;
+                return;
             } else {
                 hasRightHinder = true;
             }
         }
 
         grids[x][y] = object;
-        return true;
     }
 
     public Object getObject(int x, int y) {

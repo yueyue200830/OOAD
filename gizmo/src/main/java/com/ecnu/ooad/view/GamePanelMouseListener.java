@@ -1,7 +1,6 @@
 package com.ecnu.ooad.view;
 
 import com.ecnu.ooad.Manager;
-import com.ecnu.ooad.physics.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,30 +29,10 @@ public class GamePanelMouseListener implements MouseListener {
                     this.selectObject(position);
                     break;
                 case 1:
-                    this.addBall(position);
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    this.addSlope(position);
-                    break;
-                case 4:
-                    this.addDiamond(position);
-                    break;
-                case 5:
-                    this.addEmerald(position);
-                    break;
-                case 6:
-                    this.addStraightTrack(position);
-                    break;
-                case 7:
-                    this.addCurveTrack(position);
-                    break;
-                case 8:
-                    this.addHinderLeft(position);
+                    manager.addBall(position);
                     break;
                 default:
-                    this.addHinderRight(position);
+                    manager.addTool(condition, position);
                     break;
             }
         }

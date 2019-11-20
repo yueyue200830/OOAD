@@ -16,7 +16,7 @@ import java.awt.*;
  * @author Yiqing Tao, Jiayi Zhu
  * @date 2019-11-16 10:55
  */
-public class CurveTrack extends Track {
+public class CurveTrack extends Tool {
 
     private Color color = Color.yellow;
 

@@ -2,7 +2,6 @@ package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.jbox2d.dynamics.Body;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,7 +28,6 @@ public class Ball {
     }
 
     private void initBallInWorld(float worldX, float worldY) {
-
         this.body = BodyUtil.initCircle(worldX, worldY, this.radius, false);
     }
 
