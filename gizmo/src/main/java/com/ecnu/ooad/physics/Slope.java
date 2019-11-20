@@ -20,7 +20,7 @@ public class Slope extends Obstacle {
     }
 
     public Slope(float worldX, float worldY, float scaleRate, int direction) {
-        super(worldX, worldY);
+        super(worldX, worldY, scaleRate);
         this.direction = direction;
         this.color = Color.WHITE;
         this.edge = Constants.EDGE;

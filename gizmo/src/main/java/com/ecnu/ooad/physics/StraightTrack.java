@@ -16,8 +16,8 @@ public class StraightTrack extends Tool {
     private float boxWidth;
     private float boxHeight;
 
-    public StraightTrack(float x, float y, int direction) {
-        super(x, y);
+    public StraightTrack(float x, float y, int direction, float scaleRate) {
+        super(x, y, scaleRate);
         this.direction = direction % 2;
         this.color = Color.yellow;
         this.bodies = new Body[2];

@@ -22,11 +22,13 @@ public class TransformUtil {
                 jsonObject.put("type", "ball");
                 jsonObject.put("subType", "ball");
                 jsonObject.put("positionX", ball.getPositionX());
-                jsonObject.put("positionY",ball.getPositionX());
-                jsonObject.put("radius",ball.getRadius());
+                jsonObject.put("positionY", ball.getPositionX());
+                jsonObject.put("scaleRate", ball.getScaleRate());
+                jsonObject.put("radius", ball.getRadius());
             } else if(Tool.class.isInstance(o)) {
                 Tool tool = (Tool) o;
-                jsonObject.put("type","tool");
+                jsonObject.put("scaleRate", tool.getScaleRate());
+                jsonObject.put("type", "tool");
                 jsonObject.put("positionX", tool.getPositionX());
                 jsonObject.put("positionY",tool.getPositionX());
                 jsonObject.put("direction", tool.getDirection());
@@ -78,30 +80,31 @@ public class TransformUtil {
             String type = jsonObject.getString("type");
             float positionX = jsonObject.getFloat("positionX");
             float positionY = jsonObject.getFloat("positionY");
-            if(type.equals("ball")) {
-                Ball ball = new Ball(jsonObject.getFloat("positionX"), jsonObject.getFloat("positionY"));
+            float scaleRate = jsonObject.getFloat("scaleRate");
+            if("ball".equals(type)) {
+                Ball ball = new Ball(jsonObject.getFloat("positionX"), jsonObject.getFloat("positionY"), scaleRate);
                 objectList.add(ball);
-            } else if(type.equals("tool")) {
+            } else if("tool".equals(type)) {
                 String subType = jsonObject.getString("subType");
-                if(subType.equals("diamond")) {
-                    Diamond diamond = new Diamond(positionX, positionY);
+                if("diamond".equals(subType)) {
+                    Diamond diamond = new Diamond(positionX, positionY, scaleRate);
                     objectList.add(diamond);
-                } else if(subType.equals("emerald")) {
-                    Emerald emerald = new Emerald(positionX,positionY);
+                } else if("emerald".equals(subType)) {
+                    Emerald emerald = new Emerald(positionX,positionY, scaleRate);
                     objectList.add(emerald);
-                } else if(subType.equals("hinderLeft")) {
-                    HinderLeft hinderLeft = new HinderLeft(positionX, positionY);
+                } else if("hinderLeft".equals(subType)) {
+                    HinderLeft hinderLeft = new HinderLeft(positionX, positionY, scaleRate);
                     objectList.add(hinderLeft);
-                } else if(subType.equals("hinderRight")) {
-                    HinderRight hinderRight = new HinderRight(positionX, positionY);
+                } else if("hinderRight".equals(subType)) {
+                    HinderRight hinderRight = new HinderRight(positionX, positionY, scaleRate);
                     objectList.add(hinderRight);
-                } else if(subType.equals("slope")) {
+                } else if("slope".equals(subType)) {
                     Slope slope = new Slope(positionX,positionY);
                     objectList.add(slope);
-                } else if(subType.equals("straightTrack")) {
-                    StraightTrack straightTrack = new StraightTrack(positionX,positionY,jsonObject.getInt("direction"));
+                } else if("straightTrack".equals(subType)) {
+                    StraightTrack straightTrack = new StraightTrack(positionX,positionY,jsonObject.getInt("direction"), scaleRate);
                     objectList.add(straightTrack);
-                } else if(subType.equals("curveTrack")) {
+                } else if("curveTrack".equals(subType)) {
                     CurveTrack curveTrack = new CurveTrack(positionX, positionY, jsonObject.getInt("direction"));
                     objectList.add(curveTrack);
                 }

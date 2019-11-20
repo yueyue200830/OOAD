@@ -16,6 +16,8 @@ public class Constants {
     public static final int HINDER_HEIGHT = 2;
     public static final int EMERALD_WIDTH = 20;
     public static final int EMERALD_HEIGHT = 20;
+    public static final int CIRCLE_RADIUS = 8;
+    public static final int DIAMOND_RADIUS = 10;
     public static final int EDGE = 20;
     public static final float RATE = 10f;
     public static final float TRACK_WIDTH = 2;

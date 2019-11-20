@@ -17,8 +17,8 @@ public class Emerald extends Obstacle {
     private float width;
     private Color color;
 
-    public Emerald(float x, float y) {
-        super(x, y);
+    public Emerald(float x, float y, float scaleRate) {
+        super(x, y, scaleRate);
         this.height = Constants.EMERALD_HEIGHT;
         this.width = Constants.EMERALD_WIDTH;
         this.initEmerald(x, y);
