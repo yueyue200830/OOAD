@@ -90,21 +90,21 @@ public class GamePanelMouseListener implements MouseListener {
     public void addEmerald(@NotNull int[] pos) {
         int x = pos[0];
         int y = pos[1];
-        Emerald emerald = new Emerald(x, y);
+        Emerald emerald = new Emerald(x, y,1);
         this.manager.addTool(emerald, pos);
     }
 
     public void addDiamond(@NotNull int[] pos) {
         int x = pos[0];
         int y = pos[1];
-        Diamond diamond = new Diamond(x, y);
+        Diamond diamond = new Diamond(x, y,2);
         this.manager.addTool(diamond, pos);
     }
 
     public void addStraightTrack(@NotNull int[] pos) {
         int x = pos[0];
         int y = pos[1];
-        StraightTrack straightTrack = new StraightTrack(x, y, manager.getDirection());
+        StraightTrack straightTrack = new StraightTrack(x, y, manager.getDirection(), 1);
         this.manager.addTool(straightTrack, pos);
     }
 
@@ -118,14 +118,14 @@ public class GamePanelMouseListener implements MouseListener {
     public void addHinderLeft(@NotNull int[] pos) {
         int x = pos[0];
         int y = pos[1];
-        HinderLeft hinderLeft = new HinderLeft(x, y);
+        HinderLeft hinderLeft = new HinderLeft(x, y,1);
         this.manager.addTool(hinderLeft, pos);
     }
 
     public  void addHinderRight(@NotNull int[] pos) {
         int x = pos[0];
         int y = pos[1];
-        HinderRight hinderRight = new HinderRight(x, y);
+        HinderRight hinderRight = new HinderRight(x, y,1);
         this.manager.addTool(hinderRight, pos);
     }
 

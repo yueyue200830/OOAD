@@ -8,8 +8,8 @@ import java.awt.*;
  */
 public class HinderRight extends Hinder {
 
-    public HinderRight(float x, float y) {
-        super(x, y);
+    public HinderRight(float x, float y, float scaleRate) {
+        super(x, y, scaleRate);
     }
 
     @Override

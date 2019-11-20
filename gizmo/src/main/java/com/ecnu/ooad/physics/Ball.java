@@ -1,6 +1,8 @@
 package com.ecnu.ooad.physics;
 
+import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.jbox2d.dynamics.Body;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,11 +18,13 @@ public class Ball {
     private Color color = Color.cyan;
     private float positionX;
     private float positionY;
+    private float scaleRate;
 
-    public Ball(float worldX, float worldY) {
+    public Ball(float worldX, float worldY, float scaleRate) {
         this.positionX = worldX;
         this.positionY = worldY;
-        this.radius = 8f;
+        this.scaleRate = scaleRate;
+        this.radius = Constants.CIRCLE_RADIUS;
         this.initBallInWorld(this.positionX, this.positionY);
     }
 
@@ -55,6 +59,10 @@ public class Ball {
 
     public Body getBody() {
         return body;
+    }
+
+    public float getScaleRate() {
+        return scaleRate;
     }
 
     public void drawMe(@NotNull Graphics2D g) {

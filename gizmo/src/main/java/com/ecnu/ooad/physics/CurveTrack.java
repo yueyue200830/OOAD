@@ -21,7 +21,7 @@ public class CurveTrack extends Track {
     private Color color = Color.yellow;
 
     public CurveTrack(float x, float y, int direction) {
-        super(x, y);
+        super(x, y,1);
         this.direction = direction;
         this.bodies = new Body[3];
         this.initCurveTrack();

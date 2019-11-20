@@ -116,7 +116,7 @@ public class Manager {
             if (toolObject instanceof CurveTrack) {
                 newTool = new CurveTrack(x, y, direction);
             } else if (toolObject instanceof StraightTrack) {
-                newTool = new StraightTrack(x, y, direction);
+                newTool = new StraightTrack(x, y, direction,1);
             } else {
                 newTool = new Slope(x, y, 1, direction);
             }

@@ -8,8 +8,8 @@ import java.awt.*;
  */
 public class Track extends Tool {
 
-    public Track(float x, float y) {
-        super(x, y);
+    public Track(float x, float y, float scaleRate) {
+        super(x, y, scaleRate);
     }
 
     @Override

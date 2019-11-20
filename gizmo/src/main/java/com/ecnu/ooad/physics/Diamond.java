@@ -1,5 +1,6 @@
 package com.ecnu.ooad.physics;
 
+import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,9 +15,9 @@ public class Diamond extends Obstacle {
     private float radius;
     private Color color;
 
-    public Diamond(float x, float y) {
-        super(x, y);
-        this.radius = 10f;
+    public Diamond(float x, float y,float scaleRate) {
+        super(x, y, scaleRate);
+        this.radius = Constants.DIAMOND_RADIUS;
         this.color = Color.white;
         this.initDiamond(x, y);
     }
