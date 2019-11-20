@@ -40,7 +40,7 @@ public class Manager {
         int y = pos[1] / Constants.GRID_LENGTH;
 
         if (gamegrids.canAddObject(x, y, 1)) {
-            Ball ball = new Ball(pos[0], pos[1]);
+            Ball ball = new Ball(pos[0], pos[1], 1);
             gamegrids.addObject(x, y, ball);
             ballList.add(ball);
             currentObject = ball;
@@ -63,17 +63,17 @@ public class Manager {
             } else if (condition == 3) {
                 newTool = new Slope(pos[0], pos[1], 1, direction);
             } else if (condition == 4) {
-                newTool = new Diamond(pos[0], pos[1]);
+                newTool = new Diamond(pos[0], pos[1], 1);
             } else if (condition == 5) {
-                newTool = new Emerald(pos[0], pos[1]);
+                newTool = new Emerald(pos[0], pos[1], 1);
             } else if (condition == 6) {
-                newTool = new StraightTrack(pos[0], pos[1], direction);
+                newTool = new StraightTrack(pos[0], pos[1], direction, 1);
             } else if (condition == 7) {
                 newTool = new CurveTrack(pos[0], pos[1], direction);
             } else if (condition == 8) {
-                newTool = new HinderLeft(pos[0], pos[1]);
+                newTool = new HinderLeft(pos[0], pos[1], 1);
             } else {
-                newTool = new HinderRight(pos[0], pos[1]);
+                newTool = new HinderRight(pos[0], pos[1], 1);
             }
 
             gamegrids.addObject(x, y, newTool);
