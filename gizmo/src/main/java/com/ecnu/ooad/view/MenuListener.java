@@ -1,10 +1,9 @@
 package com.ecnu.ooad.view;
 
 import com.ecnu.ooad.Manager;
-import com.ecnu.ooad.Utils.TransformUtil;
+import com.ecnu.ooad.utils.TransformUtil;
 
 import javax.swing.*;
-import javax.xml.crypto.dsig.Transform;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -27,7 +26,7 @@ public class MenuListener implements ActionListener {
             System.out.println("new game");
         }else if("Save Game".equals(command)) {
             System.out.println("save game");
-            String gameConfig = TransformUtil.objectToJson(this.manager.getObjectList());
+            String gameConfig = com.ecnu.ooad.utils.TransformUtil.objectToJson(this.manager.getObjectList());
             com.ecnu.ooad.utils.FileManager.saveGame(gameConfig);
         }else if("Load Game".equals(command)) {
             System.out.println("load game");
@@ -39,7 +38,7 @@ public class MenuListener implements ActionListener {
                 System.out.println("choose a file");
                 System.out.println(file.getName());
                 String gameConfig = com.ecnu.ooad.utils.FileManager.readGame(file.getName());
-                List<Object> objectList = TransformUtil.jsonToObject(gameConfig);
+                List<Object> objectList = com.ecnu.ooad.utils.TransformUtil.jsonToObject(gameConfig, this.manager);
             }else {
                 System.out.println("not a file");
             }

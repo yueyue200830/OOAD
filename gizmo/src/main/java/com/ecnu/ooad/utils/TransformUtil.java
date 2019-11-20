@@ -1,5 +1,6 @@
 package com.ecnu.ooad.utils;
 
+import com.ecnu.ooad.Manager;
 import com.ecnu.ooad.physics.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,6 +13,11 @@ import java.util.List;
  * @date 2019-11-19 20:10
  */
 public class TransformUtil {
+    private Manager manager;
+
+    public TransformUtil(Manager manager) {
+        this.manager = manager;
+    }
 
     public static String objectToJson(List<Object> objectList) {
         JSONArray jsonArray = new JSONArray();
@@ -72,7 +78,8 @@ public class TransformUtil {
         return jsonArray.toString();
     }
 
-    public static List<Object> jsonToObject(String jsonString) {
+    public static List<Object> jsonToObject(String jsonString, Manager manager) {
+        TransformUtil fake = new TransformUtil(manager);
         JSONArray jsonArray = new JSONArray(jsonString);
         List<Object> objectList = new ArrayList<>();
         for(int i = 0; i < jsonArray.length(); i++) {
@@ -81,32 +88,26 @@ public class TransformUtil {
             float positionX = jsonObject.getFloat("positionX");
             float positionY = jsonObject.getFloat("positionY");
             float scaleRate = jsonObject.getFloat("scaleRate");
+            int[] position = {(int) positionX, (int) positionY};
             if("ball".equals(type)) {
-                Ball ball = new Ball(jsonObject.getFloat("positionX"), jsonObject.getFloat("positionY"), scaleRate);
-                objectList.add(ball);
+                fake.manager.addBall(position);
             } else if("tool".equals(type)) {
                 String subType = jsonObject.getString("subType");
+                int direction = jsonObject.getInt("direction");
                 if("diamond".equals(subType)) {
-                    Diamond diamond = new Diamond(positionX, positionY, scaleRate);
-                    objectList.add(diamond);
+                    fake.manager.addTool(4, position);
                 } else if("emerald".equals(subType)) {
-                    Emerald emerald = new Emerald(positionX,positionY, scaleRate);
-                    objectList.add(emerald);
+                    fake.manager.addTool(5, position);
                 } else if("hinderLeft".equals(subType)) {
-                    HinderLeft hinderLeft = new HinderLeft(positionX, positionY, scaleRate);
-                    objectList.add(hinderLeft);
+                    fake.manager.addTool(8, position);
                 } else if("hinderRight".equals(subType)) {
-                    HinderRight hinderRight = new HinderRight(positionX, positionY, scaleRate);
-                    objectList.add(hinderRight);
+                    fake.manager.addTool(9, position);
                 } else if("slope".equals(subType)) {
-                    Slope slope = new Slope(positionX,positionY);
-                    objectList.add(slope);
+                    fake.manager.addTool(3, position, direction);
                 } else if("straightTrack".equals(subType)) {
-                    StraightTrack straightTrack = new StraightTrack(positionX,positionY,jsonObject.getInt("direction"), scaleRate);
-                    objectList.add(straightTrack);
+                   fake.manager.addTool(6, position, direction);
                 } else if("curveTrack".equals(subType)) {
-                    CurveTrack curveTrack = new CurveTrack(positionX, positionY, jsonObject.getInt("direction"));
-                    objectList.add(curveTrack);
+                    fake.manager.addTool(7, position, direction);
                 }
             }
         }

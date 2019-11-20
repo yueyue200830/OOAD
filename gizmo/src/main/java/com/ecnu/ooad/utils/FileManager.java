@@ -1,6 +1,9 @@
 package com.ecnu.ooad.utils;
 
+import com.sun.deploy.util.StringUtils;
+
 import java.io.*;
+import java.net.URL;
 
 /**
  * @author Yiqing Tao
@@ -15,7 +18,11 @@ public class FileManager {
         String line;
         try {
             FileManager fake = new FileManager();
-            File file = new File("E:/OOAD/OOAD/OOAD/gizmo/" + fileName);
+            String directory = fake.getClass().getClassLoader().getResource("").toString();
+            String dir = directory.substring(0, directory.indexOf("target"));
+            String[] str = dir.split("file:/");
+            System.out.println(str[1]);
+            File file = new File(str[1] + fileName);
             InputStream is = new FileInputStream(file);
             Reader reader = new InputStreamReader(is);
             BufferedReader bufferedReader = new BufferedReader(reader);

@@ -1,6 +1,7 @@
 package com.ecnu.ooad.view;
 
 import com.ecnu.ooad.Manager;
+import com.ecnu.ooad.physics.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,62 +52,7 @@ public class GamePanelMouseListener implements MouseListener {
         manager.selectObject(x, y);
     }
 
-    // TODO Put new method into manager.
-    public void addBall(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        Ball newBall = new Ball(x, y,1);
-        manager.addBall(newBall, pos);
-    }
 
-    public void addSlope(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        Slope slope = new Slope(x, y, 1, this.manager.getDirection());
-        manager.addTool(slope, pos);
-    }
-
-    public void addEmerald(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        Emerald emerald = new Emerald(x, y,1);
-        this.manager.addTool(emerald, pos);
-    }
-
-    public void addDiamond(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        Diamond diamond = new Diamond(x, y,2);
-        this.manager.addTool(diamond, pos);
-    }
-
-    public void addStraightTrack(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        StraightTrack straightTrack = new StraightTrack(x, y, manager.getDirection(), 1);
-        this.manager.addTool(straightTrack, pos);
-    }
-
-    public void addCurveTrack(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        CurveTrack curveTrack = new CurveTrack(x, y, manager.getDirection());
-        this.manager.addTool(curveTrack, pos);
-    }
-
-    public void addHinderLeft(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        HinderLeft hinderLeft = new HinderLeft(x, y,1);
-        this.manager.addTool(hinderLeft, pos);
-    }
-
-    public  void addHinderRight(@NotNull int[] pos) {
-        int x = pos[0];
-        int y = pos[1];
-        HinderRight hinderRight = new HinderRight(x, y,1);
-        this.manager.addTool(hinderRight, pos);
-    }
 
     @Override
     public void mousePressed(MouseEvent e) {

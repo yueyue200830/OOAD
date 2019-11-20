@@ -172,9 +172,9 @@ public class Manager {
         return objectList;
     }
 
-    public int getDirection() {
-        return direction;
-    }
+//    public int getDirection() {
+//        return direction;
+//    }
 
     public void setIsPlayMode(boolean isPlayMode) {
         this.isPlayMode = isPlayMode;
