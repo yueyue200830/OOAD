@@ -20,27 +20,17 @@ public class Ball {
     private float scaleRate;
 
     public Ball(float worldX, float worldY, float scaleRate) {
-        this.positionX = worldX;
-        this.positionY = worldY;
+        this.positionX = worldX + 2;
+        this.positionY = worldY + 2;
         this.scaleRate = scaleRate;
-        this.radius = Constants.CIRCLE_RADIUS;
-        this.initBallInWorld(this.positionX, this.positionY);
+        this.radius = Constants.CIRCLE_RADIUS * scaleRate;
+        this.initBallInWorld();
     }
 
-    private void initBallInWorld(float worldX, float worldY) {
-        this.body = BodyUtil.initCircle(worldX, worldY, this.radius, false);
-    }
-
-    public float getInnerX() {
-        return body.getPosition().x - radius;
-    }
-
-    public float getInnerY() {
-        return body.getPosition().y - radius;
-    }
-
-    public float getDelimiter() {
-        return radius * 2;
+    private void initBallInWorld() {
+        float x = positionX + radius;
+        float y = positionY + radius;
+        this.body = BodyUtil.initCircle(x, y, radius, false);
     }
 
     public float getPositionX() {
@@ -64,7 +54,11 @@ public class Ball {
     }
 
     public void drawMe(@NotNull Graphics2D g) {
+        int x = (int) (body.getPosition().x - radius);
+        int y = (int) (body.getPosition().y - radius);
+        int delimiter = (int) (radius * 2);
+
         g.setColor(color);
-        g.fillOval((int) this.getInnerX(), (int) this.getInnerY(), (int) this.getDelimiter(), (int) this.getDelimiter());
+        g.fillOval(x, y, delimiter, delimiter);
     }
 }

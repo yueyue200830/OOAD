@@ -15,6 +15,8 @@ public class StraightTrack extends Tool {
     private Color color;
     private float boxWidth;
     private float boxHeight;
+    private int drawWidth;
+    private int drawHeight;
 
     public StraightTrack(float x, float y, int direction, float scaleRate) {
         super(x, y, scaleRate);
@@ -22,31 +24,37 @@ public class StraightTrack extends Tool {
         this.color = Color.yellow;
         this.bodies = new Body[2];
 
-        float xLeft, yLeft, xRight, yRight;
         if (this.direction == 0) {
-            xLeft = x - Constants.GRID_LENGTH / 2 + Constants.TRACK_WIDTH / 4;
-            yLeft = y;
-            xRight = x + Constants.GRID_LENGTH / 2 - Constants.TRACK_WIDTH / 4;
-            yRight = y;
+            this.boxWidth = Constants.TRACK_WIDTH / 2;
+            this.boxHeight = Constants.GRID_LENGTH * scaleRate;
+            this.drawWidth = (int) this.boxWidth * 2;
+            this.drawHeight = (int) this.boxHeight;
         } else {
-            xLeft = x;
-            yLeft = y - Constants.GRID_LENGTH / 2 + Constants.TRACK_WIDTH / 4;
-            xRight = x;
-            yRight = y + Constants.GRID_LENGTH / 2 - Constants.TRACK_WIDTH / 4;
+            this.boxWidth = Constants.GRID_LENGTH * scaleRate;
+            this.boxHeight = Constants.TRACK_WIDTH / 2;
+            this.drawWidth = (int) this.boxWidth;
+            this.drawHeight = (int) this.boxHeight * 2;
         }
-        this.initStraightTrack(xLeft, xRight, yLeft, yRight);
+
+        this.initStraightTrack();
     }
 
-    private void initStraightTrack(float xLeft, float xRight, float yLeft, float yRight) {
-        if(this.direction == 0) {
-            boxWidth = Constants.TRACK_WIDTH / 2;
-            boxHeight = Constants.GRID_LENGTH;
+    private void initStraightTrack() {
+        float x1, y1, x2, y2;
+        if (this.direction == 0) {
+            x1 = positionX + this.boxWidth / 2;
+            y1 = positionY + this.boxHeight / 2;
+            x2 = positionX + this.boxHeight - this.boxWidth / 2;
+            y2 = positionY + this.boxHeight / 2;
         } else {
-            boxWidth = Constants.GRID_LENGTH;
-            boxHeight = Constants.TRACK_WIDTH / 2;
+            x1 = positionX + this.boxWidth / 2;
+            y1 = positionY + this.boxHeight / 2;
+            x2 = positionX + this.boxWidth / 2;
+            y2 = positionY + this.boxWidth - this.boxHeight / 2;
         }
-        this.bodies[0] = BodyUtil.initRectangle(xLeft, yLeft, boxWidth, boxHeight);
-        this.bodies[1] = BodyUtil.initRectangle(xRight, yRight, boxWidth, boxHeight);
+
+        this.bodies[0] = BodyUtil.initRectangle(x1, y1, boxWidth, boxHeight);
+        this.bodies[1] = BodyUtil.initRectangle(x2, y2, boxWidth, boxHeight);
 
     }
 
@@ -61,19 +69,17 @@ public class StraightTrack extends Tool {
     @Override
     public void drawMe(@NotNull Graphics2D g) {
         g.setColor(this.color);
-        float leftX = this.bodies[0].getPosition().x;
-        float leftY = this.bodies[0].getPosition().y;
-        float rightX = this.bodies[1].getPosition().x;
-        float rightY = this.bodies[1].getPosition().y;
-        float width = Constants.TRACK_WIDTH;
-        int length = Constants.GRID_LENGTH;
+        float x1 = this.bodies[0].getPosition().x;
+        float y1 = this.bodies[0].getPosition().y;
+        float x2 = this.bodies[1].getPosition().x;
+        float y2 = this.bodies[1].getPosition().y;
 
         if (this.direction == 0) {
-            g.fillRect((int) (leftX - width / 4), (int) (leftY - length / 2), (int) width, length);
-            g.fillRect((int) (rightX - width / 4 * 3), (int) (rightY - length / 2), (int) width, length);
+            g.fillRect((int) (x1 - boxWidth / 4), (int) (y1 - boxHeight / 2), drawWidth, drawHeight);
+            g.fillRect((int) (x2 - boxWidth / 4 * 3), (int) (y2 - boxHeight / 2), drawWidth, drawHeight);
         } else {
-            g.fillRect((int) (leftX - length / 2), (int) (leftY - width / 4), length, (int) width);
-            g.fillRect((int) (rightX - length / 2), (int) (rightY - width / 4 * 3), length, (int) width);
+            g.fillRect((int) (x1 - boxWidth / 2), (int) (y1 - boxHeight / 4), drawWidth, drawHeight);
+            g.fillRect((int) (x2 - boxWidth / 2), (int) (y2 - boxHeight / 4 * 3), drawWidth, drawHeight);
         }
     }
 }

@@ -40,8 +40,8 @@ public class GamePanelMouseListener implements MouseListener {
 
     public int[] getSquareMiddlePoint(int x, int y) {
         int[] pos = new int[2];
-        pos[0] = x / 20 * 20 + 10;
-        pos[1] = y / 20 * 20 + 10;
+        pos[0] = x / 20 * 20;
+        pos[1] = y / 20 * 20;
         return pos;
     }
 

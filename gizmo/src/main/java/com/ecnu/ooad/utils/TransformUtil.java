@@ -105,7 +105,7 @@ public class TransformUtil {
                     StraightTrack straightTrack = new StraightTrack(positionX,positionY,jsonObject.getInt("direction"), scaleRate);
                     objectList.add(straightTrack);
                 } else if("curveTrack".equals(subType)) {
-                    CurveTrack curveTrack = new CurveTrack(positionX, positionY, jsonObject.getInt("direction"));
+                    CurveTrack curveTrack = new CurveTrack(positionX, positionY, jsonObject.getInt("direction"), scaleRate);
                     objectList.add(curveTrack);
                 }
             }

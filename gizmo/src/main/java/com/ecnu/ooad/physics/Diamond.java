@@ -15,28 +15,18 @@ public class Diamond extends Obstacle {
     private float radius;
     private Color color;
 
-    public Diamond(float x, float y,float scaleRate) {
+    public Diamond(float x, float y, float scaleRate) {
         super(x, y, scaleRate);
-        this.radius = Constants.DIAMOND_RADIUS;
+        this.radius = Constants.DIAMOND_RADIUS * scaleRate;
         this.color = Color.white;
-        this.initDiamond(x, y);
+        this.initDiamond();
     }
 
-    private void initDiamond(float worldX, float worldY) {
-      this.bodies[0] = BodyUtil.initCircle(worldX, worldY, this.radius, true);
+    private void initDiamond() {
+        float x = this.positionX + this.radius;
+        float y = this.positionY + this.radius;
 
-    }
-
-    public float getInnerX() {
-        return bodies[0].getPosition().x - this.radius;
-    }
-
-    public float getInnerY() {
-        return bodies[0].getPosition().y - this.radius;
-    }
-
-    public float getDelimiter() {
-        return this.radius * 2;
+        this.bodies[0] = BodyUtil.initCircle(x, y, this.radius, true);
     }
 
     public float getRadius() {
@@ -45,7 +35,11 @@ public class Diamond extends Obstacle {
 
     @Override
     public void drawMe(@NotNull Graphics2D g) {
+        int x = (int) (bodies[0].getPosition().x - radius);
+        int y = (int) (bodies[0].getPosition().y - radius);
+        int delimiter = (int) (radius * 2);
+
         g.setColor(this.color);
-        g.fillOval((int) this.getInnerX(), (int) this.getInnerY(), (int) this.getDelimiter(), (int) this.getDelimiter());
+        g.fillOval(x, y, delimiter, delimiter);
     }
 }

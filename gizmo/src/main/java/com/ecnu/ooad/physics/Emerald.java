@@ -2,7 +2,6 @@ package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
-import org.jbox2d.dynamics.Body;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -19,22 +18,16 @@ public class Emerald extends Obstacle {
 
     public Emerald(float x, float y, float scaleRate) {
         super(x, y, scaleRate);
-        this.height = Constants.EMERALD_HEIGHT;
-        this.width = Constants.EMERALD_WIDTH;
-        this.initEmerald(x, y);
+        this.height = Constants.EMERALD_HEIGHT * scaleRate;
+        this.width = Constants.EMERALD_WIDTH * scaleRate;
         this.color = Color.green;
+        this.initEmerald();
     }
 
-    private void initEmerald(float worldX, float worldY) {
-        this.bodies[0] = BodyUtil.initRectangle(worldX, worldY, this.width, this.height);
-    }
-
-    public float getInnerX() {
-        return this.bodies[0].getPosition().x - this.width / 2;
-    }
-
-    public float getInnerY() {
-        return this.bodies[0].getPosition().y - this.height / 2;
+    private void initEmerald() {
+        float x = this.positionX + this.width / 2;
+        float y = this.positionY + this.height / 2;
+        this.bodies[0] = BodyUtil.initRectangle(x, y, this.width, this.height);
     }
 
     public float getHeight() {
@@ -47,7 +40,10 @@ public class Emerald extends Obstacle {
 
     @Override
     public void drawMe(@NotNull Graphics2D g) {
+        int x = (int) (this.bodies[0].getPosition().x - this.width / 2);
+        int y = (int) (this.bodies[0].getPosition().y - this.width / 2);
+
         g.setColor(this.color);
-        g.fillRect((int) getInnerX(), (int) getInnerY(), (int) this.width, (int) this.height);
+        g.fillRect(x, y, (int) this.width, (int) this.height);
     }
 }

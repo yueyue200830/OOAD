@@ -12,8 +12,8 @@ public class Constants {
     public static final int TOOL_WIDTH = 200;
     public static final int TOOL_HIGHT = 600;
     public static final int GRID_LENGTH = 20;
-    public static final int HINDER_WIDTH = 20;
-    public static final int HINDER_HEIGHT = 2;
+    public static final int HINDER_WIDTH = 40;
+    public static final int HINDER_HEIGHT = 4;
     public static final int EMERALD_WIDTH = 20;
     public static final int EMERALD_HEIGHT = 20;
     public static final int CIRCLE_RADIUS = 8;

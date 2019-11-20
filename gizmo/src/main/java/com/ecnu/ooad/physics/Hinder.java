@@ -22,7 +22,13 @@ public class Hinder extends Tool {
         this.width = Constants.HINDER_WIDTH;
         this.height = Constants.HINDER_HEIGHT;
         this.bodies = new Body[1];
-        this.initHinder(x, y);
+        this.initHinder();
+    }
+
+    private void initHinder() {
+        float leftCornerX = this.positionX + this.width / 2;
+        float leftCornerY = this.positionY + Constants.GRID_LENGTH - this.height / 2;
+        this.bodies[0] = BodyUtil.initRectangle(leftCornerX, leftCornerY, this.width, this.height);
     }
 
     public float getWidth() {
@@ -33,17 +39,12 @@ public class Hinder extends Tool {
         return height;
     }
 
-    private void initHinder(float x, float y) {
-        float leftCornerX = x;
-        float leftCornerY = y + Constants.GRID_LENGTH / 2 - Constants.HINDER_HEIGHT / 2;
-        this.bodies[0] = BodyUtil.initRectangle(leftCornerX, leftCornerY, this.width, this.height);
-    }
-
     @Override
     public void drawMe(@NotNull Graphics2D g) {
+        int x = (int) (this.bodies[0].getPosition().x - this.width / 2);
+        int y = (int) (this.bodies[0].getPosition().y - this.height / 2);
+
         g.setColor(this.color);
-        int x = (int) this.bodies[0].getPosition().x;
-        int y = (int) this.bodies[0].getPosition().y;
-        g.fillRect(x - Constants.HINDER_WIDTH / 2, y - Constants.HINDER_HEIGHT / 2, Constants.HINDER_WIDTH, Constants.HINDER_HEIGHT);
+        g.fillRect(x, y, (int) this.width, (int) this.height);
     }
 }

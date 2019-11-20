@@ -20,9 +20,10 @@ public class Tool {
     public Tool(float x, float y, float scaleRate) {
         this.positionX = x;
         this.positionY = y;
-        this.scaleRate = 1f;
+        this.scaleRate = scaleRate;
         this.direction = 0;
     }
+
     public void drawMe(Graphics2D g) {
 
     }
