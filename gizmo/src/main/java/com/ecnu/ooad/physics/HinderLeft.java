@@ -8,8 +8,8 @@ import java.awt.*;
  */
 public class HinderLeft extends Hinder {
 
-    public HinderLeft(float x, float y, float scaleRate) {
-        super(x, y, scaleRate);
+    public HinderLeft(float x, float y) {
+        super(x, y);
         this.type = 8;
     }
 

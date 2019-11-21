@@ -1,6 +1,6 @@
 package com.ecnu.ooad;
 
-import com.ecnu.ooad.Utils.IngredientCondition;
+import com.ecnu.ooad.utils.IngredientCondition;
 import com.ecnu.ooad.physics.*;
 import com.ecnu.ooad.utils.BodyUtil;
 import org.jbox2d.common.Vec2;
@@ -20,9 +20,10 @@ public class Manager {
     public static World world = new World(new Vec2(0f,10f));
     private Vector<Ball> ballList;
     private Vector<Tool> toolList;
-    private boolean isPlayMode;
     private GameGrids gamegrids;
     private Object currentObject;
+    private HinderRight rightHinder;
+    private HinderLeft leftHinder;
 
     /**
      * mouse: 0, ball: 1, absorber: 2, slope: 3, diamond: 4, emerald: 5, straightTrack: 6, curveTrack: 7,
@@ -31,7 +32,6 @@ public class Manager {
     public Manager() {
         ballList = new Vector<>();
         toolList = new Vector<>();
-        isPlayMode = false;
         gamegrids = new GameGrids();
         initBorder();
     }
@@ -79,19 +79,21 @@ public class Manager {
                 // TODO Add hole
                 return;
             } else if (condition == IngredientCondition.Slope.getValue()) {
-                newTool = new Slope(pos[0], pos[1], 1, direction);
+                newTool = new Slope(pos[0], pos[1], scaleRate, direction);
             } else if (condition == IngredientCondition.Diamond.getValue()) {
-                newTool = new Diamond(pos[0], pos[1], 1);
+                newTool = new Diamond(pos[0], pos[1], scaleRate);
             } else if (condition == IngredientCondition.Emerald.getValue()) {
-                newTool = new Emerald(pos[0], pos[1], 1);
+                newTool = new Emerald(pos[0], pos[1], scaleRate);
             } else if (condition == IngredientCondition.StraightTrack.getValue()) {
                 newTool = new StraightTrack(pos[0], pos[1], direction, scaleRate);
             } else if (condition == IngredientCondition.CurveTrack.getValue()) {
                 newTool = new CurveTrack(pos[0], pos[1], direction, scaleRate);
             } else if (condition == IngredientCondition.HinderLeft.getValue()) {
-                newTool = new HinderLeft(pos[0], pos[1], scaleRate);
+                newTool = new HinderLeft(pos[0], pos[1]);
+                leftHinder = (HinderLeft) newTool;
             } else {
-                newTool = new HinderRight(pos[0], pos[1], scaleRate);
+                newTool = new HinderRight(pos[0], pos[1]);
+                rightHinder = (HinderRight) newTool;
             }
 
             gamegrids.addObject(x, y, newTool);
@@ -195,12 +197,36 @@ public class Manager {
         }
     }
 
-    public Vector<Ball> getBallList() {
-        return ballList;
-    }
+    // 1: left, 2: right
+    public void moveHinder(int key, boolean isRightHinder) {
+        Hinder hinder;
+        if (isRightHinder) {
+            hinder = rightHinder;
+        } else {
+            hinder = leftHinder;
+        }
+        if (hinder == null) {
+            return;
+        }
 
-    public Vector<Tool> getToolList() {
-        return toolList;
+        float x, y;
+
+        if (key == 1) {
+            x = hinder.getPositionX() - Constants.GRID_LENGTH;
+            y = hinder.getPositionY();
+        } else {
+            x = hinder.getPositionX() + Constants.GRID_LENGTH;
+            y = hinder.getPositionY();
+        }
+        if (gamegrids.canAddObject((int) x / Constants.GRID_LENGTH, (int) y / Constants.GRID_LENGTH)) {
+            currentObject = hinder;
+            deleteObject();
+            int condition = isRightHinder ? 9 : 8;
+            int[] pos = new int[2];
+            pos[0] = (int) x;
+            pos[1] = (int) y;
+            this.addTool(condition, pos);
+        }
     }
 
     public java.util.List<Object> getObjectList() {
@@ -208,13 +234,5 @@ public class Manager {
         objectList.addAll(this.ballList);
         objectList.addAll(this.toolList);
         return objectList;
-    }
-
-    public void setIsPlayMode(boolean isPlayMode) {
-        this.isPlayMode = isPlayMode;
-    }
-
-    public boolean isPlayMode() {
-        return isPlayMode;
     }
 }

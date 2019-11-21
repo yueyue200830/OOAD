@@ -19,6 +19,10 @@ public class GameGrids {
         hasLeftHinder = hasRightHinder = false;
     }
 
+    public boolean canAddObject(int x, int y) {
+        return this.canAddObject(x, y, -1);
+    }
+
     public boolean canAddObject(int x, int y, int condition) {
         boolean canAdd = grids[x][y] == null;
         if (condition == 8 && hasLeftHinder) {

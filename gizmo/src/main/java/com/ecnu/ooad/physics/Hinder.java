@@ -16,8 +16,8 @@ public class Hinder extends Tool {
     private float width;
     private float height;
 
-    public Hinder(float x, float y, float scaleRate) {
-        super(x, y, scaleRate);
+    public Hinder(float x, float y) {
+        super(x, y, 1);
         this.color = Color.LIGHT_GRAY;
         this.width = Constants.HINDER_WIDTH;
         this.height = Constants.HINDER_HEIGHT;

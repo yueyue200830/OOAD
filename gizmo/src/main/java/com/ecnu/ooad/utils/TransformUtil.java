@@ -1,8 +1,6 @@
 package com.ecnu.ooad.utils;
 
 import com.ecnu.ooad.Controller;
-import com.ecnu.ooad.Manager;
-import com.ecnu.ooad.Utils.IngredientCondition;
 import com.ecnu.ooad.physics.*;
 import org.json.JSONArray;
 import org.json.JSONObject;

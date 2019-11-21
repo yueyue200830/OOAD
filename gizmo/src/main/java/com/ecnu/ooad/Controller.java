@@ -77,4 +77,9 @@ public class Controller {
     public void selectObject (int x, int y) {
         this.manager.selectObject(x, y);
     }
+
+    // 1: left, 2: right
+    public void moveHinder(int key, boolean isRightHinder) {
+        this.manager.moveHinder(key, isRightHinder);
+    }
 }

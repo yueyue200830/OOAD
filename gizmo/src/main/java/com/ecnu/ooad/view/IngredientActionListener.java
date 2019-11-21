@@ -1,7 +1,7 @@
 package com.ecnu.ooad.view;
 
 import com.ecnu.ooad.Controller;
-import com.ecnu.ooad.Utils.IngredientCondition;
+import com.ecnu.ooad.utils.IngredientCondition;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,7 +42,6 @@ public class IngredientActionListener implements ActionListener {
             this.controller.setIngredientCondition(IngredientCondition.CurveTrack.getValue());
         } else if ("hinderLeft".equals(command)) {
             this.controller.setIngredientCondition(IngredientCondition.HinderLeft.getValue());
-
         } else if ("hinderRight".equals(command)) {
             this.controller.setIngredientCondition(IngredientCondition.HinderRight.getValue());
         }
