@@ -1,6 +1,8 @@
 package com.ecnu.ooad.utils;
 
+import com.ecnu.ooad.Controller;
 import com.ecnu.ooad.Manager;
+import com.ecnu.ooad.Utils.IngredientCondition;
 import com.ecnu.ooad.physics.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,13 +15,13 @@ import java.util.List;
  * @date 2019-11-19 20:10
  */
 public class TransformUtil {
-    private Manager manager;
+    private Controller controller;
 
-    public TransformUtil(Manager manager) {
-        this.manager = manager;
+    public TransformUtil(Controller controller) {
+        this.controller = controller;
     }
 
-    public static String objectToJson(List<Object> objectList) {
+    public String objectToJson(List<Object> objectList) {
         JSONArray jsonArray = new JSONArray();
         for(Object o : objectList) {
             JSONObject jsonObject = new JSONObject();
@@ -78,8 +80,7 @@ public class TransformUtil {
         return jsonArray.toString();
     }
 
-    public static List<Object> jsonToObject(String jsonString, Manager manager) {
-        TransformUtil fake = new TransformUtil(manager);
+    public List<Object> jsonToObject(String jsonString) {
         JSONArray jsonArray = new JSONArray(jsonString);
         List<Object> objectList = new ArrayList<>();
         for(int i = 0; i < jsonArray.length(); i++) {
@@ -90,24 +91,24 @@ public class TransformUtil {
             float scaleRate = jsonObject.getFloat("scaleRate");
             int[] position = {(int) positionX, (int) positionY};
             if("ball".equals(type)) {
-                fake.manager.addBall(position);
+                this.controller.addBall(position);
             } else if("tool".equals(type)) {
                 String subType = jsonObject.getString("subType");
                 int direction = jsonObject.getInt("direction");
                 if("diamond".equals(subType)) {
-                    fake.manager.addTool(4, position);
+                    this.controller.addTool(IngredientCondition.Diamond.getValue(), position);
                 } else if("emerald".equals(subType)) {
-                    fake.manager.addTool(5, position);
+                    this.controller.addTool(IngredientCondition.Emerald.getValue(), position);
                 } else if("hinderLeft".equals(subType)) {
-                    fake.manager.addTool(8, position);
+                    this.controller.addTool(IngredientCondition.HinderLeft.getValue(), position);
                 } else if("hinderRight".equals(subType)) {
-                    fake.manager.addTool(9, position);
+                    this.controller.addTool(IngredientCondition.HinderRight.getValue(), position);
                 } else if("slope".equals(subType)) {
-                    fake.manager.addTool(3, position, direction);
+                    this.controller.addTool(IngredientCondition.Slope.getValue(), position, direction);
                 } else if("straightTrack".equals(subType)) {
-                   fake.manager.addTool(6, position, direction);
+                   this.controller.addTool(IngredientCondition.StraightTrack.getValue(), position, direction);
                 } else if("curveTrack".equals(subType)) {
-                    fake.manager.addTool(7, position, direction);
+                    this.controller.addTool(IngredientCondition.CurveTrack.getValue(), position, direction);
                 }
             }
         }

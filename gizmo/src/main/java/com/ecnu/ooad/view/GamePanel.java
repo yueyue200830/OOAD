@@ -1,6 +1,6 @@
 package com.ecnu.ooad.view;
 
-import com.ecnu.ooad.Manager;
+import com.ecnu.ooad.Controller;
 import com.ecnu.ooad.Constants;
 
 import javax.swing.*;
@@ -12,18 +12,15 @@ import java.awt.geom.Line2D;
  * @date 2019-11-16 20:31
  */
 public class GamePanel extends JPanel implements Runnable {
-    private Manager manager;
+    private Controller controller;
 
-    public GamePanel() {
+    public GamePanel(Controller controller) {
         this.setSize(Constants.GAME_WIDTH, Constants.GAME_HIGHT);
         this.setVisible(true);
         this.setBackground(Color.black);
-        this.manager = new Manager();
+        this.controller = controller;
     }
-
-    public Manager getManager() {
-        return this.manager;
-    }
+    
 
     private void paintLines(Graphics2D g) {
         Line2D lin;
@@ -39,10 +36,10 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        if (!this.manager.isPlayMode()) {
+        if (!this.controller.isPlayMode()) {
             paintLines((Graphics2D) g);
         }
-        manager.draw((Graphics2D) g);
+        controller.draw((Graphics2D) g);
         g.dispose();
     }
 
@@ -52,8 +49,8 @@ public class GamePanel extends JPanel implements Runnable {
             while (true) {
                 Thread.sleep(30);
                 this.repaint();
-                if (this.manager.isPlayMode()) {
-                    manager.step();
+                if (this.controller.isPlayMode()) {
+                    controller.step();
                 }
             }
         } catch (Exception e) {

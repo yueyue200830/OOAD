@@ -1,7 +1,7 @@
 package com.ecnu.ooad.view;
 
 import com.ecnu.ooad.Constants;
-import com.ecnu.ooad.Manager;
+import com.ecnu.ooad.Controller;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,21 +12,17 @@ import java.awt.*;
  */
 public class ToolPanel extends JPanel {
     private GridBagConstraints gbc;
-    private Manager manager;
+    private Controller controller;
 
-    public ToolPanel(Manager manager) {
+    public ToolPanel(Controller controller) {
         this.setSize(Constants.TOOL_WIDTH, Constants.TOOL_HIGHT);
         this.setVisible(true);
         this.setBackground(Color.red);
         this.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
-        this.manager = manager;
+        this.controller = controller;
         this.initPanel();
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
     }
 
     private void initPanel() {
@@ -44,7 +40,7 @@ public class ToolPanel extends JPanel {
         gbc.gridheight = 11;
         gbc.weightx = 0.5;
         gbc.weighty = 0.8;
-        this.add(new IngredientPanel(this.manager), gbc);
+        this.add(new IngredientPanel(this.controller), gbc);
 
         JLabel labelOperation = new JLabel("Operation Bar");
         gbc.gridx = 0;
@@ -60,7 +56,7 @@ public class ToolPanel extends JPanel {
         gbc.gridheight = 5;
         gbc.weightx = 0.5;
         gbc.weighty = 0.8;
-        this.add(new OperationPanel(this.manager), gbc);
+        this.add(new OperationPanel(this.controller), gbc);
 
         JLabel labelMode = new JLabel("Mode Bar");
         gbc.gridx = 0;
@@ -76,6 +72,6 @@ public class ToolPanel extends JPanel {
         gbc.gridheight = 8;
         gbc.weightx = 0.5;
         gbc.weighty = 0.8;
-        this.add(new ModePanel(this.manager), gbc);
+        this.add(new ModePanel(this.controller), gbc);
     }
 }

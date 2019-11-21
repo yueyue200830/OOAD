@@ -1,6 +1,7 @@
 package com.ecnu.ooad.view;
 
-import com.ecnu.ooad.Manager;
+import com.ecnu.ooad.Controller;
+import com.ecnu.ooad.Utils.IngredientCondition;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,11 +13,11 @@ import java.awt.event.ActionListener;
  * @date 2019-11-17 12:51
  */
 public class IngredientActionListener implements ActionListener {
-    private Manager manager;
+    private Controller controller;
 
     @Contract(pure = true)
-    public IngredientActionListener(Manager manager) {
-        this.manager = manager;
+    public IngredientActionListener(Controller controller) {
+        this.controller = controller;
     }
 
     @Override
@@ -24,33 +25,26 @@ public class IngredientActionListener implements ActionListener {
         String command = e.getActionCommand();
         if ("mouse".equals(command)) {
             System.out.println("mouse section");
-            this.manager.setIngredientCondition(0);
+            this.controller.setIngredientCondition(IngredientCondition.Mouse.getValue());
         } else if ("ball".equals(command)) {
-            this.manager.setIngredientCondition(1);
+            this.controller.setIngredientCondition(IngredientCondition.Ball.getValue());
         } else if ("absorber".equals(command)) {
-            this.manager.setIngredientCondition(2);
-
+            this.controller.setIngredientCondition(IngredientCondition.Absorber.getValue());
         } else if ("slope".equals(command)) {
-            this.manager.setIngredientCondition(3);
-
+            this.controller.setIngredientCondition(IngredientCondition.Slope.getValue());
         } else if ("diamond".equals(command)) {
-            this.manager.setIngredientCondition(4);
-
+            this.controller.setIngredientCondition(IngredientCondition.Diamond.getValue());
         } else if ("emerald".equals(command)) {
-            this.manager.setIngredientCondition(5);
-
+            this.controller.setIngredientCondition(IngredientCondition.Emerald.getValue());
         } else if ("straightTrack".equals(command)) {
-            this.manager.setIngredientCondition(6);
-
+            this.controller.setIngredientCondition(IngredientCondition.StraightTrack.getValue());
         } else if ("curveTrack".equals(command)) {
-            this.manager.setIngredientCondition(7);
-
+            this.controller.setIngredientCondition(IngredientCondition.CurveTrack.getValue());
         } else if ("hinderLeft".equals(command)) {
-            this.manager.setIngredientCondition(8);
+            this.controller.setIngredientCondition(IngredientCondition.HinderLeft.getValue());
 
         } else if ("hinderRight".equals(command)) {
-            this.manager.setIngredientCondition(9);
-
+            this.controller.setIngredientCondition(IngredientCondition.HinderRight.getValue());
         }
     }
 }

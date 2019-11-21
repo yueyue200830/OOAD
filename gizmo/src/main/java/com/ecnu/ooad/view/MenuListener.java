@@ -1,5 +1,6 @@
 package com.ecnu.ooad.view;
 
+import com.ecnu.ooad.Controller;
 import com.ecnu.ooad.Manager;
 import com.ecnu.ooad.utils.TransformUtil;
 
@@ -14,10 +15,12 @@ import java.util.List;
  * @date 2019-11-20 19:31
  */
 public class MenuListener implements ActionListener {
-    private Manager manager;
+    private Controller controller;
+    private TransformUtil transformUtil;
 
-    public MenuListener(Manager manager) {
-        this.manager = manager;
+    public MenuListener(Controller controller) {
+        this.controller = controller;
+        this.transformUtil = new TransformUtil(controller);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -26,7 +29,7 @@ public class MenuListener implements ActionListener {
             System.out.println("new game");
         }else if("Save Game".equals(command)) {
             System.out.println("save game");
-            String gameConfig = com.ecnu.ooad.utils.TransformUtil.objectToJson(this.manager.getObjectList());
+            String gameConfig = this.transformUtil.objectToJson(this.controller.getObjectList());
             com.ecnu.ooad.utils.FileManager.saveGame(gameConfig);
         }else if("Load Game".equals(command)) {
             System.out.println("load game");
@@ -38,7 +41,7 @@ public class MenuListener implements ActionListener {
                 System.out.println("choose a file");
                 System.out.println(file.getName());
                 String gameConfig = com.ecnu.ooad.utils.FileManager.readGame(file.getName());
-                List<Object> objectList = com.ecnu.ooad.utils.TransformUtil.jsonToObject(gameConfig, this.manager);
+                List<Object> objectList = this.transformUtil.jsonToObject(gameConfig);
             }else {
                 System.out.println("not a file");
             }

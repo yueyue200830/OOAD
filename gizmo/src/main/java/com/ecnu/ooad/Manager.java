@@ -1,5 +1,6 @@
 package com.ecnu.ooad;
 
+import com.ecnu.ooad.Utils.IngredientCondition;
 import com.ecnu.ooad.physics.*;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -18,7 +19,6 @@ public class Manager {
     public static World world = new World(new Vec2(0f,10f));
     private Vector<Ball> ballList;
     private Vector<Tool> toolList;
-    private int ingredientCondition;
     private boolean isPlayMode;
     private GameGrids gamegrids;
     private Object currentObject;
@@ -59,17 +59,17 @@ public class Manager {
             if (condition == 2) {
                 // TODO Add hole
                 return;
-            } else if (condition == 3) {
+            } else if (condition == IngredientCondition.Slope.getValue()) {
                 newTool = new Slope(pos[0], pos[1], 1, direction);
-            } else if (condition == 4) {
+            } else if (condition == IngredientCondition.Diamond.getValue()) {
                 newTool = new Diamond(pos[0], pos[1], 1);
-            } else if (condition == 5) {
+            } else if (condition == IngredientCondition.Emerald.getValue()) {
                 newTool = new Emerald(pos[0], pos[1], 1);
-            } else if (condition == 6) {
+            } else if (condition == IngredientCondition.StraightTrack.getValue()) {
                 newTool = new StraightTrack(pos[0], pos[1], direction, 1);
-            } else if (condition == 7) {
+            } else if (condition == IngredientCondition.CurveTrack.getValue()) {
                 newTool = new CurveTrack(pos[0], pos[1], direction);
-            } else if (condition == 8) {
+            } else if (condition == IngredientCondition.HinderLeft.getValue()) {
                 newTool = new HinderLeft(pos[0], pos[1], 1);
             } else {
                 newTool = new HinderRight(pos[0], pos[1], 1);
@@ -90,13 +90,6 @@ public class Manager {
         toolList.forEach(it->it.drawMe(g));
     }
 
-    public void setIngredientCondition(int condition) {
-        this.ingredientCondition = condition;
-    }
-
-    public int getIngredientCondition() {
-        return ingredientCondition;
-    }
 
     public void deleteObject() {
         if (currentObject == null) {
@@ -151,6 +144,8 @@ public class Manager {
     }
 
     public void selectObject(int x, int y) {
+        x = x / 20;
+        y = y / 20;
         Object obj = gamegrids.getObject(x, y);
         if (obj != null) {
             currentObject = obj;

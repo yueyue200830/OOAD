@@ -1,6 +1,6 @@
 package com.ecnu.ooad.view;
 
-import com.ecnu.ooad.Manager;
+import com.ecnu.ooad.Controller;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,10 +10,10 @@ import java.awt.*;
  * @date 2019-11-16 21:09
  */
 public class OperationPanel extends JPanel {
-    private Manager manager;
+    private Controller controller;
 
-    public OperationPanel(Manager manager) {
-        this.manager = manager;
+    public OperationPanel(Controller controller) {
+        this.controller = controller;
         this.setSize(200, 200);
         this.setVisible(true);
         this.setBackground(Color.green);
@@ -26,10 +26,10 @@ public class OperationPanel extends JPanel {
         JButton btnDelete = new JButton("delete");
         JButton btnZoomIn = new JButton("zoom in");
         JButton btnZoomOut = new JButton("zoom out");
-        btnRotate.addActionListener(new OperationActionListener(this.manager));
-        btnDelete.addActionListener(new OperationActionListener(this.manager));
-        btnZoomIn.addActionListener(new OperationActionListener(this.manager));
-        btnZoomOut.addActionListener(new OperationActionListener(this.manager));
+        btnRotate.addActionListener(new OperationActionListener(this.controller));
+        btnDelete.addActionListener(new OperationActionListener(this.controller));
+        btnZoomIn.addActionListener(new OperationActionListener(this.controller));
+        btnZoomOut.addActionListener(new OperationActionListener(this.controller));
         this.add(btnRotate);
         this.add(btnDelete);
         this.add(btnZoomIn);

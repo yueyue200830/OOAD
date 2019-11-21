@@ -1,6 +1,6 @@
 package com.ecnu.ooad.view;
 
-import com.ecnu.ooad.Manager;
+import com.ecnu.ooad.Controller;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,13 +11,13 @@ import java.awt.*;
  */
 public class IngredientPanel extends JPanel {
 
-    private Manager manager;
+    private Controller controller;
 
-    public IngredientPanel(Manager manager) {
+    public IngredientPanel(Controller controller) {
         this.setSize(200, 200);
         this.setVisible(true);
         this.setBackground(Color.blue);
-        this.manager = manager;
+        this.controller = controller;
         this.createIngredientBar();
         this.setLayout(new GridLayout(5, 2));
     }
@@ -34,16 +34,16 @@ public class IngredientPanel extends JPanel {
         JRadioButton btnHinderLeft = new JRadioButton("hinderLeft");
         JRadioButton btnHinderRight = new JRadioButton("hinderRight");
         ButtonGroup bg = new ButtonGroup();
-        btnMouse.addActionListener(new IngredientActionListener(this.manager));
-        btnBall.addActionListener(new IngredientActionListener(this.manager));
-        btnAbsorber.addActionListener(new IngredientActionListener(this.manager));
-        btnSlope.addActionListener(new IngredientActionListener(this.manager));
-        btnDiamond.addActionListener(new IngredientActionListener(this.manager));
-        btnEmerald.addActionListener(new IngredientActionListener(this.manager));
-        btnStraightTrack.addActionListener(new IngredientActionListener(this.manager));
-        btnCurveTrack.addActionListener(new IngredientActionListener(this.manager));
-        btnHinderLeft.addActionListener(new IngredientActionListener(this.manager));
-        btnHinderRight.addActionListener(new IngredientActionListener(this.manager));
+        btnMouse.addActionListener(new IngredientActionListener(this.controller));
+        btnBall.addActionListener(new IngredientActionListener(this.controller));
+        btnAbsorber.addActionListener(new IngredientActionListener(this.controller));
+        btnSlope.addActionListener(new IngredientActionListener(this.controller));
+        btnDiamond.addActionListener(new IngredientActionListener(this.controller));
+        btnEmerald.addActionListener(new IngredientActionListener(this.controller));
+        btnStraightTrack.addActionListener(new IngredientActionListener(this.controller));
+        btnCurveTrack.addActionListener(new IngredientActionListener(this.controller));
+        btnHinderLeft.addActionListener(new IngredientActionListener(this.controller));
+        btnHinderRight.addActionListener(new IngredientActionListener(this.controller));
         bg.add(btnBall);
         bg.add(btnMouse);
         bg.add(btnAbsorber);

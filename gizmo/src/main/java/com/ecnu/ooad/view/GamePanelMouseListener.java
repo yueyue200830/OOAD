@@ -1,5 +1,6 @@
 package com.ecnu.ooad.view;
 
+import com.ecnu.ooad.Controller;
 import com.ecnu.ooad.Manager;
 import com.ecnu.ooad.physics.*;
 import org.jetbrains.annotations.Contract;
@@ -13,27 +14,27 @@ import java.awt.event.MouseListener;
  * @date 2019-11-17 12:51
  */
 public class GamePanelMouseListener implements MouseListener {
-    private Manager manager;
+    private Controller controller;
 
     @Contract(pure = true)
-    public GamePanelMouseListener(Manager manager) {
-        this.manager = manager;
+    public GamePanelMouseListener(Controller controller) {
+        this.controller = controller;
     }
 
     @Override
     public void mouseClicked(@NotNull MouseEvent e) {
-        if (MouseEvent.BUTTON1 == e.getButton() && !this.manager.isPlayMode()) {
-            int condition = this.manager.getIngredientCondition();
+        if (MouseEvent.BUTTON1 == e.getButton() && !this.controller.isPlayMode()) {
+            int condition = this.controller.getIngredientCondition();
             int[] position = this.getSquareMiddlePoint(e.getX(), e.getY());
             switch (condition) {
                 case 0:
                     this.selectObject(position);
                     break;
                 case 1:
-                    manager.addBall(position);
+                    controller.addBall(position);
                     break;
                 default:
-                    manager.addTool(condition, position);
+                    controller.addTool(condition, position);
                     break;
             }
         }
@@ -47,9 +48,9 @@ public class GamePanelMouseListener implements MouseListener {
     }
 
     public void selectObject(@NotNull int[] pos) {
-        int x = pos[0] / 20;
-        int y = pos[1] / 20;
-        manager.selectObject(x, y);
+        int x = pos[0];
+        int y = pos[1];
+        controller.selectObject(x, y);
     }
 
 
