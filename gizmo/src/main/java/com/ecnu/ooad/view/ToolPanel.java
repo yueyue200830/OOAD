@@ -15,7 +15,7 @@ public class ToolPanel extends JPanel {
     private Manager manager;
 
     public ToolPanel(Manager manager) {
-        this.setSize(Constants.TOOL_WIDTH, Constants.TOOL_HIGHT);
+        this.setSize(Constants.TOOL_WIDTH, Constants.TOOL_HEIGHT);
         this.setVisible(true);
         this.setBackground(Color.red);
         this.setLayout(new GridBagLayout());

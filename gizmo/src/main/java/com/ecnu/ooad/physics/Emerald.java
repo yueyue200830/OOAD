@@ -21,6 +21,7 @@ public class Emerald extends Obstacle {
         this.height = Constants.EMERALD_HEIGHT * scaleRate;
         this.width = Constants.EMERALD_WIDTH * scaleRate;
         this.color = Color.green;
+        this.type = 5;
         this.initEmerald();
     }
 

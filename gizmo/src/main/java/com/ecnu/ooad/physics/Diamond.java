@@ -19,6 +19,7 @@ public class Diamond extends Obstacle {
         super(x, y, scaleRate);
         this.radius = Constants.DIAMOND_RADIUS * scaleRate;
         this.color = Color.white;
+        this.type = 4;
         this.initDiamond();
     }
 

@@ -15,6 +15,7 @@ public class Tool {
     protected int direction;
     protected float scaleRate;
     protected Body[] bodies;
+    protected int type;
 
     @Contract(pure = true)
     public Tool(float x, float y, float scaleRate) {
@@ -46,5 +47,9 @@ public class Tool {
 
     public Body[] getBodies() {
         return bodies;
+    }
+
+    public int getType() {
+        return type;
     }
 }

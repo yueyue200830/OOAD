@@ -23,6 +23,7 @@ public class StraightTrack extends Tool {
         this.direction = direction % 2;
         this.color = Color.yellow;
         this.bodies = new Body[2];
+        this.type = 6;
 
         if (this.direction == 0) {
             this.boxWidth = Constants.TRACK_WIDTH / 2;

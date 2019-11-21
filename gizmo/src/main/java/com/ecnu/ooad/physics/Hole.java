@@ -10,7 +10,9 @@ public class Hole extends Tool {
 
     public Hole(float x, float y) {
         super(x, y,1);
+        this.type = 2;
     }
+
     @Override
     public void drawMe(Graphics2D g) {
 

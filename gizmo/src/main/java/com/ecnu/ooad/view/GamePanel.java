@@ -15,7 +15,7 @@ public class GamePanel extends JPanel implements Runnable {
     private Manager manager;
 
     public GamePanel() {
-        this.setSize(Constants.GAME_WIDTH, Constants.GAME_HIGHT);
+        this.setSize(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
         this.setVisible(true);
         this.setBackground(Color.black);
         this.manager = new Manager();
@@ -27,11 +27,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     private void paintLines(Graphics2D g) {
         Line2D lin;
-        for (int i = 1; i < 600 / 20; i++) {
-            lin = new Line2D.Float(0, 20 * i, 600, 20 * i);
+        for (int i = 1; i < Constants.GAME_WIDTH / Constants.GRID_LENGTH; i++) {
+            lin = new Line2D.Float(0, Constants.GRID_LENGTH * i, Constants.GAME_WIDTH, Constants.GRID_LENGTH * i);
             g.draw(lin);
 
-            lin = new Line2D.Float(20 * i, 0, 20 * i, 600);
+            lin = new Line2D.Float(Constants.GRID_LENGTH * i, 0, Constants.GRID_LENGTH * i, Constants.GAME_WIDTH);
             g.draw(lin);
         }
     }

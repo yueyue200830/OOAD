@@ -23,6 +23,7 @@ public class CurveTrack extends Tool {
         this.bodies = new Body[3];
         this.wallWidth = Constants.TRACK_WIDTH / 2;
         this.length = Constants.GRID_LENGTH * this.scaleRate;
+        this.type = 7;
         this.initCurveTrack();
     }
 

@@ -20,16 +20,16 @@ public class Ball {
     private float scaleRate;
 
     public Ball(float worldX, float worldY, float scaleRate) {
-        this.positionX = worldX + 2;
-        this.positionY = worldY + 2;
+        this.positionX = worldX;
+        this.positionY = worldY;
         this.scaleRate = scaleRate;
-        this.radius = Constants.CIRCLE_RADIUS * scaleRate;
+        this.radius = Constants.GRID_LENGTH * scaleRate / 2 - Constants.CIRCLE_MARTIN;
         this.initBallInWorld();
     }
 
     private void initBallInWorld() {
-        float x = positionX + radius;
-        float y = positionY + radius;
+        float x = positionX + radius + Constants.CIRCLE_MARTIN;
+        float y = positionY + radius + Constants.CIRCLE_MARTIN;
         this.body = BodyUtil.initCircle(x, y, radius, false);
     }
 

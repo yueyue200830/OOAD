@@ -63,8 +63,8 @@ public class GameGrids {
     }
 
     public void removeObject(Object object) {
-        for (int i = 0; i < 30; i++) {
-            for (int j = 0; j < 30; j++) {
+        for (int i = 0; i < Constants.GAME_HEIGHT / Constants.GRID_LENGTH; i++) {
+            for (int j = 0; j < Constants.GAME_WIDTH / Constants.GRID_LENGTH; j++) {
                 if (this.grids[i][j] == object) {
                     this.grids[i][j] = null;
                 }

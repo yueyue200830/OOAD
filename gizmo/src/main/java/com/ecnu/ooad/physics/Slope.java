@@ -24,6 +24,7 @@ public class Slope extends Obstacle {
         this.direction = direction;
         this.color = Color.WHITE;
         this.edge = Constants.EDGE * scaleRate;
+        this.type = 3;
         initSlope();
     }
 

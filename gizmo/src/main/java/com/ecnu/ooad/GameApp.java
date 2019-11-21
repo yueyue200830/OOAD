@@ -1,9 +1,7 @@
 package com.ecnu.ooad;
 
-import com.ecnu.ooad.view.GamePanel;
-import com.ecnu.ooad.view.GamePanelMouseListener;
+import com.ecnu.ooad.view.*;
 import com.ecnu.ooad.view.MenuBar;
-import com.ecnu.ooad.view.ToolPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,8 +14,7 @@ public class GameApp {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Gizmo Ball");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(Constants.FRAME_WIDTH, Constants.FRAME_HIGHT);
-
+        frame.setSize(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
 
         GamePanel gamePanel = new GamePanel();
         ToolPanel toolPanel = new ToolPanel(gamePanel.getManager());

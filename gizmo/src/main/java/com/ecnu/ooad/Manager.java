@@ -1,6 +1,7 @@
 package com.ecnu.ooad;
 
 import com.ecnu.ooad.physics.*;
+import com.ecnu.ooad.utils.BodyUtil;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
@@ -32,14 +33,28 @@ public class Manager {
         toolList = new Vector<>();
         isPlayMode = false;
         gamegrids = new GameGrids();
+        initBorder();
+    }
+
+    private void initBorder() {
+        int width = 1;
+        int height = Constants.GAME_HEIGHT / 2;
+        BodyUtil.initRectangle(height, -width, height * 2, width * 2);
+        BodyUtil.initRectangle(height, Constants.GAME_HEIGHT + width, height * 2, width * 2);
+        BodyUtil.initRectangle(-width, height, width * 2, height * 2);
+        BodyUtil.initRectangle(Constants.GAME_WIDTH + width, height, width * 2, height * 2);
     }
 
     public void addBall(@NotNull int[] pos) {
+        this.addBall(pos, 1);
+    }
+
+    public void addBall(@NotNull int[] pos, float scaleRate) {
         int x = pos[0] / Constants.GRID_LENGTH;
         int y = pos[1] / Constants.GRID_LENGTH;
 
         if (gamegrids.canAddObject(x, y, 1)) {
-            Ball ball = new Ball(pos[0], pos[1], 1);
+            Ball ball = new Ball(pos[0], pos[1], scaleRate);
             gamegrids.addObject(x, y, ball);
             ballList.add(ball);
             currentObject = ball;
@@ -51,6 +66,10 @@ public class Manager {
     }
 
     public void addTool(int condition, @NotNull int[] pos, int direction) {
+        this.addTool(condition, pos, direction, 1);
+    }
+
+    public void addTool(int condition, @NotNull int[] pos, int direction, float scaleRate) {
         int x = pos[0] / Constants.GRID_LENGTH;
         int y = pos[1] / Constants.GRID_LENGTH;
 
@@ -60,19 +79,19 @@ public class Manager {
                 // TODO Add hole
                 return;
             } else if (condition == 3) {
-                newTool = new Slope(pos[0], pos[1], 1, direction);
+                newTool = new Slope(pos[0], pos[1], scaleRate, direction);
             } else if (condition == 4) {
-                newTool = new Diamond(pos[0], pos[1], 1);
+                newTool = new Diamond(pos[0], pos[1], scaleRate);
             } else if (condition == 5) {
-                newTool = new Emerald(pos[0], pos[1], 1);
+                newTool = new Emerald(pos[0], pos[1], scaleRate);
             } else if (condition == 6) {
-                newTool = new StraightTrack(pos[0], pos[1], direction, 1);
+                newTool = new StraightTrack(pos[0], pos[1], direction, scaleRate);
             } else if (condition == 7) {
-                newTool = new CurveTrack(pos[0], pos[1], direction, 1);
+                newTool = new CurveTrack(pos[0], pos[1], direction, scaleRate);
             } else if (condition == 8) {
-                newTool = new HinderLeft(pos[0], pos[1], 1);
+                newTool = new HinderLeft(pos[0], pos[1], scaleRate);
             } else {
-                newTool = new HinderRight(pos[0], pos[1], 1);
+                newTool = new HinderRight(pos[0], pos[1], scaleRate);
             }
 
             gamegrids.addObject(x, y, newTool);
@@ -115,7 +134,7 @@ public class Manager {
             Body body = ((Ball) currentObject).getBody();
             Manager.world.destroyBody(body);
             this.ballList.removeElement(currentObject);
-            this.gamegrids.removeObject(ballList);
+            this.gamegrids.removeObject(currentObject);
             this.currentObject = null;
         }
     }
@@ -128,12 +147,11 @@ public class Manager {
         if (currentObject instanceof CurveTrack || currentObject instanceof StraightTrack || currentObject instanceof Slope) {
 
             Tool toolObject = (Tool) currentObject;
-            float x = toolObject.getPositionX();
-            float y = toolObject.getPositionY();
             int direction = (toolObject.getDirection() + 1) % 4;
             int[] pos = new int[2];
-            pos[0] = (int) x;
-            pos[1] = (int) y;
+            pos[0] = (int) toolObject.getPositionX();
+            pos[1] = (int) toolObject.getPositionY();
+            float scaleRate = toolObject.getScaleRate();
 
             this.deleteObject();
 
@@ -146,14 +164,39 @@ public class Manager {
                 condition = 3;
             }
 
-            this.addTool(condition, pos, direction);
+            this.addTool(condition, pos, direction, scaleRate);
         }
     }
 
     public void selectObject(int x, int y) {
-        Object obj = gamegrids.getObject(x, y);
-        if (obj != null) {
-            currentObject = obj;
+        currentObject = gamegrids.getObject(x, y);
+    }
+
+    public void changeObjectScale(boolean isZoomIn) {
+        if (currentObject == null) {
+            return;
+        }
+
+        float scaleChange = isZoomIn ? 1 : -1;
+
+        if (currentObject instanceof Tool) {
+            float scaleRate = ((Tool) currentObject).getScaleRate() + scaleChange;
+            int[] pos = new int[2];
+            pos[0] = (int) ((Tool) currentObject).getPositionX();
+            pos[1] = (int) ((Tool) currentObject).getPositionY();
+            int direction = ((Tool) currentObject).getDirection();
+            int type = ((Tool) currentObject).getType();
+
+            this.deleteObject();
+            this.addTool(type, pos, direction, scaleRate);
+        } else {
+            float scaleRate = ((Ball) currentObject).getScaleRate() + scaleChange;
+            int[] pos = new int[2];
+            pos[0] = (int) ((Ball) currentObject).getPositionX();
+            pos[1] = (int) ((Ball) currentObject).getPositionY();
+
+            this.deleteObject();
+            this.addBall(pos, scaleRate);
         }
     }
 
