@@ -15,14 +15,16 @@ public class Tool {
     protected int direction;
     protected float scaleRate;
     protected Body[] bodies;
+    protected int type;
 
     @Contract(pure = true)
     public Tool(float x, float y, float scaleRate) {
         this.positionX = x;
         this.positionY = y;
-        this.scaleRate = 1f;
+        this.scaleRate = scaleRate;
         this.direction = 0;
     }
+
     public void drawMe(Graphics2D g) {
 
     }
@@ -45,5 +47,9 @@ public class Tool {
 
     public Body[] getBodies() {
         return bodies;
+    }
+
+    public int getType() {
+        return type;
     }
 }

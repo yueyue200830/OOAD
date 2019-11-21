@@ -1,9 +1,7 @@
 package com.ecnu.ooad;
 
-import com.ecnu.ooad.view.GamePanel;
-import com.ecnu.ooad.view.GamePanelMouseListener;
+import com.ecnu.ooad.view.*;
 import com.ecnu.ooad.view.MenuBar;
-import com.ecnu.ooad.view.ToolPanel;
 
 import javax.swing.*;
 import java.awt.*;

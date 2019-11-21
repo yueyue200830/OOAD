@@ -2,7 +2,6 @@ package com.ecnu.ooad.view;
 
 import com.ecnu.ooad.Controller;
 import com.ecnu.ooad.Manager;
-import com.ecnu.ooad.physics.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,8 +41,8 @@ public class GamePanelMouseListener implements MouseListener {
 
     public int[] getSquareMiddlePoint(int x, int y) {
         int[] pos = new int[2];
-        pos[0] = x / 20 * 20 + 10;
-        pos[1] = y / 20 * 20 + 10;
+        pos[0] = x / 20 * 20;
+        pos[1] = y / 20 * 20;
         return pos;
     }
 
@@ -52,8 +51,6 @@ public class GamePanelMouseListener implements MouseListener {
         int y = pos[1];
         controller.selectObject(x, y);
     }
-
-
 
     @Override
     public void mousePressed(MouseEvent e) {

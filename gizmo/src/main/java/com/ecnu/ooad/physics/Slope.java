@@ -23,12 +23,13 @@ public class Slope extends Obstacle {
         super(worldX, worldY, scaleRate);
         this.direction = direction;
         this.color = Color.WHITE;
-        this.edge = Constants.EDGE;
-        initSlope(worldX, worldY);
+        this.edge = Constants.EDGE * scaleRate;
+        this.type = 3;
+        initSlope();
     }
 
-    private void initSlope(float worldX, float worldY) {
-        this.bodies[0] = BodyUtil.initTriangle(worldX, worldY, this.edge, this.direction);
+    private void initSlope() {
+        this.bodies[0] = BodyUtil.initTriangle(positionX, positionY, this.edge, this.direction);
     }
 
     public float getEdge() {
@@ -43,16 +44,16 @@ public class Slope extends Obstacle {
         int e = (int) this.edge;
         switch (direction) {
             case 0:
-                g.fillPolygon(new int[]{x, x, x + e}, new int[]{y, y + e, y}, 3);
-                break;
-            case 1:
                 g.fillPolygon(new int[]{x, x + e, x + e}, new int[]{y, y, y + e}, 3);
                 break;
+            case 1:
+                g.fillPolygon(new int[]{x, x, x + e}, new int[]{y, y + e, y}, 3);
+                break;
             case 2:
-                g.fillPolygon(new int[]{x + e, x + e, x}, new int[]{y, y + e, y + e}, 3);
+                g.fillPolygon(new int[]{x, x + e, x}, new int[]{y, y + e, y + e}, 3);
                 break;
             default:
-                g.fillPolygon(new int[]{x, x + e, x}, new int[]{y, y + e, y + e}, 3);
+                g.fillPolygon(new int[]{x + e, x + e, x}, new int[]{y, y + e, y + e}, 3);
         }
     }
 }

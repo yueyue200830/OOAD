@@ -10,8 +10,6 @@ import java.awt.*;
  */
 public class Obstacle extends Tool {
 
-    protected Body body;
-
     public Obstacle(float x, float y, float scaleRate) {
         super(x, y, scaleRate);
         this.bodies = new Body[1];

@@ -1,9 +1,6 @@
 package com.ecnu.ooad.utils;
 
-import com.sun.deploy.util.StringUtils;
-
 import java.io.*;
-import java.net.URL;
 
 /**
  * @author Yiqing Tao
@@ -14,6 +11,7 @@ public class FileManager {
     public FileManager() {
 
     }
+
     public static String readGame(String fileName){
         String line;
         try {
@@ -31,13 +29,12 @@ public class FileManager {
             reader.close();
             is.close();
             return line;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public static void saveGame(String gameConfig) {
         try {
             File file = new File("game");

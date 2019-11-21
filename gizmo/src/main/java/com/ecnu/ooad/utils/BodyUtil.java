@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class BodyUtil {
 
     @NotNull
-    public static Body initRectangle(float x, float y, float boxWidth, float boxHeight){
+    public static Body initRectangle(float x, float y, float boxWidth, float boxHeight) {
         BodyDef bd = new BodyDef();
         bd.position = new Vec2(x, y);
         bd.type = BodyType.STATIC;
@@ -35,22 +35,22 @@ public class BodyUtil {
     @NotNull
     public static Body initTriangle(float x, float y, float edge, int direction) {
         BodyDef bd = new BodyDef();
-        bd.position.set(new Vec2(x - edge / 2, y - edge / 2));
+        bd.position.set(new Vec2(x, y));
         bd.type = BodyType.STATIC;
 
         PolygonShape ps = new PolygonShape();
         switch (direction) {
             case 0:
-                ps.set(new Vec2[]{new Vec2(0, 0), new Vec2(edge, 0), new Vec2(0, edge)}, 3);
-                break;
-            case 1:
                 ps.set(new Vec2[]{new Vec2(0, 0), new Vec2(edge, 0), new Vec2(edge, edge)}, 3);
                 break;
+            case 1:
+                ps.set(new Vec2[]{new Vec2(0, 0), new Vec2(edge, 0), new Vec2(0, edge)}, 3);
+                break;
             case 2:
-                ps.set(new Vec2[]{new Vec2(edge, 0), new Vec2(edge, edge), new Vec2(0, edge)}, 3);
+                ps.set(new Vec2[]{new Vec2(0, 0), new Vec2(edge, edge), new Vec2(0, edge)}, 3);
                 break;
             default:
-                ps.set(new Vec2[]{new Vec2(0, 0), new Vec2(edge, edge), new Vec2(0, edge)}, 3);
+                ps.set(new Vec2[]{new Vec2(edge, 0), new Vec2(edge, edge), new Vec2(0, edge)}, 3);
         }
 
         FixtureDef fd = new FixtureDef();

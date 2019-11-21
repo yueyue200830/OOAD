@@ -10,6 +10,7 @@ public class HinderRight extends Hinder {
 
     public HinderRight(float x, float y, float scaleRate) {
         super(x, y, scaleRate);
+        this.type = 9;
     }
 
     @Override
