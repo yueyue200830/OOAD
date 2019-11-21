@@ -28,9 +28,9 @@ public class OperationActionListener implements ActionListener {
         } else if ("delete".equals(command)) {
             this.controller.deleteObject();
         } else if ("zoom in".equals(command)) {
-            this.manager.changeObjectScale(true);
+            this.controller.changeObjectScale(true);
         } else if ("zoom out".equals(command)) {
-            this.manager.changeObjectScale(false);
+            this.controller.changeObjectScale(false);
         }
     }
 }

@@ -54,6 +54,10 @@ public class Controller {
         this.manager.draw(g);
     }
 
+    public void changeObjectScale(boolean isZoomIn) {
+        this.manager.changeObjectScale(isZoomIn);
+    }
+
     public void rotate() {
         this.manager.rotate();
     }

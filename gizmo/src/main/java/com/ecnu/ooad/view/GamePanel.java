@@ -15,7 +15,7 @@ public class GamePanel extends JPanel implements Runnable {
     private Controller controller;
 
     public GamePanel(Controller controller) {
-        this.setSize(Constants.GAME_WIDTH, Constants.GAME_HIGHT);
+        this.setSize(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
         this.setVisible(true);
         this.setBackground(Color.black);
         this.controller = controller;

@@ -85,11 +85,11 @@ public class Manager {
             } else if (condition == IngredientCondition.Emerald.getValue()) {
                 newTool = new Emerald(pos[0], pos[1], 1);
             } else if (condition == IngredientCondition.StraightTrack.getValue()) {
-                newTool = new StraightTrack(pos[0], pos[1], direction, 1);
+                newTool = new StraightTrack(pos[0], pos[1], direction, scaleRate);
             } else if (condition == IngredientCondition.CurveTrack.getValue()) {
-                newTool = new CurveTrack(pos[0], pos[1], direction);
+                newTool = new CurveTrack(pos[0], pos[1], direction, scaleRate);
             } else if (condition == IngredientCondition.HinderLeft.getValue()) {
-                newTool = new HinderLeft(pos[0], pos[1], 1);
+                newTool = new HinderLeft(pos[0], pos[1], scaleRate);
             } else {
                 newTool = new HinderRight(pos[0], pos[1], scaleRate);
             }
