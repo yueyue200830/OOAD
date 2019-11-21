@@ -197,7 +197,11 @@ public class Manager {
         }
     }
 
-    // 1: left, 2: right
+    /**
+     * Move right / left hinder.
+     * @param key 1 for move left and 2 for move right.
+     * @param isRightHinder whether it is right hinder.
+     */
     public void moveHinder(int key, boolean isRightHinder) {
         Hinder hinder;
         if (isRightHinder) {
@@ -209,22 +213,19 @@ public class Manager {
             return;
         }
 
-        float x, y;
+        int[] pos = new int[2];
 
         if (key == 1) {
-            x = hinder.getPositionX() - Constants.GRID_LENGTH;
-            y = hinder.getPositionY();
+            pos[0] = (int) hinder.getPositionX() - Constants.GRID_LENGTH;
+            pos[1] = (int) hinder.getPositionY();
         } else {
-            x = hinder.getPositionX() + Constants.GRID_LENGTH;
-            y = hinder.getPositionY();
+            pos[0] = (int) hinder.getPositionX() + Constants.GRID_LENGTH;
+            pos[1] = (int) hinder.getPositionY();
         }
-        if (gamegrids.canAddObject((int) x / Constants.GRID_LENGTH, (int) y / Constants.GRID_LENGTH)) {
+        if (gamegrids.canAddObject(pos[0] / Constants.GRID_LENGTH, pos[1] / Constants.GRID_LENGTH)) {
             currentObject = hinder;
             deleteObject();
             int condition = isRightHinder ? 9 : 8;
-            int[] pos = new int[2];
-            pos[0] = (int) x;
-            pos[1] = (int) y;
             this.addTool(condition, pos);
         }
     }
