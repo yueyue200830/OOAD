@@ -5,9 +5,6 @@ import com.ecnu.ooad.view.MenuBar;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 /**
  * @author Jiayi Zhu

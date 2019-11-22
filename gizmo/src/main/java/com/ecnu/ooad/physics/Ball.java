@@ -11,51 +11,42 @@ import java.awt.*;
  * @author Jiayi Zhu, Yiqing Tao
  * @date 2019-11-16 20:34
  */
-public class Ball {
-    private float radius;
-    private Body body;
-    private Color color = Color.cyan;
-    private float positionX;
-    private float positionY;
-    private float scaleRate;
+public class Ball extends Substance {
 
-    public Ball(float worldX, float worldY, float scaleRate) {
-        this.positionX = worldX;
-        this.positionY = worldY;
-        this.scaleRate = scaleRate;
+    private float radius;
+    private Color color = Color.cyan;
+
+    /**
+     * This is the moving ball class.
+     * @param x Position x.
+     * @param y Position y.
+     * @param scaleRate Scale rate.
+     */
+    public Ball(float x, float y, float scaleRate) {
+        super(x, y, scaleRate);
         this.radius = Constants.GRID_LENGTH * scaleRate / 2 - Constants.CIRCLE_MARTIN;
-        this.initBallInWorld();
+        this.bodies = new Body[1];
+        this.isStatic = true;
+        this.initBall();
     }
 
-    private void initBallInWorld() {
+    /**
+     * Initialize ball's body in engine.
+     */
+    private void initBall() {
         float x = positionX + radius + Constants.CIRCLE_MARTIN;
         float y = positionY + radius + Constants.CIRCLE_MARTIN;
-        this.body = BodyUtil.initCircle(x, y, radius, false);
+        this.bodies[0] = BodyUtil.initCircle(x, y, radius, false);
     }
 
-    public float getPositionX() {
-        return positionX;
-    }
-
-    public float getPositionY() {
-        return positionY;
-    }
-
-    public float getRadius() {
-        return radius;
-    }
-
-    public Body getBody() {
-        return body;
-    }
-
-    public float getScaleRate() {
-        return scaleRate;
-    }
-
+    /**
+     * Draw ball.
+     * @param g Graphics tool.
+     */
+    @Override
     public void drawMe(@NotNull Graphics2D g) {
-        int x = (int) (body.getPosition().x - radius);
-        int y = (int) (body.getPosition().y - radius);
+        int x = (int) (bodies[0].getPosition().x - radius);
+        int y = (int) (bodies[0].getPosition().y - radius);
         int delimiter = (int) (radius * 2);
 
         g.setColor(color);

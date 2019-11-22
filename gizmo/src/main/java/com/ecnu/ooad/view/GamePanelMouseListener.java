@@ -1,7 +1,6 @@
 package com.ecnu.ooad.view;
 
 import com.ecnu.ooad.Controller;
-import com.ecnu.ooad.Manager;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

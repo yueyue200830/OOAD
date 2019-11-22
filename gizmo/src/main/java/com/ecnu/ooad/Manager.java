@@ -21,13 +21,12 @@ public class Manager {
     private Vector<Ball> ballList;
     private Vector<Tool> toolList;
     private GameGrids gamegrids;
-    private Object currentObject;
+    private Substance currentObject;
     private HinderRight rightHinder;
     private HinderLeft leftHinder;
 
     /**
-     * mouse: 0, ball: 1, absorber: 2, slope: 3, diamond: 4, emerald: 5, straightTrack: 6, curveTrack: 7,
-     * hinderLeft: 8, hinderRight: 9
+     * This is a class that manages all objects.
      */
     public Manager() {
         ballList = new Vector<>();
@@ -36,6 +35,9 @@ public class Manager {
         initBorder();
     }
 
+    /**
+     * Add border for the panel.
+     */
     private void initBorder() {
         int width = 1;
         int height = Constants.GAME_HEIGHT / 2;
@@ -45,10 +47,19 @@ public class Manager {
         BodyUtil.initRectangle(Constants.GAME_WIDTH + width, height, width * 2, height * 2);
     }
 
+    /**
+     * Add a ball based on the position with scale rate is 1.
+     * @param pos The position vector.
+     */
     public void addBall(@NotNull int[] pos) {
         this.addBall(pos, 1);
     }
 
+    /**
+     * Add a ball based on the position and scale rate.
+     * @param pos The position vector.
+     * @param scaleRate The scale rate.
+     */
     public void addBall(@NotNull int[] pos, float scaleRate) {
         int x = pos[0] / Constants.GRID_LENGTH;
         int y = pos[1] / Constants.GRID_LENGTH;
@@ -61,15 +72,33 @@ public class Manager {
         }
     }
 
+    /**
+     * Add a tool based on the position with direction to be 0 and scale rate to be 1.
+     * @param condition The type of the tool.
+     * @param pos The position vector.
+     */
     public void addTool(int condition, @NotNull int[] pos) {
-        this.addTool(condition, pos, 0);
+        this.addTool(condition, pos, 1, 0);
     }
 
-    public void addTool(int condition, @NotNull int[] pos, int direction) {
-        this.addTool(condition, pos, direction, 1);
+    /**
+     * Add a tool based on the position and scale rate with scale rate to be 1.
+     * @param condition The type of the tool.
+     * @param pos The position vector.
+     * @param scaleRate Scale Rate.
+     */
+    public void addTool(int condition, @NotNull int[] pos, float scaleRate) {
+        this.addTool(condition, pos, scaleRate, 0);
     }
 
-    public void addTool(int condition, @NotNull int[] pos, int direction, float scaleRate) {
+    /**
+     * Add a tool based on the position, direction nad scale rate.
+     * @param condition The type of the tool.
+     * @param pos The position vector.
+     * @param scaleRate The scale rate of the tool.
+     * @param direction The direction of the tool.
+     */
+    public void addTool(int condition, @NotNull int[] pos, float scaleRate, int direction) {
         int x = pos[0] / Constants.GRID_LENGTH;
         int y = pos[1] / Constants.GRID_LENGTH;
 
@@ -102,38 +131,43 @@ public class Manager {
         }
     }
 
+    /**
+     * Move a step for all moving objects.
+     */
     public void step() {
         world.step(Constants.TIME_STEP, 6, 6);
     }
 
+    /**
+     * Draw all objects.
+     * @param g The graphics tool.
+     */
     public void draw(Graphics2D g) {
         ballList.forEach(it->it.drawMe(g));
         toolList.forEach(it->it.drawMe(g));
     }
 
-
+    /**
+     * Delete current object if exists.
+     */
     public void deleteObject() {
         if (currentObject == null) {
             return;
         }
 
-        if (currentObject instanceof Tool) {
-            Body[] bodyList = ((Tool) currentObject).getBodies();
-            for (Body body : bodyList) {
-                Manager.world.destroyBody(body);
-            }
-            this.toolList.removeElement(currentObject);
-            this.gamegrids.removeObject(currentObject);
-            this.currentObject = null;
-        } else {
-            Body body = ((Ball) currentObject).getBody();
+        Body[] bodyList = currentObject.getBodies();
+        for (Body body : bodyList) {
             Manager.world.destroyBody(body);
-            this.ballList.removeElement(currentObject);
-            this.gamegrids.removeObject(currentObject);
-            this.currentObject = null;
         }
+        this.toolList.removeElement(currentObject);
+        this.gamegrids.removeObject(currentObject);
+        this.ballList.removeElement(currentObject);
+        this.currentObject = null;
     }
 
+    /**
+     * Rotate current object if exists.
+     */
     public void rotate() {
         if (currentObject == null) {
             return;
@@ -159,39 +193,42 @@ public class Manager {
                 condition = 3;
             }
 
-            this.addTool(condition, pos, direction, scaleRate);
+            this.addTool(condition, pos, scaleRate, direction);
         }
     }
 
+    /**
+     * Select and object based on the position.
+     * @param x Position x.
+     * @param y Position y.
+     */
     public void selectObject(int x, int y) {
         x = x / 20;
         y = y / 20;
         currentObject = gamegrids.getObject(x, y);
     }
 
+    /**
+     * Zoom in / out current object.
+     * @param isZoomIn Whether to zoom in the object.
+     */
     public void changeObjectScale(boolean isZoomIn) {
         if (currentObject == null) {
             return;
         }
 
         float scaleChange = isZoomIn ? 1 : -1;
+        float scaleRate = currentObject.getScaleRate() + scaleChange;
+        int[] pos = new int[2];
+        pos[0] = (int) currentObject.getPositionX();
+        pos[1] = (int) currentObject.getPositionY();
+        int direction = currentObject.getDirection();
+        int type = currentObject.getType();
 
         if (currentObject instanceof Tool) {
-            float scaleRate = ((Tool) currentObject).getScaleRate() + scaleChange;
-            int[] pos = new int[2];
-            pos[0] = (int) ((Tool) currentObject).getPositionX();
-            pos[1] = (int) ((Tool) currentObject).getPositionY();
-            int direction = ((Tool) currentObject).getDirection();
-            int type = ((Tool) currentObject).getType();
-
             this.deleteObject();
-            this.addTool(type, pos, direction, scaleRate);
+            this.addTool(type, pos, scaleRate, direction);
         } else {
-            float scaleRate = ((Ball) currentObject).getScaleRate() + scaleChange;
-            int[] pos = new int[2];
-            pos[0] = (int) ((Ball) currentObject).getPositionX();
-            pos[1] = (int) ((Ball) currentObject).getPositionY();
-
             this.deleteObject();
             this.addBall(pos, scaleRate);
         }
@@ -226,10 +263,14 @@ public class Manager {
             currentObject = hinder;
             deleteObject();
             int condition = isRightHinder ? 9 : 8;
-            this.addTool(condition, pos);
+            this.addTool(condition, pos, 1);
         }
     }
 
+    /**
+     * Get the list of all objects.
+     * @return A list of current objects.
+     */
     public java.util.List<Object> getObjectList() {
         java.util.List<Object> objectList = new ArrayList<>();
         objectList.addAll(this.ballList);

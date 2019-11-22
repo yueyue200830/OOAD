@@ -17,6 +17,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class BodyUtil {
 
+    /**
+     * Create a rectangle body which is used by the engine.
+     * @param x the center position x.
+     * @param y the center position y.
+     * @param boxWidth width of the rectangle.
+     * @param boxHeight height of the rectangle.
+     * @return Return the rectangle body.
+     */
     @NotNull
     public static Body initRectangle(float x, float y, float boxWidth, float boxHeight) {
         BodyDef bd = new BodyDef();
@@ -32,6 +40,14 @@ public class BodyUtil {
         return currentBody;
     }
 
+    /**
+     * Create a triangle body which is used by the engine.
+     * @param x left top position x.
+     * @param y left top position y.
+     * @param edge the length.
+     * @param direction the direction which can be 0, 1, 2 and 3.
+     * @return Return the triangle body.
+     */
     @NotNull
     public static Body initTriangle(float x, float y, float edge, int direction) {
         BodyDef bd = new BodyDef();
@@ -61,6 +77,14 @@ public class BodyUtil {
         return currentBody;
     }
 
+    /**
+     * Create a triangle body which is used by the engine.
+     * @param x center position x.
+     * @param y center position y.
+     * @param radius the radius of the circle.
+     * @param isStatic whether the body is static or not(dynamic).
+     * @return Return the circle body.
+     */
     @NotNull
     public static Body initCircle(float x, float y, float radius, boolean isStatic) {
         BodyDef bd = new BodyDef();

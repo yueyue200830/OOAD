@@ -12,12 +12,20 @@ import java.awt.*;
  * @date 2019-11-14 16:51
  */
 public class StraightTrack extends Tool {
+
     private Color color;
     private float boxWidth;
     private float boxHeight;
     private int drawWidth;
     private int drawHeight;
 
+    /**
+     * This is the straight track that will make the ball goes along the track.
+     * @param x Position x.
+     * @param y Position y.
+     * @param direction Direction.
+     * @param scaleRate Scale rate.
+     */
     public StraightTrack(float x, float y, int direction, float scaleRate) {
         super(x, y, scaleRate);
         this.direction = direction % 2;
@@ -40,6 +48,9 @@ public class StraightTrack extends Tool {
         this.initStraightTrack();
     }
 
+    /**
+     * Initialize track's body in the engine.
+     */
     private void initStraightTrack() {
         float x1, y1, x2, y2;
         if (this.direction == 0) {
@@ -56,17 +67,12 @@ public class StraightTrack extends Tool {
 
         this.bodies[0] = BodyUtil.initRectangle(x1, y1, boxWidth, boxHeight);
         this.bodies[1] = BodyUtil.initRectangle(x2, y2, boxWidth, boxHeight);
-
     }
 
-    public float getBoxWidth() {
-        return boxWidth;
-    }
-
-    public float getBoxHeight() {
-        return boxHeight;
-    }
-
+    /**
+     * Draw track.
+     * @param g Graphics tool.
+     */
     @Override
     public void drawMe(@NotNull Graphics2D g) {
         g.setColor(this.color);

@@ -15,10 +15,6 @@ public class Slope extends Obstacle {
     private float edge;
     private Color color;
 
-    public Slope(float worldX, float worldY) {
-        this(worldX, worldY, 1, 0);
-    }
-
     public Slope(float worldX, float worldY, float scaleRate, int direction) {
         super(worldX, worldY, scaleRate);
         this.direction = direction;

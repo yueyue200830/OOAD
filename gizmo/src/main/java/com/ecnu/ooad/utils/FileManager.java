@@ -1,5 +1,7 @@
 package com.ecnu.ooad.utils;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.*;
 
 /**
@@ -8,10 +10,7 @@ import java.io.*;
  */
 public class FileManager {
 
-    public FileManager() {
-
-    }
-
+    @Nullable
     public static String readGame(String fileName){
         String line;
         try {

@@ -2,6 +2,8 @@ package com.ecnu.ooad.utils;
 
 import com.ecnu.ooad.Controller;
 import com.ecnu.ooad.physics.*;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,62 +17,43 @@ import java.util.List;
 public class TransformUtil {
     private Controller controller;
 
+    @Contract(pure = true)
     public TransformUtil(Controller controller) {
         this.controller = controller;
     }
 
-    public String objectToJson(List<Object> objectList) {
+    public String objectToJson(@NotNull List<Object> objectList) {
         JSONArray jsonArray = new JSONArray();
-        for(Object o : objectList) {
+        for (Object o : objectList) {
             JSONObject jsonObject = new JSONObject();
-            if(Ball.class.isInstance(o)) {
+            if (o instanceof Ball) {
                 Ball ball = (Ball) o;
                 jsonObject.put("type", "ball");
                 jsonObject.put("subType", "ball");
                 jsonObject.put("positionX", ball.getPositionX());
                 jsonObject.put("positionY", ball.getPositionY());
                 jsonObject.put("scaleRate", ball.getScaleRate());
-                jsonObject.put("radius", ball.getRadius());
-            } else if(Tool.class.isInstance(o)) {
+            } else if (o instanceof Tool) {
                 Tool tool = (Tool) o;
                 jsonObject.put("scaleRate", tool.getScaleRate());
                 jsonObject.put("type", "tool");
                 jsonObject.put("positionX", tool.getPositionX());
                 jsonObject.put("positionY",tool.getPositionY());
                 jsonObject.put("direction", tool.getDirection());
-                if(Diamond.class.isInstance(tool)) {
-                    Diamond diamond = (Diamond) tool;
+                if (tool instanceof Diamond) {
                     jsonObject.put("subType", "diamond");
-                    jsonObject.put("radius", diamond.getRadius());
-                } else if(Emerald.class.isInstance(tool)) {
-                    Emerald emerald = (Emerald) tool;
+                } else if (tool instanceof Emerald) {
                     jsonObject.put("subType", "emerald");
-                    jsonObject.put("width", emerald.getWidth());
-                    jsonObject.put("height", emerald.getHeight());
-                } else if(HinderLeft.class.isInstance(tool)) {
-                    HinderLeft hinderLeft =(HinderLeft) tool;
+                } else if (tool instanceof HinderLeft) {
                     jsonObject.put("subType", "hinderLeft");
-                    jsonObject.put("width", hinderLeft.getWidth());
-                    jsonObject.put("height", hinderLeft.getHeight());
-                } else if(HinderRight.class.isInstance(tool)) {
-                    HinderRight hinderRight = (HinderRight) tool;
+                } else if (tool instanceof HinderRight) {
                     jsonObject.put("subType", "hinderRight");
-                    jsonObject.put("width", hinderRight.getWidth());
-                    jsonObject.put("height", hinderRight.getHeight());
-                } else if(Slope.class.isInstance(tool)) {
-                    Slope slope = (Slope) tool;
+                } else if (tool instanceof Slope) {
                     jsonObject.put("subType", "slope");
-                    jsonObject.put("edge", slope.getEdge());
-                } else if(StraightTrack.class.isInstance(tool)) {
-                    StraightTrack straightTrack = (StraightTrack) tool;
+                } else if (tool instanceof StraightTrack) {
                     jsonObject.put("subType", "straightTrack");
-                    jsonObject.put("width", straightTrack.getBoxWidth());
-                    jsonObject.put("height", straightTrack.getBoxHeight());
-                } else if(CurveTrack.class.isInstance(tool)) {
-                    CurveTrack curveTrack = (CurveTrack) tool;
+                } else if(tool instanceof CurveTrack) {
                     jsonObject.put("subType", "curveTrack");
-                    jsonObject.put("width", curveTrack.getPositionX());
-                    jsonObject.put("height", curveTrack.getPositionY());
                 }
             }
             jsonArray.put(jsonObject);
@@ -86,27 +69,27 @@ public class TransformUtil {
             String type = jsonObject.getString("type");
             float positionX = jsonObject.getFloat("positionX");
             float positionY = jsonObject.getFloat("positionY");
-            float scaleRate = jsonObject.getFloat("scaleRate");
+            float scaleRate = jsonObject.getInt("scaleRate");
             int[] position = {(int) positionX, (int) positionY};
             if("ball".equals(type)) {
-                this.controller.addBall(position);
+                this.controller.addBall(position, scaleRate);
             } else if("tool".equals(type)) {
                 String subType = jsonObject.getString("subType");
                 int direction = jsonObject.getInt("direction");
                 if("diamond".equals(subType)) {
-                    this.controller.addTool(IngredientCondition.Diamond.getValue(), position);
+                    this.controller.addTool(IngredientCondition.Diamond.getValue(), position, scaleRate);
                 } else if("emerald".equals(subType)) {
-                    this.controller.addTool(IngredientCondition.Emerald.getValue(), position);
+                    this.controller.addTool(IngredientCondition.Emerald.getValue(), position, scaleRate);
                 } else if("hinderLeft".equals(subType)) {
-                    this.controller.addTool(IngredientCondition.HinderLeft.getValue(), position);
+                    this.controller.addTool(IngredientCondition.HinderLeft.getValue(), position, scaleRate);
                 } else if("hinderRight".equals(subType)) {
-                    this.controller.addTool(IngredientCondition.HinderRight.getValue(), position);
+                    this.controller.addTool(IngredientCondition.HinderRight.getValue(), position, scaleRate);
                 } else if("slope".equals(subType)) {
-                    this.controller.addTool(IngredientCondition.Slope.getValue(), position, direction);
+                    this.controller.addTool(IngredientCondition.Slope.getValue(), position, scaleRate, direction);
                 } else if("straightTrack".equals(subType)) {
-                   this.controller.addTool(IngredientCondition.StraightTrack.getValue(), position, direction);
+                   this.controller.addTool(IngredientCondition.StraightTrack.getValue(), position, scaleRate, direction);
                 } else if("curveTrack".equals(subType)) {
-                    this.controller.addTool(IngredientCondition.CurveTrack.getValue(), position, direction);
+                    this.controller.addTool(IngredientCondition.CurveTrack.getValue(), position, scaleRate, direction);
                 }
             }
         }

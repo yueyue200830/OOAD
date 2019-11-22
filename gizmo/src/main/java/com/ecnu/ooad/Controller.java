@@ -27,7 +27,6 @@ public class Controller {
     public void newGame() {
         this.manager = new Manager();
         this.isPlayMode = false;
-        this.ingredientCondition = 0;
     }
 
     public boolean isPlayMode() {
@@ -42,8 +41,12 @@ public class Controller {
         this.manager.addTool(condition, position);
     }
 
-    public void addTool(int condition, int[] position, int direction) {
-        this.manager.addTool(condition, position, direction);
+    public void addTool(int condition, int[] position, float scaleRate) {
+        this.manager.addTool(condition, position, scaleRate);
+    }
+
+    public void addTool(int condition, int[] position, float scaleRate, int direction) {
+        this.manager.addTool(condition, position, scaleRate, direction);
     }
 
     public void setPlayMode(boolean playMode) {
@@ -72,6 +75,10 @@ public class Controller {
 
     public void addBall(int[] position) {
         this.manager.addBall(position);
+    }
+
+    public void addBall(int[] position, float scaleRate) {
+        this.manager.addBall(position, scaleRate);
     }
 
     public void selectObject (int x, int y) {

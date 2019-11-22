@@ -17,6 +17,13 @@ public class CurveTrack extends Tool {
     private float wallWidth;
     private float length;
 
+    /**
+     * This is the straight track that will change ball's moving direction.
+     * @param x Position x.
+     * @param y Position y.
+     * @param direction Direction.
+     * @param scaleRate Scale rate.
+     */
     public CurveTrack(float x, float y, int direction, float scaleRate) {
         super(x, y, scaleRate);
         this.direction = direction;
@@ -27,12 +34,12 @@ public class CurveTrack extends Tool {
         this.initCurveTrack();
     }
 
-
+    /**
+     * Initialize track's body in the engine.
+     */
     private void initCurveTrack() {
         float edge = (float) (10 - 4 * Math.sqrt(2) + 4f) * this.scaleRate;
-        float x1, y1;
-        float x2, y2;
-        float x3, y3;
+        float x1, y1, x2, y2, x3, y3;
 
         switch (direction) {
             case 0:
@@ -73,6 +80,10 @@ public class CurveTrack extends Tool {
         this.bodies[2] = BodyUtil.initRectangle(x3, y3, this.wallWidth, this.length);
     }
 
+    /**
+     * Draw curve track.
+     * @param g Graphics tool.
+     */
     @Override
     public void drawMe(@NotNull Graphics2D g) {
         g.setColor(color);

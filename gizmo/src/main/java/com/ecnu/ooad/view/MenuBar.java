@@ -3,7 +3,6 @@ package com.ecnu.ooad.view;
 import com.ecnu.ooad.Controller;
 
 import javax.swing.*;
-import java.util.concurrent.ForkJoinPool;
 
 /**
  * @author Jiayi Zhu
