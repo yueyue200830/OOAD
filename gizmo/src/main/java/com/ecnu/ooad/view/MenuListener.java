@@ -17,12 +17,10 @@ import java.util.List;
  */
 public class MenuListener implements ActionListener {
     private Controller controller;
-    private TransformUtil transformUtil;
 
     @Contract(pure = true)
     public MenuListener(Controller controller) {
         this.controller = controller;
-        this.transformUtil = new TransformUtil(controller);
     }
 
     @Override
@@ -33,8 +31,7 @@ public class MenuListener implements ActionListener {
             this.controller.newGame();
         } else if ("Save Game".equals(command)) {
             System.out.println("save game");
-            String gameConfig = this.transformUtil.objectToJson(this.controller.getObjectList());
-            com.ecnu.ooad.utils.FileManager.saveGame(gameConfig);
+            this.controller.saveGame();
         } else if ("Load Game".equals(command)) {
             System.out.println("load game");
             JFileChooser jfc = new JFileChooser();
@@ -44,8 +41,7 @@ public class MenuListener implements ActionListener {
             if (file.isFile()) {
                 System.out.println("choose a file");
                 System.out.println(file.getName());
-                String gameConfig = com.ecnu.ooad.utils.FileManager.readGame(file.getName());
-                List<Object> objectList = this.transformUtil.jsonToObject(gameConfig);
+                this.controller.loadGame(file.getName());
             } else {
                 System.out.println("not a file");
             }

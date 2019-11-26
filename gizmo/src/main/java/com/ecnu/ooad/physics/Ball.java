@@ -39,6 +39,14 @@ public class Ball extends Substance {
         this.bodies[0] = BodyUtil.initCircle(x, y, radius, false);
     }
 
+    public float getBallX() {
+        return bodies[0].getPosition().x;
+    }
+
+    public float getBallY() {
+        return bodies[0].getPosition().y;
+    }
+
     /**
      * Draw ball.
      * @param g Graphics tool.

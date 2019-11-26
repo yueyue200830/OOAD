@@ -1,5 +1,8 @@
 package com.ecnu.ooad;
 
+import com.ecnu.ooad.utils.FileManager;
+import com.ecnu.ooad.utils.TransformUtil;
+
 import java.awt.*;
 import java.util.List;
 
@@ -11,9 +14,11 @@ public class Controller {
     private Manager manager;
     private boolean isPlayMode;
     private int ingredientCondition;
+    private TransformUtil transformUtil;
 
     public Controller() {
-        this.newGame();
+        this.manager = new Manager();
+        this.transformUtil = new TransformUtil(this);
     }
 
     public void setIngredientCondition(int condition) {
@@ -25,7 +30,8 @@ public class Controller {
     }
 
     public void newGame() {
-        this.manager = new Manager();
+        //this.manager = new Manager();
+        this.manager.clearGame();
         this.isPlayMode = false;
     }
 
@@ -88,5 +94,15 @@ public class Controller {
     // 1: left, 2: right
     public void moveHinder(int key, boolean isRightHinder) {
         this.manager.moveHinder(key, isRightHinder);
+    }
+
+    public void saveGame() {
+        String gameConfig = this.transformUtil.objectToJson(this.getObjectList());
+        FileManager.saveGame(gameConfig);
+    }
+
+    public void loadGame(String fileName) {
+        String gameConfig = com.ecnu.ooad.utils.FileManager.readGame(fileName);
+        this.transformUtil.jsonToObject(gameConfig);
     }
 }

@@ -3,6 +3,7 @@ package com.ecnu.ooad;
 import com.ecnu.ooad.utils.IngredientCondition;
 import com.ecnu.ooad.physics.*;
 import com.ecnu.ooad.utils.BodyUtil;
+import com.ecnu.ooad.view.IngredientPanel;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
@@ -33,6 +34,8 @@ public class Manager {
         toolList = new Vector<>();
         gamegrids = new GameGrids();
         initBorder();
+        System.out.println(world.getBodyList());
+        System.out.println(world.getBodyCount());
     }
 
     /**
@@ -106,7 +109,7 @@ public class Manager {
             Tool newTool;
             if (condition == 2) {
                 // TODO Add hole
-                return;
+                newTool = new Hole(pos[0], pos[1], scaleRate);
             } else if (condition == IngredientCondition.Slope.getValue()) {
                 newTool = new Slope(pos[0], pos[1], scaleRate, direction);
             } else if (condition == IngredientCondition.Diamond.getValue()) {
@@ -135,6 +138,28 @@ public class Manager {
      * Move a step for all moving objects.
      */
     public void step() {
+        java.util.ArrayList<Hole> holeList = new ArrayList<>();
+        java.util.ArrayList<Ball> deleteBallList = new ArrayList<>();
+
+        for (Tool tool:toolList) {
+            if (Hole.class.isInstance(tool)) {
+                holeList.add((Hole) tool);
+            }
+        }
+        for (Ball ball: ballList) {
+            float ballX = ball.getBallX();
+            float ballY = ball.getBallY();
+            for (Hole hole: holeList) {
+                if (hole.attach(ballX, ballY)) {
+                    deleteBallList.add(ball);
+                    break;
+                }
+            }
+        }
+        for (Ball deleteBall : deleteBallList) {
+            currentObject = deleteBall;
+            this.deleteObject();
+        }
         world.step(Constants.TIME_STEP, 6, 6);
     }
 
@@ -265,6 +290,23 @@ public class Manager {
             int condition = isRightHinder ? 9 : 8;
             this.addTool(condition, pos, 1);
         }
+    }
+
+    public void clearGame() {
+        for (Ball ball : ballList) {
+            world.destroyBody(ball.getBodies()[0]);
+        }
+        for (Tool tool : toolList) {
+            for (Body body : tool.getBodies()) {
+                world.destroyBody(body);
+            }
+        }
+        ballList.clear();
+        toolList.clear();
+        gamegrids = new GameGrids();
+        currentObject = null;
+        rightHinder = null;
+        leftHinder = null;
     }
 
     /**

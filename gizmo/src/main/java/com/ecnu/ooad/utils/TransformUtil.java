@@ -54,6 +54,8 @@ public class TransformUtil {
                     jsonObject.put("subType", "straightTrack");
                 } else if(tool instanceof CurveTrack) {
                     jsonObject.put("subType", "curveTrack");
+                } else if (tool instanceof Hole) {
+                    jsonObject.put("subType", "absorber");
                 }
             }
             jsonArray.put(jsonObject);
@@ -61,38 +63,39 @@ public class TransformUtil {
         return jsonArray.toString();
     }
 
-    public List<Object> jsonToObject(String jsonString) {
+    public void jsonToObject(String jsonString) {
         JSONArray jsonArray = new JSONArray(jsonString);
         List<Object> objectList = new ArrayList<>();
-        for(int i = 0; i < jsonArray.length(); i++) {
+        for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             String type = jsonObject.getString("type");
             float positionX = jsonObject.getFloat("positionX");
             float positionY = jsonObject.getFloat("positionY");
             float scaleRate = jsonObject.getInt("scaleRate");
             int[] position = {(int) positionX, (int) positionY};
-            if("ball".equals(type)) {
+            if ("ball".equals(type)) {
                 this.controller.addBall(position, scaleRate);
-            } else if("tool".equals(type)) {
+            } else if ("tool".equals(type)) {
                 String subType = jsonObject.getString("subType");
                 int direction = jsonObject.getInt("direction");
-                if("diamond".equals(subType)) {
+                if ("diamond".equals(subType)) {
                     this.controller.addTool(IngredientCondition.Diamond.getValue(), position, scaleRate);
-                } else if("emerald".equals(subType)) {
+                } else if ("emerald".equals(subType)) {
                     this.controller.addTool(IngredientCondition.Emerald.getValue(), position, scaleRate);
-                } else if("hinderLeft".equals(subType)) {
+                } else if ("hinderLeft".equals(subType)) {
                     this.controller.addTool(IngredientCondition.HinderLeft.getValue(), position, scaleRate);
-                } else if("hinderRight".equals(subType)) {
+                } else if ("hinderRight".equals(subType)) {
                     this.controller.addTool(IngredientCondition.HinderRight.getValue(), position, scaleRate);
-                } else if("slope".equals(subType)) {
+                } else if ("slope".equals(subType)) {
                     this.controller.addTool(IngredientCondition.Slope.getValue(), position, scaleRate, direction);
-                } else if("straightTrack".equals(subType)) {
+                } else if ("straightTrack".equals(subType)) {
                    this.controller.addTool(IngredientCondition.StraightTrack.getValue(), position, scaleRate, direction);
-                } else if("curveTrack".equals(subType)) {
+                } else if ("curveTrack".equals(subType)) {
                     this.controller.addTool(IngredientCondition.CurveTrack.getValue(), position, scaleRate, direction);
+                } else if ("absorber".equals(subType)) {
+                    this.controller.addTool(IngredientCondition.Absorber.getValue(), position, scaleRate, direction);
                 }
             }
         }
-        return objectList;
     }
 }
