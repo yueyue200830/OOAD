@@ -10,6 +10,12 @@ import java.awt.*;
  */
 public class Obstacle extends Tool {
 
+    /**
+     * The father class of all obstacles, including diamond, emerald, slope.
+     * @param x The x axis position of obstacle.
+     * @param y The y axis position of obstacls.
+     * @param scaleRate The scaling rate.
+     */
     public Obstacle(float x, float y, float scaleRate) {
         super(x, y, scaleRate);
         this.bodies = new Body[1];

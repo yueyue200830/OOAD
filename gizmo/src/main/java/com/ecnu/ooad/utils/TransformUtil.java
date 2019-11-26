@@ -17,11 +17,20 @@ import java.util.List;
 public class TransformUtil {
     private Controller controller;
 
+    /**
+     * Constructor of transformUtil.
+     * @param controller Game controller.
+     */
     @Contract(pure = true)
     public TransformUtil(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * Transform the game substances to string, extracting critical features from them.
+     * @param objectList The substances list of tools and balls.
+     * @return a well encapsulated string containing information about the whole game.
+     */
     public String objectToJson(@NotNull List<Object> objectList) {
         JSONArray jsonArray = new JSONArray();
         for (Object o : objectList) {
@@ -63,6 +72,11 @@ public class TransformUtil {
         return jsonArray.toString();
     }
 
+    /**
+     * Transform the game configuration string into object list, reading the key-value, creating corresponding
+     * objects in game controller——game manager.
+     * @param jsonString The game configuration string.
+     */
     public void jsonToObject(String jsonString) {
         JSONArray jsonArray = new JSONArray(jsonString);
         List<Object> objectList = new ArrayList<>();

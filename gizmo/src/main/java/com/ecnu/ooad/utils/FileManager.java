@@ -10,6 +10,11 @@ import java.io.*;
  */
 public class FileManager {
 
+    /**
+     * Read game configuration from json file.
+     * @param fileName The file name of json file.
+     * @return a json String contains information about the game.
+     */
     @Nullable
     public static String readGame(String fileName){
         String line;
@@ -34,6 +39,10 @@ public class FileManager {
         return null;
     }
 
+    /**
+     * Save game configuration to local file system, defining a game format.
+     * @param gameConfig json string, containing the game configuration.
+     */
     public static void saveGame(String gameConfig) {
         try {
             File file = new File("game");

@@ -15,6 +15,13 @@ public class Slope extends Obstacle {
     private float edge;
     private Color color;
 
+    /**
+     * The constructor of slope.
+     * @param worldX The x axis position of slope.
+     * @param worldY The y axis position of slope.
+     * @param scaleRate The scaling rate.
+     * @param direction The direction of slope.
+     */
     public Slope(float worldX, float worldY, float scaleRate, int direction) {
         super(worldX, worldY, scaleRate);
         this.direction = direction;
@@ -24,14 +31,17 @@ public class Slope extends Obstacle {
         initSlope();
     }
 
+    /**
+     * Init slope in jbox2d engine.
+     */
     private void initSlope() {
         this.bodies[0] = BodyUtil.initTriangle(positionX, positionY, this.edge, this.direction);
     }
 
-    public float getEdge() {
-        return edge;
-    }
-
+    /**
+     * Draw the slope on board.
+     * @param g graphic g
+     */
     @Override
     public void drawMe(@NotNull Graphics2D g) {
         g.setColor(this.color);

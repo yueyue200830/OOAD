@@ -15,6 +15,10 @@ import java.awt.geom.Line2D;
 public class GamePanel extends JPanel implements Runnable {
     private Controller controller;
 
+    /**
+     * Constructor of game panel.
+     * @param controller The controller of game.
+     */
     public GamePanel(Controller controller) {
         this.setSize(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
         this.setVisible(true);
@@ -23,6 +27,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.setHinderAction();
     }
 
+    /**
+     * Paint the line on board.
+     * @param g graphic g.
+     */
     private void paintLines(Graphics2D g) {
         Line2D lin;
         for (int i = 1; i < Constants.GAME_WIDTH / Constants.GRID_LENGTH; i++) {
@@ -34,6 +42,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Move the hinder.
+     */
     private void setHinderAction() {
         ActionMap actionMap = getActionMap();
         InputMap inputMap = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -54,6 +65,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    /**
+     * Paint the board.
+     * @param g
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -64,6 +79,9 @@ public class GamePanel extends JPanel implements Runnable {
         g.dispose();
     }
 
+    /**
+     * Run the thread, continue to update.
+     */
     @Override
     public void run() {
         try {
