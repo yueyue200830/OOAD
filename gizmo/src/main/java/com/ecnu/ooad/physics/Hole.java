@@ -44,6 +44,10 @@ public class Hole extends Tool {
         return distanceX <= 2 && distanceY <= 2;
     }
 
+    /**
+     * Draw absorber on board.
+     * @param g Graphics tool.
+     */
     @Override
     public void drawMe(Graphics2D g) {
         g.setColor(this.color);

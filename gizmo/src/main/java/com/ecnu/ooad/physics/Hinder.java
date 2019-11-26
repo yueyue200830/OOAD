@@ -16,6 +16,11 @@ public class Hinder extends Tool {
     private float width;
     private float height;
 
+    /**
+     * The constructor of Hinder
+     * @param x The x axis of position of Hinder
+     * @param y The y axis of position of Hinder
+     */
     public Hinder(float x, float y) {
         super(x, y, 1);
         this.color = Color.LIGHT_GRAY;
@@ -25,20 +30,19 @@ public class Hinder extends Tool {
         this.initHinder();
     }
 
+    /**
+     * Init the hinder in jbox2d engine.
+     */
     private void initHinder() {
         float leftCornerX = this.positionX + this.width / 2;
         float leftCornerY = this.positionY + Constants.GRID_LENGTH - this.height / 2;
         this.bodies[0] = BodyUtil.initRectangle(leftCornerX, leftCornerY, this.width, this.height);
     }
 
-    public float getWidth() {
-        return width;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
+    /**
+     * Draw hinder on board.
+     * @param g Graphics tool.
+     */
     @Override
     public void drawMe(@NotNull Graphics2D g) {
         int x = (int) (this.bodies[0].getPosition().x - this.width / 2);

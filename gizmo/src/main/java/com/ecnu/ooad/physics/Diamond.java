@@ -15,6 +15,12 @@ public class Diamond extends Obstacle {
     private float radius;
     private Color color;
 
+    /**
+     * Diamond constructor
+     * @param x the x axis position of diamond
+     * @param y the y axis position of diamond
+     * @param scaleRate scaling rate
+     */
     public Diamond(float x, float y, float scaleRate) {
         super(x, y, scaleRate);
         this.radius = Constants.DIAMOND_RADIUS * scaleRate;
@@ -23,6 +29,9 @@ public class Diamond extends Obstacle {
         this.initDiamond();
     }
 
+    /**
+     * Init diamond body in jbox2d engine.
+     */
     private void initDiamond() {
         float x = this.positionX + this.radius;
         float y = this.positionY + this.radius;
@@ -34,6 +43,10 @@ public class Diamond extends Obstacle {
         return radius;
     }
 
+    /**
+     * Draw the diamond on board.
+     * @param g graphic g
+     */
     @Override
     public void drawMe(@NotNull Graphics2D g) {
         int x = (int) (bodies[0].getPosition().x - radius);
