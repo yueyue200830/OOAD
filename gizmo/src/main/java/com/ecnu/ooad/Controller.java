@@ -30,7 +30,6 @@ public class Controller {
     }
 
     public void newGame() {
-        //this.manager = new Manager();
         this.manager.clearGame();
         this.isPlayMode = false;
     }

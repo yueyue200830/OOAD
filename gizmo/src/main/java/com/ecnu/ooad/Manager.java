@@ -3,7 +3,6 @@ package com.ecnu.ooad;
 import com.ecnu.ooad.utils.IngredientCondition;
 import com.ecnu.ooad.physics.*;
 import com.ecnu.ooad.utils.BodyUtil;
-import com.ecnu.ooad.view.IngredientPanel;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
@@ -34,8 +33,6 @@ public class Manager {
         toolList = new Vector<>();
         gamegrids = new GameGrids();
         initBorder();
-        System.out.println(world.getBodyList());
-        System.out.println(world.getBodyCount());
     }
 
     /**
@@ -292,6 +289,9 @@ public class Manager {
         }
     }
 
+    /**
+     * This function is to start a new game.
+     */
     public void clearGame() {
         for (Ball ball : ballList) {
             world.destroyBody(ball.getBodies()[0]);

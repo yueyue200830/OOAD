@@ -67,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     /**
      * Paint the board.
-     * @param g
+     * @param g graphic g.
      */
     @Override
     public void paint(Graphics g) {
@@ -86,7 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
         try {
             while (true) {
-                Thread.sleep(30);
+                Thread.sleep(10);
                 this.repaint();
                 if (this.controller.isPlayMode()) {
                     controller.step();
