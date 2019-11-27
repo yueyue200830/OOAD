@@ -30,27 +30,46 @@ public class IngredientActionListener implements ActionListener {
      */
     @Override
     public void actionPerformed(@NotNull ActionEvent e) {
+        String pathMouse = IngredientCondition.class.getClassLoader().getResource("mouse.png").toString();
+        String pathBall = IngredientCondition.class.getClassLoader().getResource("ball.png").toString();
+        String pathHole = IngredientCondition.class.getClassLoader().getResource("hole.png").toString();
+        String pathSlope = IngredientCondition.class.getClassLoader().getResource("triangle.png").toString();
+        String pathDiamond = IngredientCondition.class.getClassLoader().getResource("circle.png").toString();
+        String pathEmerald = IngredientCondition.class.getClassLoader().getResource("square.png").toString();
+        String pathStraightTrack = IngredientCondition.class.getClassLoader().getResource("straightTrack.png").toString();
+        String pathCurveTrack = IngredientCondition.class.getClassLoader().getResource("curveTrack.png").toString();
+        String pathHinder = IngredientCondition.class.getClassLoader().getResource("hinder.png").toString();
+        String mouse = "<html><table><tr><td>mouse</td><td><img src='"+pathMouse+"' width='20' height='20'/></td></tr></html>";
+        String ball = "<html><table><tr><td>ball</td><td><img src='"+pathBall+"' width='20' height='20'/></td></tr></html>";
+        String hole = "<html><table><tr><td>absorber</td><td><img src='"+pathHole+"' width='20' height='20'/></td></tr></html>";
+        String slope = "<html><table><tr><td>triangle</td><td><img src='"+pathSlope+"' width='20' height='20'/></td></tr></html>";
+        String diamond = "<html><table><tr><td>circle</td><td><img src='"+pathDiamond+"' width='20' height='20'/></td></tr></html>";
+        String emerald = "<html><table><tr><td>square</td><td><img src='"+pathEmerald+"' width='20' height='20'/></td></tr></html>";
+        String straightTrack = "<html><table><tr><td>straight track</td><td><img src='"+pathStraightTrack+"' width='20' height='20'/></td></tr></html>";
+        String curveTrack = "<html><table><tr><td>curve track</td><td><img src='"+pathCurveTrack+"' width='20' height='20'/></td></tr></html>";
+        String hinderLeft = "<html><table><tr><td>left hinder</td><td><img src='"+pathHinder+"' width='20' height='20'/></td></tr></html>";
+        String hinderRight = "<html><table><tr><td>right hinder</td><td><img src='"+pathHinder+"' width='20' height='20'/></td></tr></html>";
+
         String command = e.getActionCommand();
-        if ("mouse".equals(command)) {
-            System.out.println("mouse section");
+        if (mouse.equals(command)) {
             this.controller.setIngredientCondition(IngredientCondition.Mouse.getValue());
-        } else if ("ball".equals(command)) {
+        } else if (ball.equals(command)) {
             this.controller.setIngredientCondition(IngredientCondition.Ball.getValue());
-        } else if ("absorber".equals(command)) {
+        } else if (hole.equals(command)) {
             this.controller.setIngredientCondition(IngredientCondition.Absorber.getValue());
-        } else if ("slope".equals(command)) {
+        } else if (slope.equals(command)) {
             this.controller.setIngredientCondition(IngredientCondition.Slope.getValue());
-        } else if ("diamond".equals(command)) {
+        } else if (diamond.equals(command)) {
             this.controller.setIngredientCondition(IngredientCondition.Diamond.getValue());
-        } else if ("emerald".equals(command)) {
+        } else if (emerald.equals(command)) {
             this.controller.setIngredientCondition(IngredientCondition.Emerald.getValue());
-        } else if ("straightTrack".equals(command)) {
+        } else if (straightTrack.equals(command)) {
             this.controller.setIngredientCondition(IngredientCondition.StraightTrack.getValue());
-        } else if ("curveTrack".equals(command)) {
+        } else if (curveTrack.equals(command)) {
             this.controller.setIngredientCondition(IngredientCondition.CurveTrack.getValue());
-        } else if ("hinderLeft".equals(command)) {
+        } else if (hinderLeft.equals(command)) {
             this.controller.setIngredientCondition(IngredientCondition.HinderLeft.getValue());
-        } else if ("hinderRight".equals(command)) {
+        } else if (hinderRight.equals(command)) {
             this.controller.setIngredientCondition(IngredientCondition.HinderRight.getValue());
         }
     }
