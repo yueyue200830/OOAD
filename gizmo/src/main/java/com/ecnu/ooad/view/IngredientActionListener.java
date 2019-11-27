@@ -15,11 +15,19 @@ import java.awt.event.ActionListener;
 public class IngredientActionListener implements ActionListener {
     private Controller controller;
 
+    /**
+     * Constructor of ingredient panel action listener.
+     * @param controller Controller of the game.
+     */
     @Contract(pure = true)
     public IngredientActionListener(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * Deal with when the mouse is clicked.
+     * @param e Action event.
+     */
     @Override
     public void actionPerformed(@NotNull ActionEvent e) {
         String command = e.getActionCommand();

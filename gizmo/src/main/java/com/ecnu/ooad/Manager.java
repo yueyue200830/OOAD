@@ -104,8 +104,7 @@ public class Manager {
 
         if (gamegrids.canAddObject(x, y, condition)) {
             Tool newTool;
-            if (condition == 2) {
-                // TODO Add hole
+            if (condition == IngredientCondition.Absorber.getValue()) {
                 newTool = new Hole(pos[0], pos[1], scaleRate);
             } else if (condition == IngredientCondition.Slope.getValue()) {
                 newTool = new Slope(pos[0], pos[1], scaleRate, direction);

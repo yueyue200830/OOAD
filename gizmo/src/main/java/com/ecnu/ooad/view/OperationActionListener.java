@@ -14,11 +14,19 @@ import java.awt.event.ActionListener;
 public class OperationActionListener implements ActionListener {
     private Controller controller;
 
+    /**
+     * This is listener for operation panel.
+     * @param controller Game controller.
+     */
     @Contract(pure = true)
     public OperationActionListener(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * Deal with the button action.
+     * @param e Action event.
+     */
     @Override
     public void actionPerformed(@NotNull ActionEvent e) {
         String command = e.getActionCommand();

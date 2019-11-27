@@ -14,6 +14,10 @@ public class ToolPanel extends JPanel {
     private GridBagConstraints gbc;
     private Controller controller;
 
+    /**
+     * This is the panel for all tools.
+     * @param controller
+     */
     public ToolPanel(Controller controller) {
         this.setSize(Constants.TOOL_WIDTH, Constants.TOOL_HEIGHT);
         this.setVisible(true);
@@ -25,6 +29,9 @@ public class ToolPanel extends JPanel {
         this.initPanel();
     }
 
+    /**
+     * Initialize all small panels.
+     */
     private void initPanel() {
         JLabel label = new JLabel("Ingredient Bar");
         gbc.gridx = 0;

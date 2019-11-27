@@ -2,6 +2,7 @@ package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
 import org.jbox2d.dynamics.Body;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -23,7 +24,7 @@ public class Hole extends Tool {
      * @param scaleRate the scale rate of hole.
      */
     public Hole(float x, float y, float scaleRate) {
-        super(x, y,1);
+        super(x, y, 1);
         this.type = 2;
         this.color = Color.ORANGE;
         this.length = Constants.GRID_LENGTH;
@@ -49,13 +50,12 @@ public class Hole extends Tool {
      * @param g Graphics tool.
      */
     @Override
-    public void drawMe(Graphics2D g) {
+    public void drawMe(@NotNull Graphics2D g) {
         g.setColor(this.color);
         int width = this.length;
         int height = this.length;
         int arcAngle = 360;
         int startAngle  =  0;
         g.drawArc((int) this.positionX, (int) this.positionY, width, height, startAngle, arcAngle);
-
     }
 }

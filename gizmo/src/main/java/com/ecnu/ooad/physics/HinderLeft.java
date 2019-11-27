@@ -9,7 +9,7 @@ import java.awt.*;
 public class HinderLeft extends Hinder {
 
     /**
-     * The constructor of hinderleft.
+     * The constructor of hinderLeft.
      * @param x the x axis position of hinderLeft.
      * @param y the y axis position of hinderLeft.
      */

@@ -12,6 +12,10 @@ import java.awt.*;
 public class ModePanel extends JPanel {
     private Controller controller;
 
+    /**
+     * This is the panel for mode button.
+     * @param controller Game controller.
+     */
     public ModePanel(Controller controller) {
         this.controller = controller;
         this.setSize(200, 200);
@@ -21,6 +25,9 @@ public class ModePanel extends JPanel {
         this.setLayout(new GridLayout(2, 1));
     }
 
+    /**
+     * Add mode button in the panel.
+     */
     private void createMode() {
         JButton btnDesign = new JButton("Design Mode");
         JButton btnPlay = new JButton("Play Mode");

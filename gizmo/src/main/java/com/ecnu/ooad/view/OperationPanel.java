@@ -12,6 +12,10 @@ import java.awt.*;
 public class OperationPanel extends JPanel {
     private Controller controller;
 
+    /**
+     * This is the panel for some operation button.
+     * @param controller Game controller.
+     */
     public OperationPanel(Controller controller) {
         this.controller = controller;
         this.setSize(200, 200);
@@ -21,6 +25,9 @@ public class OperationPanel extends JPanel {
         this.setLayout(new GridLayout(2, 2));
     }
 
+    /**
+     * Add operation button in the panel.
+     */
     private void createButtons() {
         JButton btnRotate = new JButton("rotate");
         JButton btnDelete = new JButton("delete");

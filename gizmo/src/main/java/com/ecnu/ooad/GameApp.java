@@ -11,6 +11,11 @@ import java.awt.*;
  * @date 2019-11-16 20:30
  */
 public class GameApp {
+
+    /**
+     * This is the main function of the game.
+     * @param args Default argument.
+     */
     public static void main(String[] args) {
         JFrame frame = new JFrame("Gizmo Ball");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -14,11 +14,19 @@ import java.awt.event.ActionListener;
 public class ModeActionListener implements ActionListener {
     private Controller controller;
 
+    /**
+     * This is the listener of mode panel.
+     * @param controller Game controller.
+     */
     @Contract(pure = true)
     public ModeActionListener(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * Deal with the action when mode button is clicked.
+     * @param e Action event.
+     */
     @Override
     public void actionPerformed(@NotNull ActionEvent e) {
         String command = e.getActionCommand();

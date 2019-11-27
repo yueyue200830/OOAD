@@ -1,7 +1,6 @@
 package com.ecnu.ooad.view;
 
 import com.ecnu.ooad.Controller;
-import com.ecnu.ooad.utils.TransformUtil;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,7 +8,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.List;
 
 /**
  * @author Yiqing Tao
@@ -18,11 +16,19 @@ import java.util.List;
 public class MenuListener implements ActionListener {
     private Controller controller;
 
+    /**
+     * This is the mouse listener of menu.
+     * @param controller Game controller.
+     */
     @Contract(pure = true)
     public MenuListener(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * Deal with the action performed when the menu item is clicked.
+     * @param e Action event.
+     */
     @Override
     public void actionPerformed(@NotNull ActionEvent e) {
         String command = e.getActionCommand();

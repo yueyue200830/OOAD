@@ -13,6 +13,10 @@ public class IngredientPanel extends JPanel {
 
     private Controller controller;
 
+    /**
+     * This is the panel contains all physics button.
+     * @param controller Controller of the game.
+     */
     public IngredientPanel(Controller controller) {
         this.setSize(200, 200);
         this.setVisible(true);
@@ -22,6 +26,9 @@ public class IngredientPanel extends JPanel {
         this.setLayout(new GridLayout(5, 2));
     }
 
+    /**
+     * Create all ingredients.
+     */
     public void createIngredientBar() {
         JRadioButton btnMouse = new JRadioButton("mouse");
         JRadioButton btnBall = new JRadioButton("ball");

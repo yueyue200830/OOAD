@@ -50,7 +50,7 @@ public class GamePanelMouseListener implements MouseListener {
      * Get the center position of the mouse, in order to draw the object.
      * @param x The x position of mouse click.
      * @param y The y position of mouse click.
-     * @return
+     * @return The center point of the grid
      */
     public int[] getSquareMiddlePoint(int x, int y) {
         int[] pos = new int[2];

@@ -39,10 +39,6 @@ public class Diamond extends Obstacle {
         this.bodies[0] = BodyUtil.initCircle(x, y, this.radius, true);
     }
 
-    public float getRadius() {
-        return radius;
-    }
-
     /**
      * Draw the diamond on board.
      * @param g graphic g

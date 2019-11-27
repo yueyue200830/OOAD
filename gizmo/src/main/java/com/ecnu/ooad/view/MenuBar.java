@@ -11,12 +11,19 @@ import javax.swing.*;
 public class MenuBar extends JMenuBar {
     private Controller controller;
 
+    /**
+     * The is the menu of the game.
+     * @param controller Game controller.
+     */
     public MenuBar(Controller controller) {
         this.controller = controller;
         this.newMenu();
         this.setVisible(true);
     }
 
+    /**
+     * Add menu items.
+     */
     public void newMenu() {
         JMenu menu = new JMenu("File");
         JMenuItem item1 = new JMenuItem("New Game");
