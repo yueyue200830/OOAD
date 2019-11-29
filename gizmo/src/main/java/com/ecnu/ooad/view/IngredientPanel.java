@@ -21,7 +21,7 @@ public class IngredientPanel extends JPanel {
     public IngredientPanel(Controller controller) {
         this.setSize(200, 200);
         this.setVisible(true);
-        this.setBackground(Color.blue);
+        this.setBackground(Color.LIGHT_GRAY);
         this.controller = controller;
         this.createIngredientBar();
         this.setLayout(new GridLayout(5, 2));

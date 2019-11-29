@@ -19,7 +19,7 @@ public class GameApp {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Gizmo Ball");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
+        frame.setSize(Constants.FRAME_WIDTH+92, Constants.FRAME_HEIGHT+60);
 
         Controller centralController = new Controller();
         GamePanel gamePanel = new GamePanel(centralController);

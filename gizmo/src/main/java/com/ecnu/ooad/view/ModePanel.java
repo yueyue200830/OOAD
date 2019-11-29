@@ -20,7 +20,7 @@ public class ModePanel extends JPanel {
         this.controller = controller;
         this.setSize(200, 200);
         this.setVisible(true);
-        this.setBackground(Color.yellow);
+//        this.setBackground(Color.LIGHT_GRAY);
         this.createMode();
         this.setLayout(new GridLayout(2, 1));
     }

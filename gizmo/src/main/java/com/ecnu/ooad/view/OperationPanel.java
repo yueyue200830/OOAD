@@ -20,7 +20,7 @@ public class OperationPanel extends JPanel {
         this.controller = controller;
         this.setSize(200, 200);
         this.setVisible(true);
-        this.setBackground(Color.green);
+        this.setBackground(Color.LIGHT_GRAY);
         this.createButtons();
         this.setLayout(new GridLayout(2, 2));
     }
