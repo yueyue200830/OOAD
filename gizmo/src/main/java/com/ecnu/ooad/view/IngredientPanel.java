@@ -14,6 +14,27 @@ public class IngredientPanel extends JPanel {
 
     private Controller controller;
 
+    private static String pathMouse = IngredientCondition.class.getClassLoader().getResource("mouse.png").toString();
+    private static String pathBall = IngredientCondition.class.getClassLoader().getResource("ball.png").toString();
+    private static String pathHole = IngredientCondition.class.getClassLoader().getResource("hole.png").toString();
+    private static String pathSlope = IngredientCondition.class.getClassLoader().getResource("triangle.png").toString();
+    private static String pathDiamond = IngredientCondition.class.getClassLoader().getResource("circle.png").toString();
+    private static String pathEmerald = IngredientCondition.class.getClassLoader().getResource("square.png").toString();
+    private static String pathStraightTrack = IngredientCondition.class.getClassLoader().getResource("straightTrack.png").toString();
+    private static String pathCurveTrack = IngredientCondition.class.getClassLoader().getResource("curveTrack.png").toString();
+    private static String pathHinder = IngredientCondition.class.getClassLoader().getResource("hinder.png").toString();
+    public static String mouse = "<html><table><tr><td width='90'>mouse</td><td><img src='"+pathMouse+"' width='20' height='20'/></td></tr></html>";
+    public static String ball = "<html><table><tr><td width='90'>ball</td><td><img src='"+pathBall+"' width='20' height='20'/></td></tr></html>";
+    public static String hole = "<html><table><tr><td width='90'>absorber</td><td><img src='"+pathHole+"' width='20' height='20'/></td></tr></html>";
+    public static String slope = "<html><table><tr><td width='90'>triangle</td><td><img src='"+pathSlope+"' width='20' height='20'/></td></tr></html>";
+    public static String diamond = "<html><table><tr><td width='90'>circle</td><td><img src='"+pathDiamond+"' width='20' height='20'/></td></tr></html>";
+    public static String emerald = "<html><table><tr><td width='90'>square</td><td><img src='"+pathEmerald+"' width='20' height='20'/></td></tr></html>";
+    public static String straightTrack = "<html><table><tr><td width='90'>straight track</td><td><img src='"+pathStraightTrack+"' width='20' height='20'/></td></tr></html>";
+    public static String curveTrack = "<html><table><tr><td width='90'>curve track</td><td><img src='"+pathCurveTrack+"' width='20' height='20'/></td></tr></html>";
+    public static String hinderLeft = "<html><table><tr><td width='90'>left hinder</td><td><img src='"+pathHinder+"' width='20' height='20'/></td></tr></html>";
+    public static String hinderRight = "<html><table><tr><td width='90'>right hinder</td><td><img src='"+pathHinder+"' width='20' height='20'/></td></tr></html>";
+
+
     /**
      * This is the panel contains all physics button.
      * @param controller Controller of the game.
@@ -31,26 +52,6 @@ public class IngredientPanel extends JPanel {
      * Create all ingredients.
      */
     public void createIngredientBar() {
-        String pathMouse = IngredientCondition.class.getClassLoader().getResource("mouse.png").toString();
-        String pathBall = IngredientCondition.class.getClassLoader().getResource("ball.png").toString();
-        String pathHole = IngredientCondition.class.getClassLoader().getResource("hole.png").toString();
-        String pathSlope = IngredientCondition.class.getClassLoader().getResource("triangle.png").toString();
-        String pathDiamond = IngredientCondition.class.getClassLoader().getResource("circle.png").toString();
-        String pathEmerald = IngredientCondition.class.getClassLoader().getResource("square.png").toString();
-        String pathStraightTrack = IngredientCondition.class.getClassLoader().getResource("straightTrack.png").toString();
-        String pathCurveTrack = IngredientCondition.class.getClassLoader().getResource("curveTrack.png").toString();
-        String pathHinder = IngredientCondition.class.getClassLoader().getResource("hinder.png").toString();
-        String mouse = "<html><table><tr><td width='90'>mouse</td><td><img src='"+pathMouse+"' width='20' height='20'/></td></tr></html>";
-        String ball = "<html><table><tr><td width='90'>ball</td><td><img src='"+pathBall+"' width='20' height='20'/></td></tr></html>";
-        String hole = "<html><table><tr><td width='90'>absorber</td><td><img src='"+pathHole+"' width='20' height='20'/></td></tr></html>";
-        String slope = "<html><table><tr><td width='90'>triangle</td><td><img src='"+pathSlope+"' width='20' height='20'/></td></tr></html>";
-        String diamond = "<html><table><tr><td width='90'>circle</td><td><img src='"+pathDiamond+"' width='20' height='20'/></td></tr></html>";
-        String emerald = "<html><table><tr><td width='90'>square</td><td><img src='"+pathEmerald+"' width='20' height='20'/></td></tr></html>";
-        String straightTrack = "<html><table><tr><td width='90'>straight track</td><td><img src='"+pathStraightTrack+"' width='20' height='20'/></td></tr></html>";
-        String curveTrack = "<html><table><tr><td width='90'>curve track</td><td><img src='"+pathCurveTrack+"' width='20' height='20'/></td></tr></html>";
-        String hinderLeft = "<html><table><tr><td width='90'>left hinder</td><td><img src='"+pathHinder+"' width='20' height='20'/></td></tr></html>";
-        String hinderRight = "<html><table><tr><td width='90'>right hinder</td><td><img src='"+pathHinder+"' width='20' height='20'/></td></tr></html>";
-
         JRadioButton btnMouse = new JRadioButton(mouse);
         JRadioButton btnBall = new JRadioButton(ball);
         JRadioButton btnAbsorber = new JRadioButton(hole);

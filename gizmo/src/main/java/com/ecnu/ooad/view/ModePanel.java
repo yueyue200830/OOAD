@@ -20,7 +20,6 @@ public class ModePanel extends JPanel {
         this.controller = controller;
         this.setSize(200, 200);
         this.setVisible(true);
-//        this.setBackground(Color.LIGHT_GRAY);
         this.createMode();
         this.setLayout(new GridLayout(2, 1));
     }
@@ -33,7 +32,15 @@ public class ModePanel extends JPanel {
         JButton btnPlay = new JButton("Play Mode");
         btnDesign.addActionListener(new ModeActionListener(this.controller));
         btnPlay.addActionListener(new ModeActionListener(this.controller));
-        this.add(btnDesign);
-        this.add(btnPlay);
+        btnDesign.setSize(300, 80);
+        btnPlay.setSize(300, 80);
+        JPanel panel1 = new JPanel();
+        JPanel panel2 = new JPanel();
+        panel1.add(btnDesign);
+        panel2.add(btnPlay);
+//        this.add(btnDesign);
+        this.add(panel1);
+        this.add(panel2);
+//        this.add(btnPlay);
     }
 }

@@ -30,14 +30,15 @@ public class OperationActionListener implements ActionListener {
     @Override
     public void actionPerformed(@NotNull ActionEvent e) {
         String command = e.getActionCommand();
-        if ("rotate".equals(command)) {
+
+        if (OperationPanel.imgRotate.equals(command)) {
             System.out.println("rotate");
             this.controller.rotate();
-        } else if ("delete".equals(command)) {
+        } else if (OperationPanel.imgDelete.equals(command)) {
             this.controller.deleteObject();
-        } else if ("zoom in".equals(command)) {
+        } else if (OperationPanel.imgZoomIn.equals(command)) {
             this.controller.changeObjectScale(true);
-        } else if ("zoom out".equals(command)) {
+        } else if (OperationPanel.imgZoomOut.equals(command)) {
             this.controller.changeObjectScale(false);
         }
     }
