@@ -29,7 +29,7 @@ public class OperationPanel extends JPanel {
      * Add operation button in the panel.
      */
     private void createButtons() {
-        JButton btnRotate = new JButton("rotate");
+        JButton btnRotate = new JButton(new ImageIcon("src/main/resources/ball.png"));
         JButton btnDelete = new JButton("delete");
         JButton btnZoomIn = new JButton("zoom in");
         JButton btnZoomOut = new JButton("zoom out");

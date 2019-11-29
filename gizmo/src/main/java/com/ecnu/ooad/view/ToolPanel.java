@@ -24,6 +24,7 @@ public class ToolPanel extends JPanel {
         this.setSize(Constants.TOOL_WIDTH, Constants.TOOL_HEIGHT);
         this.setVisible(true);
         this.setLayout(new GridBagLayout());
+        this.setBackground(Color.LIGHT_GRAY);
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         this.controller = controller;
@@ -35,7 +36,9 @@ public class ToolPanel extends JPanel {
      */
     private void initPanel() {
         JPanel labelPanel1 = new JPanel();
-        JLabel labelIngredient = new JLabel("Ingredient Bar");
+//        labelPanel1.setBackground(Color.LIGHT_GRAY);
+        JLabel labelIngredient = new JLabel("Ingredient Bar", JLabel.CENTER);
+        labelIngredient.setFont(new Font("Calibri", Font.BOLD, 22));
         labelPanel1.add(labelIngredient);
         Box vBox1 = Box.createVerticalBox();
         vBox1.add(labelPanel1);
@@ -46,7 +49,8 @@ public class ToolPanel extends JPanel {
         gbc.gridheight = 1;
         gbc.weightx = 0.5;
         gbc.weighty = 0.8;
-        this.add(vBox1, gbc);
+        vBox1.setBackground(Color.LIGHT_GRAY);
+        this.add(vBox1);
 //        labelPanel1.add(new IngredientPanel(this.controller));
 //        this.add(labelPanel1, gbc);
 //        gbc.gridx = 0;
@@ -58,18 +62,22 @@ public class ToolPanel extends JPanel {
 //        this.add(new IngredientPanel(this.controller), gbc);
 
         JPanel labelPanel2 = new JPanel();
+//        labelPanel2.setBackground(Color.LIGHT_GRAY);
         JLabel labelOperation = new JLabel("Operation Bar");
+        labelOperation.setFont(new Font("Calibri", Font.BOLD, 22));
         labelPanel2.add(labelOperation);
         Box vBox2 = Box.createVerticalBox();
         vBox2.add(labelPanel2);
-        vBox2.add(new OperationPanel(this.controller));
+//        vBox2.add(new OperationPanel(this.controller));
         gbc.gridx = 0;
         gbc.gridy = 12;
         gbc.gridwidth = 2;
         gbc.gridheight = 1;
         gbc.weightx = 0.5;
         gbc.weighty = 0.8;
-        this.add(vBox2, gbc);
+        vBox1.add(labelPanel2);
+        vBox1.add(new OperationPanel(this.controller));
+//        this.add(vBox2, gbc);
 //        this.add(labelOperation, gbc);
 //        gbc.gridx = 0;
 //        gbc.gridy = 13;
@@ -80,18 +88,22 @@ public class ToolPanel extends JPanel {
 //        this.add(new OperationPanel(this.controller), gbc);
 
         JPanel labelPanel3 = new JPanel();
+//        labelPanel3.setBackground(Color.LIGHT_GRAY);
         JLabel labelMode = new JLabel("Mode Bar");
+        labelMode.setFont(new Font("Calibri", Font.BOLD, 22));
         labelPanel3.add(labelMode);
         Box vBox3 = Box.createVerticalBox();
         vBox3.add(labelPanel3);
-        vBox3.add(new ModePanel(this.controller));
+//        vBox3.add(new ModePanel(this.controller));
         gbc.gridx = 0;
         gbc.gridy = 18;
         gbc.gridwidth = 2;
         gbc.gridheight = 1;
         gbc.weightx = 0.5;
         gbc.weighty = 0.8;
-        this.add(vBox3, gbc);
+        vBox1.add(labelPanel3);
+        vBox1.add(new ModePanel(this.controller));
+//        this.add(vBox3, gbc);
 //        this.add(labelMode, gbc);
         gbc.gridx = 0;
         gbc.gridy = 20;
@@ -102,7 +114,7 @@ public class ToolPanel extends JPanel {
 //        this.add(new ModePanel(this.controller), gbc);
 
         JPanel panel4 = new JPanel();
-        panel4.add(new JLabel(new ImageIcon("hole.png")));
+        panel4.add(new JLabel(new ImageIcon("src/main/resources/ball.png")));
         this.add(panel4, gbc);
     }
 }
