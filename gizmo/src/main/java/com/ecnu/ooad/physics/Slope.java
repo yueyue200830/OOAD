@@ -4,6 +4,7 @@ import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -25,7 +26,7 @@ public class Slope extends Obstacle {
     public Slope(float worldX, float worldY, float scaleRate, int direction) {
         super(worldX, worldY, scaleRate);
         this.direction = direction;
-        this.color = Color.WHITE;
+        this.color = new Color(252, 149, 12);
         this.edge = Constants.EDGE * scaleRate;
         this.type = 3;
         initSlope();
@@ -40,10 +41,11 @@ public class Slope extends Obstacle {
 
     /**
      * Draw the slope on board.
-     * @param g graphic g
+     * @param g Graphics tool.
+     * @param panel Game panel.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g) {
+    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
         g.setColor(this.color);
         int x = (int) this.bodies[0].getPosition().x;
         int y = (int) this.bodies[0].getPosition().y;

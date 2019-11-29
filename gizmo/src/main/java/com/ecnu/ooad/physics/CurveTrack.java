@@ -5,6 +5,7 @@ import com.ecnu.ooad.utils.BodyUtil;
 import org.jbox2d.dynamics.Body;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -13,7 +14,7 @@ import java.awt.*;
  */
 public class CurveTrack extends Tool {
 
-    private Color color = Color.yellow;
+    private Color color;
     private float wallWidth;
     private float length;
 
@@ -28,6 +29,7 @@ public class CurveTrack extends Tool {
         super(x, y, scaleRate);
         this.direction = direction;
         this.bodies = new Body[3];
+        this.color = new Color(178, 136, 80);
         this.wallWidth = Constants.TRACK_WIDTH / 2;
         this.length = Constants.GRID_LENGTH * this.scaleRate;
         this.type = 7;
@@ -85,7 +87,7 @@ public class CurveTrack extends Tool {
      * @param g Graphics tool.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g) {
+    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
         g.setColor(color);
         Stroke stroke = new BasicStroke(2);
         g.setStroke(stroke);

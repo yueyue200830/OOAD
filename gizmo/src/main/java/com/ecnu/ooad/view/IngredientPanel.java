@@ -23,16 +23,16 @@ public class IngredientPanel extends JPanel {
     private static String pathStraightTrack = IngredientCondition.class.getClassLoader().getResource("straightTrack.png").toString();
     private static String pathCurveTrack = IngredientCondition.class.getClassLoader().getResource("curveTrack.png").toString();
     private static String pathHinder = IngredientCondition.class.getClassLoader().getResource("hinder.png").toString();
-    public static String mouse = "<html><table><tr><td width='90'>mouse</td><td><img src='"+pathMouse+"' width='20' height='20'/></td></tr></html>";
-    public static String ball = "<html><table><tr><td width='90'>ball</td><td><img src='"+pathBall+"' width='20' height='20'/></td></tr></html>";
-    public static String hole = "<html><table><tr><td width='90'>absorber</td><td><img src='"+pathHole+"' width='20' height='20'/></td></tr></html>";
-    public static String slope = "<html><table><tr><td width='90'>triangle</td><td><img src='"+pathSlope+"' width='20' height='20'/></td></tr></html>";
-    public static String diamond = "<html><table><tr><td width='90'>circle</td><td><img src='"+pathDiamond+"' width='20' height='20'/></td></tr></html>";
-    public static String emerald = "<html><table><tr><td width='90'>square</td><td><img src='"+pathEmerald+"' width='20' height='20'/></td></tr></html>";
-    public static String straightTrack = "<html><table><tr><td width='90'>straight track</td><td><img src='"+pathStraightTrack+"' width='20' height='20'/></td></tr></html>";
-    public static String curveTrack = "<html><table><tr><td width='90'>curve track</td><td><img src='"+pathCurveTrack+"' width='20' height='20'/></td></tr></html>";
-    public static String hinderLeft = "<html><table><tr><td width='90'>left hinder</td><td><img src='"+pathHinder+"' width='20' height='20'/></td></tr></html>";
-    public static String hinderRight = "<html><table><tr><td width='90'>right hinder</td><td><img src='"+pathHinder+"' width='20' height='20'/></td></tr></html>";
+    public static String mouse = "<html><table><tr><td><img src='"+pathMouse+"' width='20' height='20'/></td><td>mouse</td></tr></html>";
+    public static String ball = "<html><table><tr><td><img src='"+pathBall+"' width='20' height='20'/></td><td>ball</td></tr></html>";
+    public static String hole = "<html><table><tr><td><img src='"+pathHole+"' width='20' height='20'/></td><td>absorber</td></tr></html>";
+    public static String slope = "<html><table><tr><td><img src='"+pathSlope+"' width='20' height='20'/></td><td>triangle</td></tr></html>";
+    public static String diamond = "<html><table><tr><td><img src='"+pathDiamond+"' width='20' height='20'/></td><td>circle</td></tr></html>";
+    public static String emerald = "<html><table><tr><td><img src='"+pathEmerald+"' width='20' height='20'/></td><td>square</td></tr></html>";
+    public static String straightTrack = "<html><table><tr><td><img src='"+pathStraightTrack+"' width='20' height='20'/></td><td>straight track</td></tr></html>";
+    public static String curveTrack = "<html><table><tr><td><img src='"+pathCurveTrack+"' width='20' height='20'/></td><td>curve track</td></tr></html>";
+    public static String hinderLeft = "<html><table><tr><td><img src='"+pathHinder+"' width='20' height='20'/></td><td>left hinder</td></tr></html>";
+    public static String hinderRight = "<html><table><tr><td><img src='"+pathHinder+"' width='20' height='20'/></td><td>right hinder</td></tr></html>";
 
 
     /**
@@ -63,6 +63,18 @@ public class IngredientPanel extends JPanel {
         JRadioButton btnHinderLeft = new JRadioButton(hinderLeft);
         JRadioButton btnHinderRight = new JRadioButton(hinderRight);
         ButtonGroup bg = new ButtonGroup();
+        Font font = new Font("Arial", Font.PLAIN, 14);
+        btnMouse.setFont(font);
+        btnBall.setFont(font);
+        btnAbsorber.setFont(font);
+        btnSlope.setFont(font);
+        btnDiamond.setFont(font);
+        btnEmerald.setFont(font);
+        btnStraightTrack.setFont(font);
+        btnCurveTrack.setFont(font);
+        btnHinderLeft.setFont(font);
+        btnHinderRight.setFont(font);
+
         btnMouse.addActionListener(new IngredientActionListener(this.controller));
         btnBall.addActionListener(new IngredientActionListener(this.controller));
         btnAbsorber.addActionListener(new IngredientActionListener(this.controller));

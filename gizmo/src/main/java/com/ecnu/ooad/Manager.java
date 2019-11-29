@@ -8,6 +8,7 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -17,7 +18,7 @@ import java.util.Vector;
  * @date 2019-11-16 20:33
  */
 public class Manager {
-    public static World world = new World(new Vec2(0f,10f));
+    public static World world = new World(new Vec2(0f,5f));
     private Vector<Ball> ballList;
     private Vector<Tool> toolList;
     private GameGrids gamegrids;
@@ -163,9 +164,9 @@ public class Manager {
      * Draw all objects.
      * @param g The graphics tool.
      */
-    public void draw(Graphics2D g) {
-        ballList.forEach(it->it.drawMe(g));
-        toolList.forEach(it->it.drawMe(g));
+    public void draw(Graphics2D g, JPanel panel) {
+        toolList.forEach(it->it.drawMe(g, panel));
+        ballList.forEach(it->it.drawMe(g, panel));
     }
 
     /**

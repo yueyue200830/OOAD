@@ -3,6 +3,7 @@ package com.ecnu.ooad.physics;
 import org.jbox2d.dynamics.Body;
 import org.jetbrains.annotations.Contract;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -36,8 +37,9 @@ public class Substance {
     /**
      * Draw current object.
      * @param g Graphics tool.
+     * @param panel Game panel.
      */
-    public void drawMe(Graphics2D g) {
+    public void drawMe(Graphics2D g, JPanel panel) {
 
     }
 

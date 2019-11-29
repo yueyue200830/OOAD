@@ -4,6 +4,7 @@ import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -13,7 +14,6 @@ import java.awt.*;
 public class Diamond extends Obstacle {
 
     private float radius;
-    private Color color;
 
     /**
      * Diamond constructor
@@ -24,7 +24,6 @@ public class Diamond extends Obstacle {
     public Diamond(float x, float y, float scaleRate) {
         super(x, y, scaleRate);
         this.radius = Constants.DIAMOND_RADIUS * scaleRate;
-        this.color = Color.white;
         this.type = 4;
         this.initDiamond();
     }
@@ -41,15 +40,16 @@ public class Diamond extends Obstacle {
 
     /**
      * Draw the diamond on board.
-     * @param g graphic g
+     * @param g Graphics tool.
+     * @param panel Game panel.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g) {
+    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
         int x = (int) (bodies[0].getPosition().x - radius);
         int y = (int) (bodies[0].getPosition().y - radius);
         int delimiter = (int) (radius * 2);
 
-        g.setColor(this.color);
-        g.fillOval(x, y, delimiter, delimiter);
+        Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/circle.png");
+        g.drawImage(image, x, y, delimiter, delimiter, panel);
     }
 }

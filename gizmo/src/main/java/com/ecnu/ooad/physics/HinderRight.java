@@ -1,5 +1,6 @@
 package com.ecnu.ooad.physics;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -21,9 +22,10 @@ public class HinderRight extends Hinder {
     /**
      * Draw the hinderRight on board.
      * @param g Graphics tool.
+     * @param panel Game panel.
      */
     @Override
-    public void drawMe(Graphics2D g) {
-        super.drawMe(g);
+    public void drawMe(Graphics2D g, JPanel panel) {
+        super.drawMe(g, panel);
     }
 }

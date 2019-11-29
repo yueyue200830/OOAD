@@ -4,6 +4,7 @@ import com.ecnu.ooad.Constants;
 import org.jbox2d.dynamics.Body;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -12,7 +13,6 @@ import java.awt.*;
  */
 public class Hole extends Tool {
 
-    private Color color;
     private int length;
     private float centerX;
     private  float centerY;
@@ -26,7 +26,6 @@ public class Hole extends Tool {
     public Hole(float x, float y, float scaleRate) {
         super(x, y, 1);
         this.type = 2;
-        this.color = Color.ORANGE;
         this.length = Constants.GRID_LENGTH;
         this.centerX = this.positionX + this.length / 2;
         this.centerY = this.positionY + this.length / 2;
@@ -42,20 +41,20 @@ public class Hole extends Tool {
     public boolean attach(float ballX, float ballY) {
         float distanceX = Math.abs(ballX - this.centerX);
         float distanceY = Math.abs(ballY - this.centerY);
-        return distanceX <= 2 && distanceY <= 2;
+        return distanceX <= 10 && distanceY <= 10;
     }
 
     /**
      * Draw absorber on board.
      * @param g Graphics tool.
+     * @param panel Game panel.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g) {
-        g.setColor(this.color);
+    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
         int width = this.length;
         int height = this.length;
-        int arcAngle = 360;
-        int startAngle  =  0;
-        g.drawArc((int) this.positionX, (int) this.positionY, width, height, startAngle, arcAngle);
+
+        Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/hole.png");
+        g.drawImage(image, (int) this.positionX, (int) this.positionY, width, height, panel);
     }
 }

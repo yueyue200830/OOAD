@@ -1,5 +1,8 @@
 package com.ecnu.ooad.physics;
 
+import org.jetbrains.annotations.NotNull;
+
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -21,9 +24,10 @@ public class HinderLeft extends Hinder {
     /**
      * Draw the hinderLeft on board.
      * @param g Graphics tool.
+     * @param panel Game panel.
      */
     @Override
-    public void drawMe(Graphics2D g) {
-        super.drawMe(g);
+    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
+        super.drawMe(g, panel);
     }
 }

@@ -21,7 +21,7 @@ public class ModePanel extends JPanel {
         this.setSize(200, 200);
         this.setVisible(true);
         this.createMode();
-        this.setLayout(new GridLayout(2, 1));
+        this.setLayout(new GridLayout(1, 2));
     }
 
     /**
@@ -32,15 +32,13 @@ public class ModePanel extends JPanel {
         JButton btnPlay = new JButton("Play Mode");
         btnDesign.addActionListener(new ModeActionListener(this.controller));
         btnPlay.addActionListener(new ModeActionListener(this.controller));
-        btnDesign.setSize(300, 80);
-        btnPlay.setSize(300, 80);
+        btnDesign.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        btnPlay.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
         panel1.add(btnDesign);
         panel2.add(btnPlay);
-//        this.add(btnDesign);
         this.add(panel1);
         this.add(panel2);
-//        this.add(btnPlay);
     }
 }

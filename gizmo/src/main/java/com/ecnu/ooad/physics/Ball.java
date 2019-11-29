@@ -5,6 +5,7 @@ import com.ecnu.ooad.utils.BodyUtil;
 import org.jbox2d.dynamics.Body;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -14,7 +15,6 @@ import java.awt.*;
 public class Ball extends Substance {
 
     private float radius;
-    private Color color = Color.cyan;
 
     /**
      * This is the moving ball class.
@@ -50,14 +50,15 @@ public class Ball extends Substance {
     /**
      * Draw ball.
      * @param g Graphics tool.
+     * @param panel Game panel.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g) {
+    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
         int x = (int) (bodies[0].getPosition().x - radius);
         int y = (int) (bodies[0].getPosition().y - radius);
         int delimiter = (int) (radius * 2);
 
-        g.setColor(color);
-        g.fillOval(x, y, delimiter, delimiter);
+        Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/ball.png");
+        g.drawImage(image, x, y, delimiter, delimiter, panel);
     }
 }

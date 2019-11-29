@@ -75,7 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (!this.controller.isPlayMode()) {
             paintLines((Graphics2D) g);
         }
-        controller.draw((Graphics2D) g);
+        controller.draw((Graphics2D) g, this);
         g.dispose();
     }
 
@@ -86,7 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
         try {
             while (true) {
-                Thread.sleep(10);
+                Thread.sleep(7);
                 this.repaint();
                 if (this.controller.isPlayMode()) {
                     controller.step();

@@ -2,6 +2,7 @@ package com.ecnu.ooad.physics;
 
 import org.jbox2d.dynamics.Body;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -13,7 +14,7 @@ public class Obstacle extends Tool {
     /**
      * The father class of all obstacles, including diamond, emerald, slope.
      * @param x The x axis position of obstacle.
-     * @param y The y axis position of obstacls.
+     * @param y The y axis position of obstacles.
      * @param scaleRate The scaling rate.
      */
     public Obstacle(float x, float y, float scaleRate) {
@@ -21,8 +22,13 @@ public class Obstacle extends Tool {
         this.bodies = new Body[1];
     }
 
+    /**
+     * Draw an obstacle.
+     * @param g Graphics tool.
+     * @param panel Game panel.
+     */
     @Override
-    public void drawMe(Graphics2D g){
+    public void drawMe(Graphics2D g, JPanel panel){
 
     }
 }

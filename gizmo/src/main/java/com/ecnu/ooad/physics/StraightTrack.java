@@ -5,6 +5,7 @@ import com.ecnu.ooad.utils.BodyUtil;
 import org.jbox2d.dynamics.Body;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -29,7 +30,7 @@ public class StraightTrack extends Tool {
     public StraightTrack(float x, float y, int direction, float scaleRate) {
         super(x, y, scaleRate);
         this.direction = direction % 2;
-        this.color = Color.yellow;
+        this.color = new Color(178, 136, 80);
         this.bodies = new Body[2];
         this.type = 6;
 
@@ -72,9 +73,10 @@ public class StraightTrack extends Tool {
     /**
      * Draw track.
      * @param g Graphics tool.
+     * @param panel Game panel.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g) {
+    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
         g.setColor(this.color);
         float x1 = this.bodies[0].getPosition().x;
         float y1 = this.bodies[0].getPosition().y;

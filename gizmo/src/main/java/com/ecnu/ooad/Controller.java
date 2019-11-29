@@ -3,6 +3,7 @@ package com.ecnu.ooad;
 import com.ecnu.ooad.utils.FileManager;
 import com.ecnu.ooad.utils.TransformUtil;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
@@ -106,8 +107,8 @@ public class Controller {
      * Draw objects.
      * @param g Graphic g.
      */
-    public void draw(Graphics2D g) {
-        this.manager.draw(g);
+    public void draw(Graphics2D g, JPanel panel) {
+        this.manager.draw(g, panel);
     }
 
     /**

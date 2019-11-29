@@ -5,6 +5,7 @@ import com.ecnu.ooad.utils.BodyUtil;
 import org.jbox2d.dynamics.Body;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -12,7 +13,6 @@ import java.awt.*;
  * @date 2019-11-14 16:51
  */
 public class Hinder extends Tool {
-    private Color color;
     private float width;
     private float height;
 
@@ -23,7 +23,6 @@ public class Hinder extends Tool {
      */
     public Hinder(float x, float y) {
         super(x, y, 1);
-        this.color = Color.LIGHT_GRAY;
         this.width = Constants.HINDER_WIDTH;
         this.height = Constants.HINDER_HEIGHT;
         this.bodies = new Body[1];
@@ -42,13 +41,14 @@ public class Hinder extends Tool {
     /**
      * Draw hinder on board.
      * @param g Graphics tool.
+     * @param panel Game panel.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g) {
+    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
         int x = (int) (this.bodies[0].getPosition().x - this.width / 2);
         int y = (int) (this.bodies[0].getPosition().y - this.height / 2);
 
-        g.setColor(this.color);
-        g.fillRect(x, y, (int) this.width, (int) this.height);
+        Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/hinder-draw.png");
+        g.drawImage(image, x, y, (int) this.width, (int) this.height, panel);
     }
 }

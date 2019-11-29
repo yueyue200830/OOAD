@@ -93,9 +93,9 @@ public class BodyUtil {
         CircleShape cs = new CircleShape();
         cs.m_radius = radius;
         fd.shape = cs;
-        fd.density = 0.5f;
-        fd.friction = 0.3f;
-        fd.restitution = 0.6f;
+        fd.density = 1.0f;
+        fd.friction = 0.0f;
+        fd.restitution = 1.0f;
 
         if(isStatic) {
             bd.type = BodyType.STATIC;

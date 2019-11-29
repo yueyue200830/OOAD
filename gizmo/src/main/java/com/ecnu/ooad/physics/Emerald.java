@@ -4,6 +4,7 @@ import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -14,7 +15,6 @@ public class Emerald extends Obstacle {
 
     private float height;
     private float width;
-    private Color color;
 
     /**
      * The constructor of emerald
@@ -26,7 +26,6 @@ public class Emerald extends Obstacle {
         super(x, y, scaleRate);
         this.height = Constants.EMERALD_HEIGHT * scaleRate;
         this.width = Constants.EMERALD_WIDTH * scaleRate;
-        this.color = Color.green;
         this.type = 5;
         this.initEmerald();
     }
@@ -42,14 +41,15 @@ public class Emerald extends Obstacle {
 
     /**
      * Draw the emerald on the board.
-     * @param g graphic g.
+     * @param g Graphics tool.
+     * @param panel Game panel.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g) {
+    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
         int x = (int) (this.bodies[0].getPosition().x - this.width / 2);
         int y = (int) (this.bodies[0].getPosition().y - this.width / 2);
 
-        g.setColor(this.color);
-        g.fillRect(x, y, (int) this.width, (int) this.height);
+        Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/square.png");
+        g.drawImage(image, x, y, (int) this.width, (int) this.height, panel);
     }
 }
