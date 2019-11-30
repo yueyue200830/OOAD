@@ -2,10 +2,7 @@ package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.*;
+import org.json.JSONObject;
 
 /**
  * @author Yiqing Tao
@@ -39,17 +36,16 @@ public class Diamond extends Obstacle {
     }
 
     /**
-     * Draw the diamond on board.
-     * @param g Graphics tool.
-     * @param panel Game panel.
+     * Get diamond's detail to draw.
+     * @return jsonObject including all drawing details.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
-        int x = (int) (bodies[0].getPosition().x - radius);
-        int y = (int) (bodies[0].getPosition().y - radius);
-        int delimiter = (int) (radius * 2);
-
-        Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/circle.png");
-        g.drawImage(image, x, y, delimiter, delimiter, panel);
+    public JSONObject getCurrentDetail() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("condition", 4);
+        jsonObject.put("x", (int) (bodies[0].getPosition().x - radius));
+        jsonObject.put("y", (int) (bodies[0].getPosition().y - radius));
+        jsonObject.put("delimiter", (int) (radius * 2));
+        return jsonObject;
     }
 }

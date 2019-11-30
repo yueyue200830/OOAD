@@ -2,15 +2,13 @@ package com.ecnu.ooad.physics;
 
 import org.jbox2d.dynamics.Body;
 import org.jetbrains.annotations.Contract;
-
-import javax.swing.*;
-import java.awt.*;
+import org.json.JSONObject;
 
 /**
  * @author Jiayi Zhu
  * @date 2019-11-22 13:30
  */
-public class Substance {
+public abstract class Substance {
 
     protected float positionX;
     protected float positionY;
@@ -32,15 +30,6 @@ public class Substance {
         this.positionY = y;
         this.scaleRate = scaleRate;
         this.direction = 0;
-    }
-
-    /**
-     * Draw current object.
-     * @param g Graphics tool.
-     * @param panel Game panel.
-     */
-    public void drawMe(Graphics2D g, JPanel panel) {
-
     }
 
     /**
@@ -69,7 +58,7 @@ public class Substance {
 
     /**
      * Get the substance' direction.
-     * @return
+     * @return Direction.
      */
     public int getDirection() {
         return direction;
@@ -90,4 +79,10 @@ public class Substance {
     public int getType() {
         return type;
     }
+
+    /**
+     * Get the object's detail to draw.
+     * @return jsonObject including all drawing details.
+     */
+    public abstract JSONObject getCurrentDetail();
 }

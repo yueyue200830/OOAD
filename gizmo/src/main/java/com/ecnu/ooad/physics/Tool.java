@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Contract;
  * @author Yiqing Tao
  * @date 2019-11-14 16:51
  */
-public class Tool extends Substance{
+public abstract class Tool extends Substance {
 
     /**
      * This is a parent class for all static tool.

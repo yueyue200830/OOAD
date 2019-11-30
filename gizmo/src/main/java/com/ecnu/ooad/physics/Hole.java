@@ -1,11 +1,9 @@
 package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
+import com.ecnu.ooad.utils.IngredientCondition;
 import org.jbox2d.dynamics.Body;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.*;
+import org.json.JSONObject;
 
 /**
  * @author Yiqing Tao
@@ -33,7 +31,7 @@ public class Hole extends Tool {
     }
 
     /**
-     * judge whether the ball is falling into the absorber.
+     * Judge whether the ball is falling into the absorber.
      * @param ballX  the X axis center position of ball.
      * @param ballY  ths y axis center position of ball.
      * @return true if falling.
@@ -45,16 +43,17 @@ public class Hole extends Tool {
     }
 
     /**
-     * Draw absorber on board.
-     * @param g Graphics tool.
-     * @param panel Game panel.
+     * Get hole's detail to draw.
+     * @return jsonObject including all drawing details.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
-        int width = this.length;
-        int height = this.length;
-
-        Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/hole.png");
-        g.drawImage(image, (int) this.positionX, (int) this.positionY, width, height, panel);
+    public JSONObject getCurrentDetail() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("condition", IngredientCondition.Absorber.getValue());
+        jsonObject.put("x", (int) this.positionX);
+        jsonObject.put("y", (int) this.positionY);
+        jsonObject.put("width", this.length);
+        jsonObject.put("height", this.length);
+        return jsonObject;
     }
 }

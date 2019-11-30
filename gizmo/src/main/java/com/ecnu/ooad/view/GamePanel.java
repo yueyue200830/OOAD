@@ -2,6 +2,7 @@ package com.ecnu.ooad.view;
 
 import com.ecnu.ooad.Controller;
 import com.ecnu.ooad.Constants;
+import com.ecnu.ooad.utils.DrawUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,7 +76,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (!this.controller.isPlayMode()) {
             paintLines((Graphics2D) g);
         }
-        controller.draw((Graphics2D) g, this);
+        DrawUtil.drawObjects(controller.getObjectDetail(), (Graphics2D) g, this);
         g.dispose();
     }
 

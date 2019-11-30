@@ -7,9 +7,8 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -139,7 +138,7 @@ public class Manager {
         java.util.ArrayList<Ball> deleteBallList = new ArrayList<>();
 
         for (Tool tool:toolList) {
-            if (Hole.class.isInstance(tool)) {
+            if (tool instanceof Hole) {
                 holeList.add((Hole) tool);
             }
         }
@@ -158,15 +157,6 @@ public class Manager {
             this.deleteObject();
         }
         world.step(Constants.TIME_STEP, 6, 6);
-    }
-
-    /**
-     * Draw all objects.
-     * @param g The graphics tool.
-     */
-    public void draw(Graphics2D g, JPanel panel) {
-        toolList.forEach(it->it.drawMe(g, panel));
-        ballList.forEach(it->it.drawMe(g, panel));
     }
 
     /**
@@ -317,6 +307,21 @@ public class Manager {
         java.util.List<Object> objectList = new ArrayList<>();
         objectList.addAll(this.ballList);
         objectList.addAll(this.toolList);
+        return objectList;
+    }
+
+    /**
+     * Get object details to draw in frontend.
+     * @return List of object detail.
+     */
+    public Vector<JSONObject> getObjectDetail() {
+        Vector<JSONObject> objectList = new Vector<>();
+        for (Tool tool : toolList) {
+            objectList.add(tool.getCurrentDetail());
+        }
+        for (Ball ball : ballList) {
+            objectList.add(ball.getCurrentDetail());
+        }
         return objectList;
     }
 }

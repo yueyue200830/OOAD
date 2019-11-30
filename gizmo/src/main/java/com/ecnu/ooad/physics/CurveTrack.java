@@ -3,10 +3,7 @@ package com.ecnu.ooad.physics;
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
 import org.jbox2d.dynamics.Body;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.*;
+import org.json.JSONObject;
 
 /**
  * @author Yiqing Tao, Jiayi Zhu
@@ -14,7 +11,6 @@ import java.awt.*;
  */
 public class CurveTrack extends Tool {
 
-    private Color color;
     private float wallWidth;
     private float length;
 
@@ -29,7 +25,6 @@ public class CurveTrack extends Tool {
         super(x, y, scaleRate);
         this.direction = direction;
         this.bodies = new Body[3];
-        this.color = new Color(178, 136, 80);
         this.wallWidth = Constants.TRACK_WIDTH / 2;
         this.length = Constants.GRID_LENGTH * this.scaleRate;
         this.type = 7;
@@ -83,19 +78,15 @@ public class CurveTrack extends Tool {
     }
 
     /**
-     * Draw curve track.
-     * @param g Graphics tool.
+     * Get curve track's detail to draw.
+     * @return jsonObject including all drawing details.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
-        g.setColor(color);
-        Stroke stroke = new BasicStroke(2);
-        g.setStroke(stroke);
+    public JSONObject getCurrentDetail() {
 
         int x, y, startAngle;
         int width = (int) this.length * 2 - 2;
         int height = (int) this.length * 2 - 2;
-        int arcAngle = 90;
         int dotx, doty;
 
         if (direction == 0) {
@@ -124,7 +115,16 @@ public class CurveTrack extends Tool {
             doty = (int) this.positionY;
         }
 
-        g.drawArc(x, y, width, height, startAngle, arcAngle);
-        g.fillRect(dotx, doty, 2, 2);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("condition", 7);
+        jsonObject.put("arcX", x);
+        jsonObject.put("arcY", y);
+        jsonObject.put("width", width);
+        jsonObject.put("height", height);
+        jsonObject.put("startAngle", startAngle);
+        jsonObject.put("dotX", dotx);
+        jsonObject.put("dotY", doty);
+
+        return jsonObject;
     }
 }

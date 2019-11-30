@@ -2,11 +2,9 @@ package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
+import com.ecnu.ooad.utils.IngredientCondition;
 import org.jbox2d.dynamics.Body;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.*;
+import org.json.JSONObject;
 
 /**
  * @author Yiqing Tao, Jiayi Zhu
@@ -14,7 +12,6 @@ import java.awt.*;
  */
 public class StraightTrack extends Tool {
 
-    private Color color;
     private float boxWidth;
     private float boxHeight;
     private int drawWidth;
@@ -30,7 +27,6 @@ public class StraightTrack extends Tool {
     public StraightTrack(float x, float y, int direction, float scaleRate) {
         super(x, y, scaleRate);
         this.direction = direction % 2;
-        this.color = new Color(178, 136, 80);
         this.bodies = new Body[2];
         this.type = 6;
 
@@ -71,24 +67,38 @@ public class StraightTrack extends Tool {
     }
 
     /**
-     * Draw track.
-     * @param g Graphics tool.
-     * @param panel Game panel.
+     * Get straight track's detail to draw.
+     * @return jsonObject including all drawing details.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
-        g.setColor(this.color);
+    public JSONObject getCurrentDetail() {
+
         float x1 = this.bodies[0].getPosition().x;
         float y1 = this.bodies[0].getPosition().y;
         float x2 = this.bodies[1].getPosition().x;
         float y2 = this.bodies[1].getPosition().y;
+        int px1, px2, py1, py2;
 
         if (this.direction == 0) {
-            g.fillRect((int) (x1 - boxWidth / 4), (int) (y1 - boxHeight / 2), drawWidth, drawHeight);
-            g.fillRect((int) (x2 - boxWidth / 4 * 3), (int) (y2 - boxHeight / 2), drawWidth, drawHeight);
+            px1 = (int) (x1 - boxWidth / 4);
+            py1 = (int) (y1 - boxHeight / 2);
+            px2 = (int) (x2 - boxWidth / 4 * 3);
+            py2 = (int) (y2 - boxHeight / 2);
         } else {
-            g.fillRect((int) (x1 - boxWidth / 2), (int) (y1 - boxHeight / 4), drawWidth, drawHeight);
-            g.fillRect((int) (x2 - boxWidth / 2), (int) (y2 - boxHeight / 4 * 3), drawWidth, drawHeight);
+            px1 = (int) (x1 - boxWidth / 2);
+            py1 = (int) (y1 - boxHeight / 4);
+            px2 = (int) (x2 - boxWidth / 2);
+            py2 = (int) (y2 - boxHeight / 4 * 3);
         }
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("condition", IngredientCondition.StraightTrack.getValue());
+        jsonObject.put("width", drawWidth);
+        jsonObject.put("height", drawHeight);
+        jsonObject.put("x1", px1);
+        jsonObject.put("x2", px2);
+        jsonObject.put("y1", py1);
+        jsonObject.put("y2", py2);
+        return jsonObject;
     }
 }

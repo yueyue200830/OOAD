@@ -2,10 +2,8 @@ package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.*;
+import com.ecnu.ooad.utils.IngredientCondition;
+import org.json.JSONObject;
 
 /**
  * @author Yiqing Tao, Jiayi Zhu
@@ -14,7 +12,6 @@ import java.awt.*;
 public class Slope extends Obstacle {
 
     private float edge;
-    private Color color;
 
     /**
      * The constructor of slope.
@@ -26,7 +23,6 @@ public class Slope extends Obstacle {
     public Slope(float worldX, float worldY, float scaleRate, int direction) {
         super(worldX, worldY, scaleRate);
         this.direction = direction;
-        this.color = new Color(252, 149, 12);
         this.edge = Constants.EDGE * scaleRate;
         this.type = 3;
         initSlope();
@@ -40,28 +36,40 @@ public class Slope extends Obstacle {
     }
 
     /**
-     * Draw the slope on board.
-     * @param g Graphics tool.
-     * @param panel Game panel.
+     * Get slope's detail to draw.
+     * @return jsonObject including all drawing details.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
-        g.setColor(this.color);
+    public JSONObject getCurrentDetail() {
+
         int x = (int) this.bodies[0].getPosition().x;
         int y = (int) this.bodies[0].getPosition().y;
         int e = (int) this.edge;
+        int[] px;
+        int[] py;
+
         switch (direction) {
             case 0:
-                g.fillPolygon(new int[]{x, x + e, x + e}, new int[]{y, y, y + e}, 3);
+                px = new int[]{x, x + e, x + e};
+                py = new int[]{y, y, y + e};
                 break;
             case 1:
-                g.fillPolygon(new int[]{x, x, x + e}, new int[]{y, y + e, y}, 3);
+                px = new int[]{x, x, x + e};
+                py = new int[]{y, y + e, y};
                 break;
             case 2:
-                g.fillPolygon(new int[]{x, x + e, x}, new int[]{y, y + e, y + e}, 3);
+                px = new int[]{x, x + e, x};
+                py = new int[]{y, y + e, y + e};
                 break;
             default:
-                g.fillPolygon(new int[]{x + e, x + e, x}, new int[]{y, y + e, y + e}, 3);
+                px = new int[]{x + e, x + e, x};
+                py = new int[]{y, y + e, y + e};
         }
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("condition", IngredientCondition.Slope.getValue());
+        jsonObject.put("x", px);
+        jsonObject.put("y", py);
+        return jsonObject;
     }
 }

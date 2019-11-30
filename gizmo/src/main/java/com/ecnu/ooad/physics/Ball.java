@@ -3,10 +3,7 @@ package com.ecnu.ooad.physics;
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
 import org.jbox2d.dynamics.Body;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.*;
+import org.json.JSONObject;
 
 /**
  * @author Jiayi Zhu, Yiqing Tao
@@ -39,26 +36,33 @@ public class Ball extends Substance {
         this.bodies[0] = BodyUtil.initCircle(x, y, radius, false);
     }
 
+    /**
+     * Get current x position.
+     * @return Position x.
+     */
     public float getBallX() {
         return bodies[0].getPosition().x;
     }
 
+    /**
+     * Get current y position.
+     * @return Position y.
+     */
     public float getBallY() {
         return bodies[0].getPosition().y;
     }
 
     /**
-     * Draw ball.
-     * @param g Graphics tool.
-     * @param panel Game panel.
+     * Get ball's detail to draw. Including xy position and delimiter.
+     * @return jsonObject including all drawing details.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
-        int x = (int) (bodies[0].getPosition().x - radius);
-        int y = (int) (bodies[0].getPosition().y - radius);
-        int delimiter = (int) (radius * 2);
-
-        Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/ball.png");
-        g.drawImage(image, x, y, delimiter, delimiter, panel);
+    public JSONObject getCurrentDetail() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("condition", 1);
+        jsonObject.put("x", (int) (bodies[0].getPosition().x - radius));
+        jsonObject.put("y", (int) (bodies[0].getPosition().y - radius));
+        jsonObject.put("delimiter", (int) (radius * 2));
+        return jsonObject;
     }
 }

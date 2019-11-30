@@ -1,7 +1,7 @@
 package com.ecnu.ooad.physics;
 
-import javax.swing.*;
-import java.awt.*;
+import com.ecnu.ooad.utils.IngredientCondition;
+import org.json.JSONObject;
 
 /**
  * @author Yiqing Tao
@@ -20,12 +20,13 @@ public class HinderRight extends Hinder {
     }
 
     /**
-     * Draw the hinderRight on board.
-     * @param g Graphics tool.
-     * @param panel Game panel.
+     * Get hinder's detail to draw. Put condition.
+     * @return jsonObject including all drawing details.
      */
     @Override
-    public void drawMe(Graphics2D g, JPanel panel) {
-        super.drawMe(g, panel);
+    public JSONObject getCurrentDetail() {
+        JSONObject jsonObject = super.getCurrentDetail();
+        jsonObject.put("condition", IngredientCondition.HinderRight.getValue());
+        return jsonObject;
     }
 }

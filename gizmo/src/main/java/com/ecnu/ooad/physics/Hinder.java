@@ -3,10 +3,7 @@ package com.ecnu.ooad.physics;
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
 import org.jbox2d.dynamics.Body;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.*;
+import org.json.JSONObject;
 
 /**
  * @author Yiqing Tao
@@ -39,16 +36,16 @@ public class Hinder extends Tool {
     }
 
     /**
-     * Draw hinder on board.
-     * @param g Graphics tool.
-     * @param panel Game panel.
+     * Get hinder's detail to draw. It doesn't include condition, so should be override.
+     * @return jsonObject including all drawing details.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
-        int x = (int) (this.bodies[0].getPosition().x - this.width / 2);
-        int y = (int) (this.bodies[0].getPosition().y - this.height / 2);
-
-        Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/hinder-draw.png");
-        g.drawImage(image, x, y, (int) this.width, (int) this.height, panel);
+    public JSONObject getCurrentDetail() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("x", (int) (this.bodies[0].getPosition().x - this.width / 2));
+        jsonObject.put("y", (int) (this.bodies[0].getPosition().y - this.height / 2));
+        jsonObject.put("width", (int) this.width);
+        jsonObject.put("height", (int) this.height);
+        return jsonObject;
     }
 }

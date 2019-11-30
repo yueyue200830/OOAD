@@ -2,10 +2,7 @@ package com.ecnu.ooad.physics;
 
 import com.ecnu.ooad.Constants;
 import com.ecnu.ooad.utils.BodyUtil;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.*;
+import org.json.JSONObject;
 
 /**
  * @author Yiqing Tao
@@ -40,16 +37,17 @@ public class Emerald extends Obstacle {
     }
 
     /**
-     * Draw the emerald on the board.
-     * @param g Graphics tool.
-     * @param panel Game panel.
+     * Get emerald's detail to draw.
+     * @return jsonObject including all drawing details.
      */
     @Override
-    public void drawMe(@NotNull Graphics2D g, JPanel panel) {
-        int x = (int) (this.bodies[0].getPosition().x - this.width / 2);
-        int y = (int) (this.bodies[0].getPosition().y - this.width / 2);
-
-        Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/square.png");
-        g.drawImage(image, x, y, (int) this.width, (int) this.height, panel);
+    public JSONObject getCurrentDetail() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("condition", 5);
+        jsonObject.put("x", positionX);
+        jsonObject.put("y", positionY);
+        jsonObject.put("width", (int) this.width);
+        jsonObject.put("height", (int) this.height);
+        return jsonObject;
     }
 }

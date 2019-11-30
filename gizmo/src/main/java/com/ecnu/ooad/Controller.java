@@ -2,10 +2,10 @@ package com.ecnu.ooad;
 
 import com.ecnu.ooad.utils.FileManager;
 import com.ecnu.ooad.utils.TransformUtil;
+import org.json.JSONObject;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * @author Yiqing Tao
@@ -104,14 +104,6 @@ public class Controller {
     }
 
     /**
-     * Draw objects.
-     * @param g Graphic g.
-     */
-    public void draw(Graphics2D g, JPanel panel) {
-        this.manager.draw(g, panel);
-    }
-
-    /**
      * Change object's scale.
      * @param isZoomIn whether to zoom in.
      */
@@ -190,5 +182,13 @@ public class Controller {
     public void loadGame(String fileName) {
         String gameConfig = com.ecnu.ooad.utils.FileManager.readGame(fileName);
         this.transformUtil.jsonToObject(gameConfig);
+    }
+
+    /**
+     * Get object details to draw in frontend.
+     * @return List of object detail.
+     */
+    public Vector<JSONObject> getObjectDetail() {
+        return manager.getObjectDetail();
     }
 }
