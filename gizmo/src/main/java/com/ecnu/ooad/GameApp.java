@@ -17,12 +17,12 @@ public class GameApp {
      * @param args Default argument.
      */
     public static void main(String[] args) {
-//        try {
-//            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-//            UIManager.put("RootPane.setupButtonVisible", false);
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
+        try {
+            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+            UIManager.put("RootPane.setupButtonVisible", false);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         JFrame frame = new JFrame("Gizmo Ball");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
