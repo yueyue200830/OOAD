@@ -23,4 +23,4 @@ The console folder is the game without UI version.
 
 ## Screenshot
 
-<img src="screenshot/screenshot1.png" ch="500" />
+<img src="Screenshot/screenshot1.png" ch="500" />
