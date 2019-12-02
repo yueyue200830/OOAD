@@ -1,0 +1,41 @@
+package com.ooad.gof.strategy;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Scanner;
+
+/**
+ * @author Jiayi Zhu
+ * @date 2019-12-02 13:31
+ */
+public class DigitEntry implements DataEntry {
+
+    @Override
+    public void interact() {
+        String answer;
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Promot: ");
+        answer = sc.nextLine();
+        while (!"quit".equals(answer)) {
+            if (validate(answer)) {
+                System.out.println("*** good ***");
+            } else {
+                System.out.println("*** bad ***");
+            }
+            System.out.print("Promot: ");
+            answer = sc.nextLine();
+        }
+    }
+
+    @Override
+    public boolean validate(@NotNull String answer) {
+        boolean valid = true;
+        for (int i = 0; i < answer.length(); i++) {
+            if (answer.charAt(i) < '0' || answer.charAt(i) > '9') {
+                valid = false;
+                break;
+            }
+        }
+        return valid;
+    }
+}
